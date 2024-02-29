@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+
+<html lang="es" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>viajes module &#8212; documentación de VieraFernandez2324 - v.0.0.1</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css?v=514cf933" />
+    
+    <script src="../_static/documentation_options.js?v=8ee129b9"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=efdbd0b9"></script>
+    
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">documentación de VieraFernandez2324 - v.0.0.1</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">viajes module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-viajes">
+<span id="viajes-module"></span><h1>viajes module<a class="headerlink" href="#module-viajes" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="viajes.Viajes">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">viajes.</span></span><span class="sig-name descname"><span class="pre">Viajes</span></span><a class="reference internal" href="../_modules/viajes.html#Viajes"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#viajes.Viajes" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="viajes.Viajes.borrarviaje">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">borrarviaje</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/viajes.html#Viajes.borrarviaje"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#viajes.Viajes.borrarviaje" title="Link to this definition">¶</a></dt>
+<dd><p>Método estático para solicitar confirmación y borrar un viaje seleccionado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>self</strong> (<em>TuClase</em><em> or </em><em>None</em>) – Referencia a la instancia de la clase.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Acciones:</dt><dd><ul class="simple">
+<li><p>Muestra un cuadro de diálogo de advertencia preguntando al usuario si desea borrar el viaje.</p></li>
+<li><p>Si el usuario elige “Sí”, obtiene la fila seleccionada en la tabla de viajes y prepara una consulta SQL para eliminar el viaje.</p></li>
+<li><p>Ejecuta la consulta y actualiza la tabla de viajes llamando al método cargarTablaViajes de la clase Viajes.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="viajes.Viajes.buscarViajeTabla">
+<span class="sig-name descname"><span class="pre">buscarViajeTabla</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/viajes.html#Viajes.buscarViajeTabla"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#viajes.Viajes.buscarViajeTabla" title="Link to this definition">¶</a></dt>
+<dd><p>Método para buscar un viaje en la tabla de viajes al seleccionarlo.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>codigo</strong> (<em>int</em><em> or </em><em>str</em>) – Código del viaje que se desea buscar en la tabla.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Acciones:</dt><dd><ul class="simple">
+<li><p>Itera sobre las filas de la tabla de viajes.</p></li>
+<li><p>Compara el valor de la primera celda (columna de códigos) con el código proporcionado.</p></li>
+<li><p>Si encuentra una coincidencia, selecciona la fila correspondiente y realiza un desplazamiento para mostrarla.</p></li>
+<li><p>Imprime un mensaje indicando la fila encontrada.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="viajes.Viajes.cargaViaje">
+<span class="sig-name descname"><span class="pre">cargaViaje</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/viajes.html#Viajes.cargaViaje"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#viajes.Viajes.cargaViaje" title="Link to this definition">¶</a></dt>
+<dd><p>Método para cargar los datos de un viaje al hacer clic en una fila de la tabla de viajes.</p>
+<dl class="simple">
+<dt>Acciones:</dt><dd><ul class="simple">
+<li><p>Limpia el panel de información de viaje llamando al método limpiarPanelViaje.</p></li>
+<li><p>Obtiene la fila seleccionada en la tabla de viajes.</p></li>
+<li><p>Llama al método cargarDatosViaje para mostrar los datos en los ComboBox correspondientes.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="viajes.Viajes.cargarDatosViaje">
+<span class="sig-name descname"><span class="pre">cargarDatosViaje</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/viajes.html#Viajes.cargarDatosViaje"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#viajes.Viajes.cargarDatosViaje" title="Link to this definition">¶</a></dt>
+<dd><p>Método para cargar los datos de un viaje en los widgets de la interfaz gráfica.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>fila</strong> (<em>list</em>) – Lista que contiene los datos del viaje actual [origen, destino, tarifa, km].</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Acciones:</dt><dd><ul class="simple">
+<li><p>Imprime por consola los datos del viaje actual.</p></li>
+<li><p>Obtiene las localidades y provincias asociadas a los datos del viaje.</p></li>
+<li><p>Itera sobre los ComboBox y asigna las provincias y localidades a cada uno.</p></li>
+<li><p>Asigna el valor de los kilómetros al campo de texto correspondiente.</p></li>
+<li><p>Itera sobre los RadioButton y selecciona el RadioButton correspondiente a la tarifa del viaje.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="viajes.Viajes.cargarLineaVenta">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cargarLineaVenta</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/viajes.html#Viajes.cargarLineaVenta"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#viajes.Viajes.cargarLineaVenta" title="Link to this definition">¶</a></dt>
+<dd><p>Método para cargar una línea de venta.</p>
+<dl class="simple">
+<dt>Parámetros:</dt><dd><ul class="simple">
+<li><p>Ninguno directamente. Utiliza los datos del viaje y el número de factura desde la interfaz gráfica.</p></li>
+</ul>
+</dd>
+<dt>Acciones:</dt><dd><ul class="simple">
+<li><p>Obtiene los datos del viaje utilizando el método datosViaje de la clase Viajes.</p></li>
+<li><p>Obtiene el número de factura desde la interfaz gráfica.</p></li>
+<li><p>Si el valor del índice 5 de los datos del viaje es igual a 0.8, establece la variable km a 10.
+En caso contrario, obtiene el valor de los kilómetros desde la interfaz gráfica.</p></li>
+<li><p>Agrega el número de factura y la variable km a la lista de datos del viaje.</p></li>
+<li><p>Llama al método cargarLineaViaje de la clase Viajes para realizar la conexión con la base de datos.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="viajes.Viajes.cargarLineaViaje">
+<span class="sig-name descname"><span class="pre">cargarLineaViaje</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/viajes.html#Viajes.cargarLineaViaje"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#viajes.Viajes.cargarLineaViaje" title="Link to this definition">¶</a></dt>
+<dd><p>Método para cargar un registro de viaje en la base de datos.</p>
+<dl class="simple">
+<dt>Parámetros:</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt>registro: Lista que contiene los datos del viaje a ser almacenados en la base de datos.</dt><dd><p>Debe contener los siguientes elementos en este orden: factura, origen, destino, tarifa, km.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+<dt>Acciones:</dt><dd><ul class="simple">
+<li><p>Imprime por pantalla el registro recibido.</p></li>
+<li><p>Verifica si algún elemento en el registro está vacío o compuesto solo por espacios en blanco.
+Si es así, muestra un mensaje de advertencia indicando que faltan datos del viaje o número de factura.</p></li>
+<li><p>Si todos los elementos del registro tienen datos válidos, prepara una consulta SQL para insertar el viaje en la base de datos.</p></li>
+<li><p>Ejecuta la consulta y muestra un mensaje de éxito o error según el resultado.</p></li>
+<li><p>Si la inserción es exitosa, actualiza la tabla de viajes llamando al método cargarTablaViajes de la clase Viajes.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="viajes.Viajes.cargarTablaViajes">
+<span class="sig-name descname"><span class="pre">cargarTablaViajes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/viajes.html#Viajes.cargarTablaViajes"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#viajes.Viajes.cargarTablaViajes" title="Link to this definition">¶</a></dt>
+<dd><p>Método para cargar los datos de viajes en la tabla de la interfaz gráfica.</p>
+<dl class="simple">
+<dt>Parámetros:</dt><dd><ul class="simple">
+<li><p>Ninguno directamente. Utiliza el número de factura desde la interfaz gráfica.</p></li>
+</ul>
+</dd>
+<dt>Acciones:</dt><dd><ul class="simple">
+<li><p>Obtiene los datos de viajes asociados al número de factura desde la clase Viajes.</p></li>
+<li><p>Itera sobre los registros obtenidos y los muestra en la tabla de viajes de la interfaz gráfica.</p></li>
+<li><p>Calcula el total para cada registro y lo muestra en la columna correspondiente.</p></li>
+<li><p>Alinea el texto en las celdas de la tabla y agrega un botón de eliminación para cada registro.</p></li>
+<li><p>Calcula el subtotal, el IVA y el total de los viajes y los muestra en etiquetas correspondientes.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="viajes.Viajes.datosViaje">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">datosViaje</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/viajes.html#Viajes.datosViaje"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#viajes.Viajes.datosViaje" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Módulo que devuelve registro de un viaje</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-even"><p>bytearray</p>
+</dd>
+</dl>
+<p>Este módulo carga los datos de los widgets del panel de gestión,
+selecciona la tarifa en funcion del tipo de viaje y devuelve
+un array con los datos</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="viajes.Viajes.limpiarPanelViaje">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">limpiarPanelViaje</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/viajes.html#Viajes.limpiarPanelViaje"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#viajes.Viajes.limpiarPanelViaje" title="Link to this definition">¶</a></dt>
+<dd><p>Limpia el texto de los diferentes widgets en el módulo.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>self</strong> (<a class="reference internal" href="#viajes.Viajes" title="viajes.Viajes"><em>Viajes</em></a>) – Instancia del módulo.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="viajes.Viajes.limpiarTablaViajes">
+<span class="sig-name descname"><span class="pre">limpiarTablaViajes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/viajes.html#Viajes.limpiarTablaViajes"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#viajes.Viajes.limpiarTablaViajes" title="Link to this definition">¶</a></dt>
+<dd><p>Método para limpiar la tabla de viajes en la interfaz gráfica.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="viajes.Viajes.modificarViaje">
+<span class="sig-name descname"><span class="pre">modificarViaje</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/viajes.html#Viajes.modificarViaje"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#viajes.Viajes.modificarViaje" title="Link to this definition">¶</a></dt>
+<dd><p>Método para modificar un viaje con los datos proporcionados por el usuario.</p>
+<dl class="simple">
+<dt>Acciones:</dt><dd><ul class="simple">
+<li><p>Obtiene los valores de origen, destino y kilómetros desde los ComboBox y el campo de texto correspondiente.</p></li>
+<li><p>Llama al método modificarViajeConexion de la clase Viajes para realizar la modificación en la base de datos.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="viajes.Viajes.modificarViajeConexion">
+<span class="sig-name descname"><span class="pre">modificarViajeConexion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/viajes.html#Viajes.modificarViajeConexion"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#viajes.Viajes.modificarViajeConexion" title="Link to this definition">¶</a></dt>
+<dd><p>Función para modificar un viaje en la base de datos con los datos proporcionados.</p>
+<dl class="simple">
+<dt>Parámetros:</dt><dd><ul class="simple">
+<li><p>modificarViaje: Lista que contiene los datos del viaje a modificar [idviajes, origen, destino, tarifa, km].
+Se espera que idviajes sea una cadena y los demás elementos sean cadenas o flotantes convertidos a cadenas.</p></li>
+</ul>
+</dd>
+<dt>Acciones:</dt><dd><ul class="simple">
+<li><p>Imprime por consola los datos del viaje a modificar.</p></li>
+<li><p>Prepara una consulta SQL para actualizar la información del viaje en la tabla “viajes” usando los valores proporcionados.</p></li>
+<li><p>Ejecuta la consulta y muestra un mensaje de aviso o advertencia en función del resultado.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="viajes.Viajes.obtenerIdProvincia">
+<span class="sig-name descname"><span class="pre">obtenerIdProvincia</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/viajes.html#Viajes.obtenerIdProvincia"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#viajes.Viajes.obtenerIdProvincia" title="Link to this definition">¶</a></dt>
+<dd><p>Método para obtener el ID de la provincia asociado a una localidad.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>localidad</strong> (<em>str</em>) – Nombre de la localidad para la cual se desea obtener el ID de la provincia.</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>El ID de la provincia asociado a la localidad.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int or None</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Acciones:</dt><dd><ul class="simple">
+<li><p>Prepara una consulta SQL para seleccionar el ID de la provincia de la tabla “municipios”
+donde el nombre de la localidad sea igual al proporcionado.</p></li>
+<li><p>Ejecuta la consulta y, si tiene éxito, obtiene el resultado y lo retorna como un entero.</p></li>
+<li><p>Si no se encuentra un ID de provincia, imprime un mensaje indicando la falta de información y retorna None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="viajes.Viajes.obtenerNombreProvincia">
+<span class="sig-name descname"><span class="pre">obtenerNombreProvincia</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/viajes.html#Viajes.obtenerNombreProvincia"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#viajes.Viajes.obtenerNombreProvincia" title="Link to this definition">¶</a></dt>
+<dd><p>Método para obtener el nombre de la provincia asociado a un ID de provincia.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>id_provincia</strong> (<em>int</em>) – ID de la provincia para el cual se desea obtener el nombre.</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>El nombre de la provincia asociado al ID proporcionado.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str or None</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Acciones:</dt><dd><ul class="simple">
+<li><p>Prepara una consulta SQL para seleccionar el nombre de la provincia de la tabla “provincias”
+donde el ID de la provincia sea igual al proporcionado.</p></li>
+<li><p>Ejecuta la consulta y, si tiene éxito, obtiene el resultado y lo retorna como una cadena.</p></li>
+<li><p>Si no se encuentra un nombre de provincia, retorna None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="viajes.Viajes.oneViaje">
+<span class="sig-name descname"><span class="pre">oneViaje</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/viajes.html#Viajes.oneViaje"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#viajes.Viajes.oneViaje" title="Link to this definition">¶</a></dt>
+<dd><p>Método para obtener información de un viaje específico identificado por su código.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>codigo</strong> – Código del viaje del cual se desea obtener información.</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Una lista que contiene los datos del viaje: [idviajes, factura, origen, destino, tarifa, km].</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Acciones:</dt><dd><ul class="simple">
+<li><p>Crea una lista vacía llamada “registro” para almacenar los datos del viaje.</p></li>
+<li><p>Prepara una consulta SQL para seleccionar los campos específicos de la tabla “viajes”
+donde el ID del viaje sea igual al código proporcionado.</p></li>
+<li><p>Ejecuta la consulta y, si tiene éxito, obtiene los datos del primer registro y los agrega a la lista “registro”.</p></li>
+<li><p>Retorna la lista “registro” que contiene la información del viaje.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="viajes.Viajes.selMuniviajedestino">
+<span class="sig-name descname"><span class="pre">selMuniviajedestino</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/viajes.html#Viajes.selMuniviajedestino"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#viajes.Viajes.selMuniviajedestino" title="Link to this definition">¶</a></dt>
+<dd><p>Actualiza la lista de municipios en el combo box de origen basándose en la provincia seleccionada.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>self</strong> (<a class="reference internal" href="#viajes.Viajes" title="viajes.Viajes"><em>Viajes</em></a>) – Instancia de la clase</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="viajes.Viajes.selMuniviajeorigen">
+<span class="sig-name descname"><span class="pre">selMuniviajeorigen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/viajes.html#Viajes.selMuniviajeorigen"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#viajes.Viajes.selMuniviajeorigen" title="Link to this definition">¶</a></dt>
+<dd><p>Actualiza la lista de municipios en el combo box de origen basándose en la provincia seleccionada.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>self</strong> (<a class="reference internal" href="#viajes.Viajes" title="viajes.Viajes"><em>Viajes</em></a>) – Instancia de la clase (puede ser None si se llama de manera estática).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="viajes.Viajes.viajesFactura">
+<span class="sig-name descname"><span class="pre">viajesFactura</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/viajes.html#Viajes.viajesFactura"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#viajes.Viajes.viajesFactura" title="Link to this definition">¶</a></dt>
+<dd><p>Método para obtener información sobre los viajes asociados a un número de factura.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Devuelve<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>Una lista de listas, donde cada lista representa un registro de viaje.</p></li>
+</ul>
+<p>Cada registro contiene los datos de un viaje almacenados en la base de datos.</p>
+</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>dato: Número de factura del cual se desea obtener información</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Tabla de contenido</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">viajes module</a><ul>
+<li><a class="reference internal" href="#viajes.Viajes"><code class="docutils literal notranslate"><span class="pre">Viajes</span></code></a><ul>
+<li><a class="reference internal" href="#viajes.Viajes.borrarviaje"><code class="docutils literal notranslate"><span class="pre">Viajes.borrarviaje()</span></code></a></li>
+<li><a class="reference internal" href="#viajes.Viajes.buscarViajeTabla"><code class="docutils literal notranslate"><span class="pre">Viajes.buscarViajeTabla()</span></code></a></li>
+<li><a class="reference internal" href="#viajes.Viajes.cargaViaje"><code class="docutils literal notranslate"><span class="pre">Viajes.cargaViaje()</span></code></a></li>
+<li><a class="reference internal" href="#viajes.Viajes.cargarDatosViaje"><code class="docutils literal notranslate"><span class="pre">Viajes.cargarDatosViaje()</span></code></a></li>
+<li><a class="reference internal" href="#viajes.Viajes.cargarLineaVenta"><code class="docutils literal notranslate"><span class="pre">Viajes.cargarLineaVenta()</span></code></a></li>
+<li><a class="reference internal" href="#viajes.Viajes.cargarLineaViaje"><code class="docutils literal notranslate"><span class="pre">Viajes.cargarLineaViaje()</span></code></a></li>
+<li><a class="reference internal" href="#viajes.Viajes.cargarTablaViajes"><code class="docutils literal notranslate"><span class="pre">Viajes.cargarTablaViajes()</span></code></a></li>
+<li><a class="reference internal" href="#viajes.Viajes.datosViaje"><code class="docutils literal notranslate"><span class="pre">Viajes.datosViaje()</span></code></a></li>
+<li><a class="reference internal" href="#viajes.Viajes.limpiarPanelViaje"><code class="docutils literal notranslate"><span class="pre">Viajes.limpiarPanelViaje()</span></code></a></li>
+<li><a class="reference internal" href="#viajes.Viajes.limpiarTablaViajes"><code class="docutils literal notranslate"><span class="pre">Viajes.limpiarTablaViajes()</span></code></a></li>
+<li><a class="reference internal" href="#viajes.Viajes.modificarViaje"><code class="docutils literal notranslate"><span class="pre">Viajes.modificarViaje()</span></code></a></li>
+<li><a class="reference internal" href="#viajes.Viajes.modificarViajeConexion"><code class="docutils literal notranslate"><span class="pre">Viajes.modificarViajeConexion()</span></code></a></li>
+<li><a class="reference internal" href="#viajes.Viajes.obtenerIdProvincia"><code class="docutils literal notranslate"><span class="pre">Viajes.obtenerIdProvincia()</span></code></a></li>
+<li><a class="reference internal" href="#viajes.Viajes.obtenerNombreProvincia"><code class="docutils literal notranslate"><span class="pre">Viajes.obtenerNombreProvincia()</span></code></a></li>
+<li><a class="reference internal" href="#viajes.Viajes.oneViaje"><code class="docutils literal notranslate"><span class="pre">Viajes.oneViaje()</span></code></a></li>
+<li><a class="reference internal" href="#viajes.Viajes.selMuniviajedestino"><code class="docutils literal notranslate"><span class="pre">Viajes.selMuniviajedestino()</span></code></a></li>
+<li><a class="reference internal" href="#viajes.Viajes.selMuniviajeorigen"><code class="docutils literal notranslate"><span class="pre">Viajes.selMuniviajeorigen()</span></code></a></li>
+<li><a class="reference internal" href="#viajes.Viajes.viajesFactura"><code class="docutils literal notranslate"><span class="pre">Viajes.viajesFactura()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>Esta página</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/src/viajes.rst.txt"
+            rel="nofollow">Mostrar el código</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Ir a" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">documentación de VieraFernandez2324 - v.0.0.1</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">viajes module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2024, Elias.
+      Creado usando <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    </div>
+  </body>
+</html>

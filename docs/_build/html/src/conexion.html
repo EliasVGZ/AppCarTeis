@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+
+<html lang="es" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>conexion module &#8212; documentación de VieraFernandez2324 - v.0.0.1</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css?v=514cf933" />
+    
+    <script src="../_static/documentation_options.js?v=8ee129b9"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=efdbd0b9"></script>
+    
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">documentación de VieraFernandez2324 - v.0.0.1</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">conexion module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-conexion">
+<span id="conexion-module"></span><h1>conexion module<a class="headerlink" href="#module-conexion" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="conexion.Conexion">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">conexion.</span></span><span class="sig-name descname"><span class="pre">Conexion</span></span><a class="reference internal" href="../_modules/conexion.html#Conexion"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.altaFacturacion">
+<span class="sig-name descname"><span class="pre">altaFacturacion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.altaFacturacion"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.altaFacturacion" title="Link to this definition">¶</a></dt>
+<dd><p>Registra una nueva factura en la base de datos.</p>
+<p>Este método verifica que los campos necesarios no estén vacíos y que el cliente asociado a la factura
+exista y esté dado de alta. Luego, comprueba si la factura ya existe antes de insertarla en la base de datos.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>nuevaFactura (list): Lista que contiene los datos de la nueva factura [DNI Cliente, Fecha, Conductor].</p>
+</dd>
+<dt>Returns:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.borraDriv">
+<span class="sig-name descname"><span class="pre">borraDriv</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.borraDriv"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.borraDriv" title="Link to this definition">¶</a></dt>
+<dd><p>Método para dar de baja a un conductor en la base de datos.</p>
+<p>Este método verifica si el conductor ya está dado de baja consultando la fecha de baja en la base de datos.
+Si el conductor no está dado de baja, obtiene la fecha actual y actualiza la base de datos con la fecha de baja.
+Muestra mensajes de aviso en la interfaz gráfica según el resultado.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>dni (str): DNI del conductor que se desea dar de baja.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.cargarFacturas">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cargarFacturas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.cargarFacturas"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.cargarFacturas" title="Link to this definition">¶</a></dt>
+<dd><p>Carga las facturas desde la base de datos y actualiza la tabla de facturas en la interfaz gráfica.</p>
+<p>Este método realiza una consulta a la base de datos para obtener las facturas y luego llama al método
+cargarTablaFacturas de la clase Facturas para actualizar la interfaz gráfica con los nuevos datos.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>self: Parámetro opcional para permitir llamadas al método sin instancia específica.</p>
+</dd>
+<dt>Returns:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.cargarViaje">
+<span class="sig-name descname"><span class="pre">cargarViaje</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.cargarViaje"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.cargarViaje" title="Link to this definition">¶</a></dt>
+<dd><p>Carga los datos de viajes desde la base de datos y actualiza la tabla de viajes en la interfaz gráfica.</p>
+<p>Este método realiza una consulta a la base de datos para obtener los datos de viajes y luego llama al método
+cargarTablaViajes de la clase Viajes para actualizar la interfaz gráfica con los nuevos datos.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>self: Parámetro opcional para permitir llamadas al método sin instancia específica.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.cargar_provincias">
+<span class="sig-name descname"><span class="pre">cargar_provincias</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.cargar_provincias"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.cargar_provincias" title="Link to this definition">¶</a></dt>
+<dd><p>Método para cargar las provincias desde la base de datos en un ComboBox.</p>
+<p>Este método recibe un objeto ComboBox como argumento, limpia su contenido y luego carga las provincias
+obtenidas de la base de datos en el ComboBox.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>combo_box: Objeto ComboBox en el cual se cargarán las provincias.</p>
+</dd>
+<dt>Returns:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.codigoDriver">
+<span class="sig-name descname"><span class="pre">codigoDriver</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.codigoDriver"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.codigoDriver" title="Link to this definition">¶</a></dt>
+<dd><p>Método para obtener el código de un driver a partir de su DNI y realizar acciones adicionales.</p>
+<p>Este método realiza una consulta a la base de datos para obtener el código de un driver dado su DNI.
+Si encuentra el código, llama a la función “buscarDriverTabla” de la clase “Drivers” para resaltar la fila
+correspondiente en la tabla de drivers y, a continuación, utiliza el código para obtener y devolver el registro
+completo del driver mediante la función “oneDriver” de la clase “Conexion”. Si no se encuentra el conductor,
+se muestra un aviso en la interfaz gráfica y se devuelve None.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>dni (str): DNI del driver que se desea buscar.</p>
+</dd>
+<dt>Returns:</dt><dd><p>list or None: Lista con los datos del driver si se encuentra, o None si no se encuentra.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.comprobarCliente">
+<span class="sig-name descname"><span class="pre">comprobarCliente</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.comprobarCliente"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.comprobarCliente" title="Link to this definition">¶</a></dt>
+<dd><p>Comprueba si un cliente existe en la base de datos y está dado de baja.</p>
+<p>Este método verifica si el DNI del cliente existe en la tabla de clientes y si está dado de baja.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>dato (str): DNI del cliente a comprobar.</p>
+</dd>
+<dt>Returns:</dt><dd><p>bool: True si el cliente existe y está dado de baja, False en caso contrario.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.conductorEstaDadoDeBaja">
+<span class="sig-name descname"><span class="pre">conductorEstaDadoDeBaja</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dni</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.conductorEstaDadoDeBaja"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.conductorEstaDadoDeBaja" title="Link to this definition">¶</a></dt>
+<dd><p>Verifica si un conductor está dado de baja en la base de datos.</p>
+<p>Este método ejecuta una consulta SQL para obtener la fecha de baja de un conductor
+y verifica si está dado de baja.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>dni (str): DNI del conductor.</p>
+</dd>
+<dt>Returns:</dt><dd><p>bool: True si el conductor está dado de baja, False en caso contrario.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.conductorExiste">
+<span class="sig-name descname"><span class="pre">conductorExiste</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dni</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.conductorExiste"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.conductorExiste" title="Link to this definition">¶</a></dt>
+<dd><p>Verifica si un conductor existe en la base de datos.</p>
+<p>Este método ejecuta una consulta SQL para contar la cantidad de registros en la tabla
+de conductores que tienen el DNI especificado.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>dni (str): DNI del conductor.</p>
+</dd>
+<dt>Returns:</dt><dd><p>bool: True si el conductor existe, False en caso contrario.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.conexion">
+<span class="sig-name descname"><span class="pre">conexion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.conexion"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.conexion" title="Link to this definition">¶</a></dt>
+<dd><p>Método para establecer la conexión con la base de datos SQLite.</p>
+<p>Este método utiliza la clase QSqlDatabase para establecer la conexión con una base de datos SQLite
+que se encuentra en el archivo “bbdd.sqlite”. Si la conexión es exitosa, imprime un mensaje indicando
+que la base de datos está conectada.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>self: Parámetro opcional para permitir llamadas al método sin instancia específica.</p>
+</dd>
+<dt>Returns:</dt><dd><p>bool: True si la conexión se estableció correctamente, False si hubo un error en la conexión.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.driversEstadoAlta">
+<span class="sig-name descname"><span class="pre">driversEstadoAlta</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.driversEstadoAlta"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.driversEstadoAlta" title="Link to this definition">¶</a></dt>
+<dd><p>Obtiene la lista de conductores que están actualmente dados de alta.</p>
+<p>Este método ejecuta una consulta SQL para obtener la información de los conductores
+que están en estado de alta (sin fecha de baja).</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>list: Lista de conductores en estado de alta. Cada elemento de la lista es una lista</dt><dd><p>que representa la información de un conductor.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.driversEstadoBaja">
+<span class="sig-name descname"><span class="pre">driversEstadoBaja</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.driversEstadoBaja"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.driversEstadoBaja" title="Link to this definition">¶</a></dt>
+<dd><p>Obtiene la lista de conductores que están actualmente dados de baja.</p>
+<p>Este método ejecuta una consulta SQL para obtener la información de los conductores
+que están en estado de baja (fecha no esta a null).</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>list: Lista de conductores en estado de baja. Cada elemento de la lista es una lista</dt><dd><p>que representa la información de un conductor.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.existeCliente">
+<span class="sig-name descname"><span class="pre">existeCliente</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.existeCliente"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.existeCliente" title="Link to this definition">¶</a></dt>
+<dd><p>Comprueba si un cliente existe en la base de datos y no está dado de baja.</p>
+<p>Este método verifica si el DNI del cliente existe en la tabla de clientes y si no está dado de baja.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>dato (str): DNI del cliente a comprobar.</p>
+</dd>
+<dt>Returns:</dt><dd><p>bool: True si el cliente existe y no está dado de baja, False en caso contrario.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.existeFactura">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">existeFactura</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dni_cliente</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fecha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">driver</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.existeFactura"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.existeFactura" title="Link to this definition">¶</a></dt>
+<dd><p>Verifica si una factura ya existe en la base de datos.</p>
+<p>Este método comprueba si hay una factura con los mismos valores de DNI Cliente, Fecha y Conductor en la base de datos.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>dni_cliente (str): DNI del cliente asociado a la factura.
+fecha (str): Fecha de la factura.
+driver (str): Conductor asociado a la factura.</p>
+</dd>
+<dt>Returns:</dt><dd><p>bool: True si la factura existe, False en caso contrario.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.guardarClick">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">guardarClick</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newDriver</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.guardarClick"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.guardarClick" title="Link to this definition">¶</a></dt>
+<dd><p>Método estático para guardar un nuevo registro de driver en la base de datos.</p>
+<p>Este método recibe una lista con los datos del nuevo driver, valida que los campos esenciales no estén vacíos,
+y luego realiza una inserción en la tabla “drivers” de la base de datos.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>newDriver (list): Lista con los datos del nuevo driver, en el siguiente orden:</dt><dd><p>[DNI, Fecha de alta, Apellido, Nombre, Dirección, Provincia, Municipio, Móvil, Salario, Carnet]</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><p>bool: True si la inserción fue exitosa, False si hubo algún error.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.modifDriver">
+<span class="sig-name descname"><span class="pre">modifDriver</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.modifDriver"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.modifDriver" title="Link to this definition">¶</a></dt>
+<dd><p>Método para modificar los datos de un conductor en la base de datos.</p>
+<p>Este método compara los nuevos datos del conductor con los existentes y ofrece opciones para cambiar la fecha
+de baja o eliminarla. Si no hay cambios, permite cambiar la fecha de baja o cancelar la operación. Si hay cambios,
+actualiza los datos del conductor en la base de datos.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.mostrarDrivers">
+<span class="sig-name descname"><span class="pre">mostrarDrivers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.mostrarDrivers"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.mostrarDrivers" title="Link to this definition">¶</a></dt>
+<dd><p>Método para mostrar los drivers en la interfaz gráfica, según el estado seleccionado.</p>
+<p>Este método verifica si el botón de radio para mostrar solo drivers de alta está seleccionado.
+En ese caso, llama a la función “selectDrivers” de la clase “Conexion” para obtener los drivers de alta.
+De lo contrario, realiza una consulta para obtener todos los drivers de la base de datos y los muestra en la tabla.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>self: Parámetro opcional para permitir llamadas al método sin instancia específica.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.oneDriver">
+<span class="sig-name descname"><span class="pre">oneDriver</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.oneDriver"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.oneDriver" title="Link to this definition">¶</a></dt>
+<dd><p>Método para obtener los datos de un driver específico mediante su código.</p>
+<p>Este método realiza una consulta a la base de datos para obtener todos los datos asociados a un driver
+identificado por su código.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>codigo (int): Código único del driver que se desea obtener.</p>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>list: Lista con los datos del driver obtenidos de la base de datos.</dt><dd><p>El orden de los elementos en la lista es: [DNI, Fecha de alta, Apellido, Nombre, Dirección,
+Provincia, Municipio, Móvil, Salario, Carnet, Fecha de baja, Estado]</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.selMuni">
+<span class="sig-name descname"><span class="pre">selMuni</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.selMuni"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.selMuni" title="Link to this definition">¶</a></dt>
+<dd><p>Método para seleccionar y cargar los municipios correspondientes a una provincia en un ComboBox.</p>
+<p>Este método obtiene la provincia seleccionada desde un ComboBox, busca el identificador (id) asociado a esa provincia
+en la base de datos y luego utiliza ese id para cargar los municipios correspondientes en otro ComboBox.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>self: Parámetro opcional para permitir llamadas al método sin instancia específica.</p>
+</dd>
+<dt>Returns:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.selectDrivers">
+<span class="sig-name descname"><span class="pre">selectDrivers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.selectDrivers"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.selectDrivers" title="Link to this definition">¶</a></dt>
+<dd><p>Método para seleccionar y cargar datos de conductores según su estado en la base de datos.</p>
+<p>Este método ejecuta diferentes consultas SQL según el estado proporcionado y carga los datos de los conductores
+en la tabla correspondiente en la interfaz gráfica.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>estado (int): Estado de los conductores a seleccionar. Puede ser 0 (todos), 1 (en alta), o 2 (dado de baja).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.selectDriversTodos">
+<span class="sig-name descname"><span class="pre">selectDriversTodos</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.selectDriversTodos"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.selectDriversTodos" title="Link to this definition">¶</a></dt>
+<dd><p>Método para seleccionar y devolver todos los datos de conductores en la base de datos.</p>
+<p>Este método ejecuta una consulta SQL para seleccionar todos los conductores y devuelve los datos como una lista.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>list: Lista de listas, donde cada lista representa los datos de un conductor.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.showSelectedDate">
+<span class="sig-name descname"><span class="pre">showSelectedDate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.showSelectedDate"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.showSelectedDate" title="Link to this definition">¶</a></dt>
+<dd><p>Método para obtener la fecha seleccionada en un calendario y devolverla en formato de cadena.</p>
+<p>Este método utiliza el calendario almacenado en la variable global “var.calendar2” para obtener la fecha seleccionada.
+Luego, convierte la fecha al formato de cadena «dd/MM/yyyy» y la devuelve.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>str: Fecha seleccionada en formato de cadena «dd/MM/yyyy».</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.show_info">
+<span class="sig-name descname"><span class="pre">show_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.show_info"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.show_info" title="Link to this definition">¶</a></dt>
+<dd><p>Muestra un cuadro de diálogo informativo con el mensaje proporcionado.</p>
+<p>Este método crea y muestra un cuadro de diálogo informativo con un ícono de información y el mensaje proporcionado.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>message (str): El mensaje a mostrar en el cuadro de diálogo.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.show_warning">
+<span class="sig-name descname"><span class="pre">show_warning</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.show_warning"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.show_warning" title="Link to this definition">¶</a></dt>
+<dd><p>Muestra un cuadro de diálogo de advertencia con el mensaje proporcionado.</p>
+<p>Este método crea y muestra un cuadro de diálogo de advertencia con un ícono de advertencia y el mensaje proporcionado.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.volverDarAlta">
+<span class="sig-name descname"><span class="pre">volverDarAlta</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.volverDarAlta"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.volverDarAlta" title="Link to this definition">¶</a></dt>
+<dd><p>Método para dar de alta a un conductor que estaba dado de baja.</p>
+<p>Este método muestra un cuadro de diálogo de confirmación para dar de alta a un conductor que estaba previamente
+dado de baja. Si el usuario elige dar de alta, se actualiza la base de datos y se recarga la tabla de conductores.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>dni (str): DNI del conductor que se dará de alta.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Tabla de contenido</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">conexion module</a><ul>
+<li><a class="reference internal" href="#conexion.Conexion"><code class="docutils literal notranslate"><span class="pre">Conexion</span></code></a><ul>
+<li><a class="reference internal" href="#conexion.Conexion.altaFacturacion"><code class="docutils literal notranslate"><span class="pre">Conexion.altaFacturacion()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.borraDriv"><code class="docutils literal notranslate"><span class="pre">Conexion.borraDriv()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.cargarFacturas"><code class="docutils literal notranslate"><span class="pre">Conexion.cargarFacturas()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.cargarViaje"><code class="docutils literal notranslate"><span class="pre">Conexion.cargarViaje()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.cargar_provincias"><code class="docutils literal notranslate"><span class="pre">Conexion.cargar_provincias()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.codigoDriver"><code class="docutils literal notranslate"><span class="pre">Conexion.codigoDriver()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.comprobarCliente"><code class="docutils literal notranslate"><span class="pre">Conexion.comprobarCliente()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.conductorEstaDadoDeBaja"><code class="docutils literal notranslate"><span class="pre">Conexion.conductorEstaDadoDeBaja()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.conductorExiste"><code class="docutils literal notranslate"><span class="pre">Conexion.conductorExiste()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.conexion"><code class="docutils literal notranslate"><span class="pre">Conexion.conexion()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.driversEstadoAlta"><code class="docutils literal notranslate"><span class="pre">Conexion.driversEstadoAlta()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.driversEstadoBaja"><code class="docutils literal notranslate"><span class="pre">Conexion.driversEstadoBaja()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.existeCliente"><code class="docutils literal notranslate"><span class="pre">Conexion.existeCliente()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.existeFactura"><code class="docutils literal notranslate"><span class="pre">Conexion.existeFactura()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.guardarClick"><code class="docutils literal notranslate"><span class="pre">Conexion.guardarClick()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.modifDriver"><code class="docutils literal notranslate"><span class="pre">Conexion.modifDriver()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.mostrarDrivers"><code class="docutils literal notranslate"><span class="pre">Conexion.mostrarDrivers()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.oneDriver"><code class="docutils literal notranslate"><span class="pre">Conexion.oneDriver()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.selMuni"><code class="docutils literal notranslate"><span class="pre">Conexion.selMuni()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.selectDrivers"><code class="docutils literal notranslate"><span class="pre">Conexion.selectDrivers()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.selectDriversTodos"><code class="docutils literal notranslate"><span class="pre">Conexion.selectDriversTodos()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.showSelectedDate"><code class="docutils literal notranslate"><span class="pre">Conexion.showSelectedDate()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.show_info"><code class="docutils literal notranslate"><span class="pre">Conexion.show_info()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.show_warning"><code class="docutils literal notranslate"><span class="pre">Conexion.show_warning()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.volverDarAlta"><code class="docutils literal notranslate"><span class="pre">Conexion.volverDarAlta()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>Esta página</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/src/conexion.rst.txt"
+            rel="nofollow">Mostrar el código</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Ir a" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">documentación de VieraFernandez2324 - v.0.0.1</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">conexion module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2024, Elias.
+      Creado usando <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    </div>
+  </body>
+</html>

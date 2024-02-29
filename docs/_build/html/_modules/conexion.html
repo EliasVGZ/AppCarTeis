@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+
+<html lang="es" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>conexion &#8212; documentación de VieraFernandez2324 - v.0.0.1</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css?v=514cf933" />
+    
+    <script src="../_static/documentation_options.js?v=8ee129b9"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=efdbd0b9"></script>
+    
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">documentación de VieraFernandez2324 - v.0.0.1</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Código de módulo</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">conexion</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Código fuente para conexion</h1><div class="highlight"><pre>
+<span></span>
+<span class="kn">from</span> <span class="nn">calendar</span> <span class="kn">import</span> <span class="n">Calendar</span>
+
+<span class="kn">import</span> <span class="nn">facturas</span>
+<span class="kn">import</span> <span class="nn">viajes</span>
+<span class="kn">from</span> <span class="nn">windowaux</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">PyQt6</span> <span class="kn">import</span> <span class="n">QtWidgets</span><span class="p">,</span> <span class="n">QtSql</span><span class="p">,</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">QtCore</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span><span class="p">,</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">drivers</span>
+<span class="kn">import</span> <span class="nn">eventos</span>
+<span class="kn">import</span> <span class="nn">var</span>
+
+
+<div class="viewcode-block" id="Conexion">
+<a class="viewcode-back" href="../src/conexion.html#conexion.Conexion">[documentos]</a>
+<span class="k">class</span> <span class="nc">Conexion</span><span class="p">():</span>
+
+    
+
+<div class="viewcode-block" id="Conexion.conexion">
+<a class="viewcode-back" href="../src/conexion.html#conexion.Conexion.conexion">[documentos]</a>
+    <span class="k">def</span> <span class="nf">conexion</span><span class="p">(</span><span class="bp">self</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Método para establecer la conexión con la base de datos SQLite.</span>
+
+<span class="sd">    Este método utiliza la clase QSqlDatabase para establecer la conexión con una base de datos SQLite</span>
+<span class="sd">    que se encuentra en el archivo &#39;bbdd.sqlite&#39;. Si la conexión es exitosa, imprime un mensaje indicando</span>
+<span class="sd">    que la base de datos está conectada.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        self: Parámetro opcional para permitir llamadas al método sin instancia específica.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        bool: True si la conexión se estableció correctamente, False si hubo un error en la conexión.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+        <span class="n">var</span><span class="o">.</span><span class="n">bbdd</span> <span class="o">=</span> <span class="s1">&#39;bbdd.sqlite&#39;</span>
+        <span class="n">db</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlDatabase</span><span class="o">.</span><span class="n">addDatabase</span><span class="p">(</span><span class="s1">&#39;QSQLITE&#39;</span><span class="p">)</span>
+        <span class="n">db</span><span class="o">.</span><span class="n">setDatabaseName</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">bbdd</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">db</span><span class="o">.</span><span class="n">open</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error de conexión&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;base de datos conectada&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span></div>
+
+
+    <span class="c1"># @staticmethod</span>
+    <span class="c1"># def cargaprov(self=None):</span>
+    <span class="c1">#     try:</span>
+    <span class="c1">#         var.ui.cmbProvincia.clear()  # LIMPIA Y VUELVE A RECARGAR</span>
+    <span class="c1">#</span>
+    <span class="c1">#         query = QtSql.QSqlQuery()</span>
+    <span class="c1">#         query.prepare(&#39;select provincia from provincias&#39;)</span>
+    <span class="c1">#         var.ui.cmbProvincia.addItem(&#39; &#39;)</span>
+    <span class="c1">#</span>
+    <span class="c1">#         if query.exec():</span>
+    <span class="c1">#             var.ui.cmbProvincia.addItem(&#39; &#39;)</span>
+    <span class="c1">#             while query.next():  # LLENAR LAS PROVINCIAS MIENTRAS HAYA</span>
+    <span class="c1">#                 var.ui.cmbProvincia.addItem(query.value(0))</span>
+    <span class="c1">#     except Exception as error:</span>
+    <span class="c1">#         print(&quot;error al carga provincias&quot;, error)</span>
+
+<div class="viewcode-block" id="Conexion.cargar_provincias">
+<a class="viewcode-back" href="../src/conexion.html#conexion.Conexion.cargar_provincias">[documentos]</a>
+    <span class="k">def</span> <span class="nf">cargar_provincias</span><span class="p">(</span><span class="n">combo_box</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Método para cargar las provincias desde la base de datos en un ComboBox.</span>
+
+<span class="sd">            Este método recibe un objeto ComboBox como argumento, limpia su contenido y luego carga las provincias</span>
+<span class="sd">            obtenidas de la base de datos en el ComboBox.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                combo_box: Objeto ComboBox en el cual se cargarán las provincias.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Limpiar y volver a cargar</span>
+            <span class="n">combo_box</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+            <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s1">&#39;SELECT provincia FROM provincias&#39;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                <span class="n">combo_box</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+                <span class="k">while</span> <span class="n">query</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+                    <span class="n">combo_box</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error al cargar provincias:&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Conexion.selMuni">
+<a class="viewcode-back" href="../src/conexion.html#conexion.Conexion.selMuni">[documentos]</a>
+    <span class="k">def</span> <span class="nf">selMuni</span><span class="p">(</span><span class="bp">self</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">            Método para seleccionar y cargar los municipios correspondientes a una provincia en un ComboBox.</span>
+
+<span class="sd">            Este método obtiene la provincia seleccionada desde un ComboBox, busca el identificador (id) asociado a esa provincia</span>
+<span class="sd">            en la base de datos y luego utiliza ese id para cargar los municipios correspondientes en otro ComboBox.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                self: Parámetro opcional para permitir llamadas al método sin instancia específica.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbLocalidad</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="nb">id</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">prov</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbProvincia</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>  <span class="c1">#</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+
+            <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s1">&#39;select idprov from provincias where provincia = :prov&#39;</span><span class="p">)</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:prov&#39;</span><span class="p">,</span> <span class="n">prov</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                <span class="k">while</span> <span class="n">query</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>  <span class="c1"># LLENAR LAS PROVINCIAS MIENTRAS HAYA</span>
+                    <span class="nb">id</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">query1</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+            <span class="n">query1</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s1">&#39;select municipio from municipios where idprov = :id&#39;</span><span class="p">)</span>
+            <span class="n">query1</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:id&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="nb">id</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">query1</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbLocalidad</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+                <span class="k">while</span> <span class="n">query1</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbLocalidad</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">query1</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error seleccion municipios &quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Conexion.guardarClick">
+<a class="viewcode-back" href="../src/conexion.html#conexion.Conexion.guardarClick">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">guardarClick</span><span class="p">(</span><span class="n">newDriver</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Método estático para guardar un nuevo registro de driver en la base de datos.</span>
+
+<span class="sd">            Este método recibe una lista con los datos del nuevo driver, valida que los campos esenciales no estén vacíos,</span>
+<span class="sd">            y luego realiza una inserción en la tabla &#39;drivers&#39; de la base de datos.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                newDriver (list): Lista con los datos del nuevo driver, en el siguiente orden:</span>
+<span class="sd">                    [DNI, Fecha de alta, Apellido, Nombre, Dirección, Provincia, Municipio, Móvil, Salario, Carnet]</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                bool: True si la inserción fue exitosa, False si hubo algún error.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">dni</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">newDriver</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">dni</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">or</span> <span class="n">newDriver</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">or</span> <span class="n">newDriver</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">or</span> <span class="n">newDriver</span><span class="p">[</span>
+                <span class="mi">7</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
+                <span class="n">mbox</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                <span class="n">mbox</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+                <span class="n">mbox</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="s1">&#39;./IMG/aviso.jpg&#39;</span><span class="p">))</span>
+                <span class="n">mbox</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Warning</span><span class="p">)</span>
+                <span class="n">mensaje</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Faltan datos:</span><span class="se">\n</span><span class="s1"> Dni, Apellido, Nombre, Fecha de alta o Movil no pueden estar vacíos&#39;</span><span class="p">)</span>
+                <span class="n">mbox</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">mensaje</span><span class="p">)</span>
+                <span class="n">mbox</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span>
+                    <span class="s1">&#39;insert into drivers (dnidriver, altadriver, apeldriver, nombredriver, &#39;</span>
+                    <span class="s1">&#39;direcciondriver, provdriver, munidriver, movildriver, salario, carnet) &#39;</span>
+                    <span class="s1">&#39;VALUES (:dni, :alta, :apel, :nombre, :direccion, :provincia, :municipio, &#39;</span>
+                    <span class="s1">&#39;:movil, :salario, :carnet)&#39;</span><span class="p">)</span>
+
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:dni&#39;</span><span class="p">,</span> <span class="n">dni</span><span class="p">)</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:alta&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">newDriver</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:apel&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">newDriver</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:nombre&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">newDriver</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:direccion&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">newDriver</span><span class="p">[</span><span class="mi">4</span><span class="p">]))</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:provincia&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">newDriver</span><span class="p">[</span><span class="mi">5</span><span class="p">]))</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:municipio&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">newDriver</span><span class="p">[</span><span class="mi">6</span><span class="p">]))</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:movil&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">newDriver</span><span class="p">[</span><span class="mi">7</span><span class="p">]))</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:salario&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">newDriver</span><span class="p">[</span><span class="mi">8</span><span class="p">]))</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:carnet&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">newDriver</span><span class="p">[</span><span class="mi">9</span><span class="p">]))</span>
+
+            <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="n">Conexion</span><span class="o">.</span><span class="n">mostrarDrivers</span><span class="p">(</span><span class="bp">self</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error guardando los drivers&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Conexion.mostrarDrivers">
+<a class="viewcode-back" href="../src/conexion.html#conexion.Conexion.mostrarDrivers">[documentos]</a>
+    <span class="k">def</span> <span class="nf">mostrarDrivers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Método para mostrar los drivers en la interfaz gráfica, según el estado seleccionado.</span>
+
+<span class="sd">            Este método verifica si el botón de radio para mostrar solo drivers de alta está seleccionado.</span>
+<span class="sd">            En ese caso, llama a la función &#39;selectDrivers&#39; de la clase &#39;Conexion&#39; para obtener los drivers de alta.</span>
+<span class="sd">            De lo contrario, realiza una consulta para obtener todos los drivers de la base de datos y los muestra en la tabla.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                self: Parámetro opcional para permitir llamadas al método sin instancia específica.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">registros</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtAlta</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                <span class="n">estado</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="n">Conexion</span><span class="o">.</span><span class="n">selectDrivers</span><span class="p">(</span><span class="n">estado</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">query1</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+                <span class="n">query1</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s2">&quot;select codigo, apeldriver, nombredriver, movildriver, &quot;</span>
+                               <span class="s2">&quot;carnet, bajadriver from drivers&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">query1</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                    <span class="k">while</span> <span class="n">query1</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+                        <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="n">query1</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">query1</span><span class="o">.</span><span class="n">record</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">())]</span>  <span class="c1"># funcion lambda</span>
+                        <span class="n">registros</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+            <span class="c1"># SI ESTAN TODOS DE BAJA DEBE MOSTRAR LA TABLA DE ALTA VACIA</span>
+            <span class="k">if</span> <span class="n">registros</span><span class="p">:</span>
+                <span class="n">drivers</span><span class="o">.</span><span class="n">Drivers</span><span class="o">.</span><span class="n">cargarTablaDriver</span><span class="p">(</span><span class="n">registros</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabDrivers</span><span class="o">.</span><span class="n">setRowCount</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error mostrar resultados&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Conexion.oneDriver">
+<a class="viewcode-back" href="../src/conexion.html#conexion.Conexion.oneDriver">[documentos]</a>
+    <span class="k">def</span> <span class="nf">oneDriver</span><span class="p">(</span><span class="n">codigo</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Método para obtener los datos de un driver específico mediante su código.</span>
+
+<span class="sd">            Este método realiza una consulta a la base de datos para obtener todos los datos asociados a un driver</span>
+<span class="sd">            identificado por su código.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                codigo (int): Código único del driver que se desea obtener.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                list: Lista con los datos del driver obtenidos de la base de datos.</span>
+<span class="sd">                      El orden de los elementos en la lista es: [DNI, Fecha de alta, Apellido, Nombre, Dirección,</span>
+<span class="sd">                      Provincia, Municipio, Móvil, Salario, Carnet, Fecha de baja, Estado]</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">registro</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM drivers WHERE codigo = :codigo&quot;</span><span class="p">)</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s2">&quot;:codigo&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">codigo</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                <span class="k">while</span> <span class="n">query</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">):</span>
+                        <span class="n">registro</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="n">i</span><span class="p">)))</span>
+            <span class="k">return</span> <span class="n">registro</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error en fichero conexion datos de 1 driver: &quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Conexion.codigoDriver">
+<a class="viewcode-back" href="../src/conexion.html#conexion.Conexion.codigoDriver">[documentos]</a>
+    <span class="k">def</span> <span class="nf">codigoDriver</span><span class="p">(</span><span class="n">dni</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Método para obtener el código de un driver a partir de su DNI y realizar acciones adicionales.</span>
+
+<span class="sd">            Este método realiza una consulta a la base de datos para obtener el código de un driver dado su DNI.</span>
+<span class="sd">            Si encuentra el código, llama a la función &#39;buscarDriverTabla&#39; de la clase &#39;Drivers&#39; para resaltar la fila</span>
+<span class="sd">            correspondiente en la tabla de drivers y, a continuación, utiliza el código para obtener y devolver el registro</span>
+<span class="sd">            completo del driver mediante la función &#39;oneDriver&#39; de la clase &#39;Conexion&#39;. Si no se encuentra el conductor,</span>
+<span class="sd">            se muestra un aviso en la interfaz gráfica y se devuelve None.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                dni (str): DNI del driver que se desea buscar.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                list or None: Lista con los datos del driver si se encuentra, o None si no se encuentra.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s2">&quot;SELECT codigo FROM drivers WHERE dnidriver = :dnidri&quot;</span><span class="p">)</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s2">&quot;:dnidri&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">dni</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                <span class="n">codigo</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="k">while</span> <span class="n">query</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+                    <span class="n">codigo</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                    <span class="n">drivers</span><span class="o">.</span><span class="n">Drivers</span><span class="o">.</span><span class="n">buscarDriverTabla</span><span class="p">(</span><span class="n">codigo</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">codigo</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">registro</span> <span class="o">=</span> <span class="n">Conexion</span><span class="o">.</span><span class="n">oneDriver</span><span class="p">(</span><span class="n">codigo</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="n">registro</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># Si no se encuentra el conductor, mostrar un aviso</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblValidarDni</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s1">&#39;color:red;&#39;</span><span class="p">)</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblValidarDni</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDni</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>  <span class="c1"># Limpia el campo de texto</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDni</span><span class="o">.</span><span class="n">setFocus</span><span class="p">()</span>  <span class="c1"># Mantiene el foco en el campo de texto</span>
+                    <span class="n">mbox</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="s1">&#39;./IMG/aviso.jpg&#39;</span><span class="p">))</span>  <span class="c1"># Ruta del archivo del icono</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Warning</span><span class="p">)</span>
+                    <span class="n">mensaje</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;          DNI no existe          &#39;</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">mensaje</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+                    <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error en búsqueda de código de un conductor: &quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="Conexion.modifDriver">
+<a class="viewcode-back" href="../src/conexion.html#conexion.Conexion.modifDriver">[documentos]</a>
+    <span class="k">def</span> <span class="nf">modifDriver</span><span class="p">(</span><span class="n">modificarNewDriver</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Método para modificar los datos de un conductor en la base de datos.</span>
+
+<span class="sd">            Este método compara los nuevos datos del conductor con los existentes y ofrece opciones para cambiar la fecha</span>
+<span class="sd">            de baja o eliminarla. Si no hay cambios, permite cambiar la fecha de baja o cancelar la operación. Si hay cambios,</span>
+<span class="sd">            actualiza los datos del conductor en la base de datos.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">registro</span> <span class="o">=</span> <span class="n">Conexion</span><span class="o">.</span><span class="n">oneDriver</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">modificarNewDriver</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+            <span class="k">if</span> <span class="n">modificarNewDriver</span> <span class="o">==</span> <span class="n">registro</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Information</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;No hay datos que modificar. Desea cambiar la fecha o eliminar fecha de baja?&#39;</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setStandardButtons</span><span class="p">(</span>
+                    <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Yes</span> <span class="o">|</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">No</span> <span class="o">|</span>
+                    <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Cancel</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Yes</span><span class="p">)</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Alta&quot;</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">No</span><span class="p">)</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Modificar&quot;</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Cancel</span><span class="p">)</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Cancelar&#39;</span><span class="p">)</span>
+                <span class="n">opcion</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">opcion</span> <span class="o">==</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Yes</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">registro</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                        <span class="n">query1</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+                        <span class="n">query1</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s1">&#39;update drivers set bajadriver = NULL where &#39;</span>
+                                       <span class="s1">&#39; dnidriver = :dni&#39;</span><span class="p">)</span>
+                        <span class="n">query1</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:dni&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">modificarNewDriver</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+                        <span class="k">if</span> <span class="n">query1</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                            <span class="n">msg</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                            <span class="n">msg</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+                            <span class="n">msg</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Information</span><span class="p">)</span>
+                            <span class="n">msg</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Datos Conductor Modificados&#39;</span><span class="p">)</span>
+                            <span class="n">msg</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+                            <span class="n">Conexion</span><span class="o">.</span><span class="n">selectDrivers</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">msg</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                        <span class="n">msg</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+                        <span class="n">msg</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Information</span><span class="p">)</span>
+                        <span class="n">msg</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;El conductor está en alta. Nada que modificar&#39;</span><span class="p">)</span>
+                        <span class="n">msg</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+                        <span class="n">Conexion</span><span class="o">.</span><span class="n">selectDrivers</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">opcion</span> <span class="o">==</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">No</span><span class="p">:</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">calendar2</span> <span class="o">=</span> <span class="n">Calendar</span><span class="p">()</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">calendar2</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">calendar2</span><span class="o">.</span><span class="n">selectionChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">Conexion</span><span class="o">.</span><span class="n">showSelectedDate</span><span class="p">)</span>
+
+                    <span class="n">data</span> <span class="o">=</span> <span class="n">Conexion</span><span class="o">.</span><span class="n">showSelectedDate</span><span class="p">()</span>
+                    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">toString</span><span class="p">(</span><span class="s2">&quot;dd/MM/yyyy&quot;</span><span class="p">)</span>
+
+
+                    <span class="k">if</span> <span class="n">registro</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                        <span class="n">query1</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+                        <span class="n">query1</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s1">&#39;update drivers set bajadriver = :data where &#39;</span>
+                                       <span class="s1">&#39; dnidriver = :dni&#39;</span><span class="p">)</span>
+                        <span class="n">query1</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:data&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+                        <span class="n">query1</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:dni&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">modificarNewDriver</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+                        <span class="k">if</span> <span class="n">query1</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                            <span class="n">msg</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                            <span class="n">msg</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+                            <span class="n">msg</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Information</span><span class="p">)</span>
+                            <span class="n">msg</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Baja Modificada. Nueva Fecha Baja&#39;</span><span class="p">)</span>
+                            <span class="n">msg</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+                        <span class="n">Conexion</span><span class="o">.</span><span class="n">selectDrivers</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">msg</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                        <span class="n">msg</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+                        <span class="n">msg</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Information</span><span class="p">)</span>
+                        <span class="n">msg</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;El conductor está en alta. Nada que modificar&#39;</span><span class="p">)</span>
+                        <span class="n">msg</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+                        <span class="n">Conexion</span><span class="o">.</span><span class="n">selectDrivers</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">opcion</span> <span class="o">==</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Cancel</span><span class="p">:</span>
+                    <span class="k">pass</span>
+            <span class="k">else</span><span class="p">:</span>
+
+                <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span>
+                    <span class="s1">&#39;update drivers set dnidriver = :dni, altadriver = :alta, apeldriver = :apel, nombredriver = :nombre, direcciondriver = :direccion, &#39;</span>
+                    <span class="s1">&#39;provdriver = :provincia, munidriver = :municipio, movildriver = :movil, salario = :salario, carnet = :carnet where codigo = :codigo&#39;</span><span class="p">)</span>
+
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:codigo&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">modificarNewDriver</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:dni&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">modificarNewDriver</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:alta&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">modificarNewDriver</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:apel&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">modificarNewDriver</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:nombre&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">modificarNewDriver</span><span class="p">[</span><span class="mi">4</span><span class="p">]))</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:direccion&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">modificarNewDriver</span><span class="p">[</span><span class="mi">5</span><span class="p">]))</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:provincia&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">modificarNewDriver</span><span class="p">[</span><span class="mi">6</span><span class="p">]))</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:municipio&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">modificarNewDriver</span><span class="p">[</span><span class="mi">7</span><span class="p">]))</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:movil&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">modificarNewDriver</span><span class="p">[</span><span class="mi">8</span><span class="p">]))</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:salario&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">modificarNewDriver</span><span class="p">[</span><span class="mi">9</span><span class="p">]))</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:carnet&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">modificarNewDriver</span><span class="p">[</span><span class="mi">10</span><span class="p">]))</span>
+                <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                    <span class="n">mbox</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Information</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Datos conductor modificado&#39;</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+                    <span class="n">Conexion</span><span class="o">.</span><span class="n">mostrarDrivers</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">mbox</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Warning</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">lastError</span><span class="p">()</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error al modificar driver en conexion&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Conexion.showSelectedDate">
+<a class="viewcode-back" href="../src/conexion.html#conexion.Conexion.showSelectedDate">[documentos]</a>
+    <span class="k">def</span> <span class="nf">showSelectedDate</span><span class="p">(</span><span class="bp">self</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Método para obtener la fecha seleccionada en un calendario y devolverla en formato de cadena.</span>
+
+<span class="sd">    Este método utiliza el calendario almacenado en la variable global &#39;var.calendar2&#39; para obtener la fecha seleccionada.</span>
+<span class="sd">    Luego, convierte la fecha al formato de cadena &quot;dd/MM/yyyy&quot; y la devuelve.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: Fecha seleccionada en formato de cadena &quot;dd/MM/yyyy&quot;.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+        <span class="n">selected_date</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">calendar2</span><span class="o">.</span><span class="n">selectedDate</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">selected_date</span><span class="o">.</span><span class="n">toString</span><span class="p">(</span><span class="s2">&quot;dd/MM/yyyy&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Conexion.borraDriv">
+<a class="viewcode-back" href="../src/conexion.html#conexion.Conexion.borraDriv">[documentos]</a>
+    <span class="k">def</span> <span class="nf">borraDriv</span><span class="p">(</span><span class="n">dni</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Método para dar de baja a un conductor en la base de datos.</span>
+
+<span class="sd">            Este método verifica si el conductor ya está dado de baja consultando la fecha de baja en la base de datos.</span>
+<span class="sd">            Si el conductor no está dado de baja, obtiene la fecha actual y actualiza la base de datos con la fecha de baja.</span>
+<span class="sd">            Muestra mensajes de aviso en la interfaz gráfica según el resultado.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                dni (str): DNI del conductor que se desea dar de baja.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+
+        <span class="k">global</span> <span class="n">valor</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">query1</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+            <span class="n">query1</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s1">&#39;select bajadriver from drivers where  &#39;</span>
+                           <span class="s1">&#39;dnidriver = :dni&#39;</span><span class="p">)</span>
+            <span class="n">query1</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:dni&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">dni</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="n">query1</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                <span class="k">while</span> <span class="n">query1</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+                    <span class="n">valor</span> <span class="o">=</span> <span class="n">query1</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="n">valor</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">valor</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                <span class="n">fecha</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+                <span class="n">fecha</span> <span class="o">=</span> <span class="n">fecha</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y&quot;</span><span class="p">)</span>
+
+                <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s1">&#39;update drivers set bajadriver = :fechabaja where &#39;</span>
+                              <span class="s1">&#39;dnidriver = :dni&#39;</span><span class="p">)</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:fechabaja&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">fecha</span><span class="p">))</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:dni&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">dni</span><span class="p">))</span>
+
+                <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                    <span class="n">mbox</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Information</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Conductor dado de baja&#39;</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">mbox</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Warning</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Error al dar de baja al conductor: &#39;</span> <span class="o">+</span> <span class="n">query</span><span class="o">.</span><span class="n">lastError</span><span class="p">()</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">mbox</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                <span class="n">mbox</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+                <span class="n">mbox</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Warning</span><span class="p">)</span>
+                <span class="n">mbox</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Conductor ya está dado de baja&#39;</span><span class="p">)</span>
+                <span class="n">mbox</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error al dar de baja al driver&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Conexion.selectDrivers">
+<a class="viewcode-back" href="../src/conexion.html#conexion.Conexion.selectDrivers">[documentos]</a>
+    <span class="k">def</span> <span class="nf">selectDrivers</span><span class="p">(</span><span class="n">estado</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Método para seleccionar y cargar datos de conductores según su estado en la base de datos.</span>
+
+<span class="sd">            Este método ejecuta diferentes consultas SQL según el estado proporcionado y carga los datos de los conductores</span>
+<span class="sd">            en la tabla correspondiente en la interfaz gráfica.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                estado (int): Estado de los conductores a seleccionar. Puede ser 0 (todos), 1 (en alta), o 2 (dado de baja).</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">registros</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">if</span> <span class="n">estado</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s2">&quot;select codigo, apeldriver, nombredriver, movildriver, &quot;</span>
+                              <span class="s2">&quot;carnet, bajadriver from drivers&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                    <span class="k">while</span> <span class="n">query</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+                        <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">record</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">())]</span>
+                        <span class="n">registros</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">registros</span><span class="p">:</span>
+                    <span class="n">drivers</span><span class="o">.</span><span class="n">Drivers</span><span class="o">.</span><span class="n">cargarTablaDriver</span><span class="p">(</span><span class="n">registros</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabDrivers</span><span class="o">.</span><span class="n">setRowCount</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">estado</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s2">&quot;select codigo, apeldriver, nombredriver, movildriver, &quot;</span>
+                              <span class="s2">&quot;carnet, bajadriver from drivers where bajadriver is null&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                    <span class="k">while</span> <span class="n">query</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+                        <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">record</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">())]</span>
+                        <span class="n">registros</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">registros</span><span class="p">:</span>
+                    <span class="n">drivers</span><span class="o">.</span><span class="n">Drivers</span><span class="o">.</span><span class="n">cargarTablaDriver</span><span class="p">(</span><span class="n">registros</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabDrivers</span><span class="o">.</span><span class="n">setRowCount</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+
+            <span class="k">elif</span> <span class="n">estado</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s2">&quot;select codigo, apeldriver, nombredriver, movildriver, &quot;</span>
+                              <span class="s2">&quot;carnet, bajadriver from drivers where bajadriver is not null&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                    <span class="k">while</span> <span class="n">query</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+                        <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">record</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">())]</span>
+                        <span class="n">registros</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+
+                <span class="n">drivers</span><span class="o">.</span><span class="n">Drivers</span><span class="o">.</span><span class="n">cargarTablaDriver</span><span class="p">(</span><span class="n">registros</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error al seleccionar los drivers&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Conexion.selectDriversTodos">
+<a class="viewcode-back" href="../src/conexion.html#conexion.Conexion.selectDriversTodos">[documentos]</a>
+    <span class="k">def</span> <span class="nf">selectDriversTodos</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Método para seleccionar y devolver todos los datos de conductores en la base de datos.</span>
+
+<span class="sd">            Este método ejecuta una consulta SQL para seleccionar todos los conductores y devuelve los datos como una lista.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                list: Lista de listas, donde cada lista representa los datos de un conductor.</span>
+
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">registros</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s2">&quot;select * from drivers order by codigo&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                <span class="k">while</span> <span class="n">query</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+                    <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">record</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">())]</span>
+                    <span class="n">registros</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">registros</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error devolver todos los drivers&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Conexion.volverDarAlta">
+<a class="viewcode-back" href="../src/conexion.html#conexion.Conexion.volverDarAlta">[documentos]</a>
+    <span class="k">def</span> <span class="nf">volverDarAlta</span><span class="p">(</span><span class="n">dni</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Método para dar de alta a un conductor que estaba dado de baja.</span>
+
+<span class="sd">            Este método muestra un cuadro de diálogo de confirmación para dar de alta a un conductor que estaba previamente</span>
+<span class="sd">            dado de baja. Si el usuario elige dar de alta, se actualiza la base de datos y se recarga la tabla de conductores.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                dni (str): DNI del conductor que se dará de alta.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">mbox</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+            <span class="n">mbox</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Dar Alta&quot;</span><span class="p">)</span>
+            <span class="n">mbox</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Question</span><span class="p">)</span>
+            <span class="n">mbox</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;El conductor está dado de baja.</span><span class="se">\n</span><span class="s2">¿Desea darlo de alta de nuevo?&quot;</span><span class="p">)</span>
+            <span class="n">mbox</span><span class="o">.</span><span class="n">setStandardButtons</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Yes</span> <span class="o">|</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">No</span><span class="p">)</span>
+            <span class="n">mbox</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Yes</span><span class="p">)</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Si&#39;</span><span class="p">)</span>
+            <span class="n">mbox</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">No</span><span class="p">)</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;No&#39;</span><span class="p">)</span>
+            <span class="n">mbox</span><span class="o">.</span><span class="n">setDefaultButton</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Yes</span><span class="p">)</span>
+            <span class="n">mbox</span><span class="o">.</span><span class="n">setDefaultButton</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">No</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">mbox</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Yes</span><span class="p">:</span>
+                <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s2">&quot;update drivers set bajadriver = :baja where dnidriver = :dni&quot;</span><span class="p">)</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s2">&quot;:dni&quot;</span><span class="p">,</span> <span class="n">dni</span><span class="p">)</span>
+                <span class="c1"># query.bindValue(&quot;:baja&quot;, None)</span>
+                <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                    <span class="n">mbox</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Aviso&quot;</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Information</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Conductor dado de alta&quot;</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+                    <span class="n">drivers</span><span class="o">.</span><span class="n">Drivers</span><span class="o">.</span><span class="n">cargarTablaDriver</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">mbox</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Aviso&quot;</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Warning</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;El conductor no se pudo dar de alta&quot;</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">mbox</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                <span class="n">mbox</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Aviso&quot;</span><span class="p">)</span>
+                <span class="n">mbox</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Warning</span><span class="p">)</span>
+                <span class="n">mbox</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Conductor no dado de alta&quot;</span><span class="p">)</span>
+                <span class="n">mbox</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error al dar alta de nuevo conductor en BD&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Conexion.conductorEstaDadoDeBaja">
+<a class="viewcode-back" href="../src/conexion.html#conexion.Conexion.conductorEstaDadoDeBaja">[documentos]</a>
+    <span class="k">def</span> <span class="nf">conductorEstaDadoDeBaja</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dni</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Verifica si un conductor está dado de baja en la base de datos.</span>
+
+<span class="sd">            Este método ejecuta una consulta SQL para obtener la fecha de baja de un conductor</span>
+<span class="sd">            y verifica si está dado de baja.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                dni (str): DNI del conductor.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                bool: True si el conductor está dado de baja, False en caso contrario.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+        <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s2">&quot;SELECT bajadriver FROM drivers WHERE dnidriver = :dni&quot;</span><span class="p">)</span>
+        <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s2">&quot;:dni&quot;</span><span class="p">,</span> <span class="n">dni</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span> <span class="ow">and</span> <span class="n">query</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+            <span class="n">bajadriver_value</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">bajadriver_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">bajadriver_value</span> <span class="o">!=</span> <span class="mi">0</span>
+
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="Conexion.driversEstadoAlta">
+<a class="viewcode-back" href="../src/conexion.html#conexion.Conexion.driversEstadoAlta">[documentos]</a>
+    <span class="k">def</span> <span class="nf">driversEstadoAlta</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Obtiene la lista de conductores que están actualmente dados de alta.</span>
+
+<span class="sd">            Este método ejecuta una consulta SQL para obtener la información de los conductores</span>
+<span class="sd">            que están en estado de alta (sin fecha de baja).</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                list: Lista de conductores en estado de alta. Cada elemento de la lista es una lista</span>
+<span class="sd">                      que representa la información de un conductor.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">conductores_alta</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s2">&quot;select codigo, apeldriver, nombredriver, movildriver, &quot;</span>
+                          <span class="s2">&quot;carnet, bajadriver from drivers where bajadriver is null&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                <span class="k">while</span> <span class="n">query</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+                    <span class="n">conductor</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">)]</span>
+                    <span class="n">conductores_alta</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">conductor</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">conductores_alta</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error al obtener conductores de alta:&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">[]</span></div>
+
+
+<div class="viewcode-block" id="Conexion.driversEstadoBaja">
+<a class="viewcode-back" href="../src/conexion.html#conexion.Conexion.driversEstadoBaja">[documentos]</a>
+    <span class="k">def</span> <span class="nf">driversEstadoBaja</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                    Obtiene la lista de conductores que están actualmente dados de baja.</span>
+
+<span class="sd">                    Este método ejecuta una consulta SQL para obtener la información de los conductores</span>
+<span class="sd">                    que están en estado de baja (fecha no esta a null).</span>
+
+<span class="sd">                    Returns:</span>
+<span class="sd">                        list: Lista de conductores en estado de baja. Cada elemento de la lista es una lista</span>
+<span class="sd">                              que representa la información de un conductor.</span>
+
+<span class="sd">                    &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">conductores_baja</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s2">&quot;select codigo, apeldriver, nombredriver, movildriver, &quot;</span>
+                          <span class="s2">&quot;carnet, bajadriver from drivers where bajadriver is not null&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                <span class="k">while</span> <span class="n">query</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+                    <span class="n">conductor</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">)]</span>
+                    <span class="n">conductores_baja</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">conductor</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">conductores_baja</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error al obtener conductores de baja:&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">[]</span></div>
+
+
+<div class="viewcode-block" id="Conexion.conductorExiste">
+<a class="viewcode-back" href="../src/conexion.html#conexion.Conexion.conductorExiste">[documentos]</a>
+    <span class="k">def</span> <span class="nf">conductorExiste</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dni</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Verifica si un conductor existe en la base de datos.</span>
+
+<span class="sd">            Este método ejecuta una consulta SQL para contar la cantidad de registros en la tabla</span>
+<span class="sd">            de conductores que tienen el DNI especificado.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                dni (str): DNI del conductor.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                bool: True si el conductor existe, False en caso contrario.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+        <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s2">&quot;SELECT COUNT(*) FROM drivers WHERE bajadriver = :dni&quot;</span><span class="p">)</span>
+        <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s2">&quot;:dni&quot;</span><span class="p">,</span> <span class="n">dni</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span> <span class="ow">and</span> <span class="n">query</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+            <span class="n">count</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">count</span> <span class="o">&gt;</span> <span class="mi">0</span>
+
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;ZONA DE FACTURACION&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="Conexion.altaFacturacion">
+<a class="viewcode-back" href="../src/conexion.html#conexion.Conexion.altaFacturacion">[documentos]</a>
+    <span class="k">def</span> <span class="nf">altaFacturacion</span><span class="p">(</span><span class="n">nuevaFactura</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Registra una nueva factura en la base de datos.</span>
+
+<span class="sd">            Este método verifica que los campos necesarios no estén vacíos y que el cliente asociado a la factura</span>
+<span class="sd">            exista y esté dado de alta. Luego, comprueba si la factura ya existe antes de insertarla en la base de datos.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                nuevaFactura (list): Lista que contiene los datos de la nueva factura [DNI Cliente, Fecha, Conductor].</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">field</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">nuevaFactura</span><span class="p">[:</span><span class="mi">3</span><span class="p">]):</span>
+                <span class="n">Conexion</span><span class="o">.</span><span class="n">show_warning</span><span class="p">(</span><span class="s2">&quot;Faltan datos:</span><span class="se">\n</span><span class="s2"> Cliente, Alta Factura, Conductor no pueden estar vacíos&quot;</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">Conexion</span><span class="o">.</span><span class="n">comprobarCliente</span><span class="p">(</span><span class="n">nuevaFactura</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                <span class="n">Conexion</span><span class="o">.</span><span class="n">show_warning</span><span class="p">(</span><span class="s2">&quot;Cliente dado de baja. No se puede dar de alta la factura.&quot;</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="ow">not</span> <span class="n">Conexion</span><span class="o">.</span><span class="n">existeCliente</span><span class="p">(</span><span class="n">nuevaFactura</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                <span class="n">Conexion</span><span class="o">.</span><span class="n">show_warning</span><span class="p">(</span><span class="s2">&quot;Cliente no registrado en la base de datos&quot;</span><span class="p">)</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Verificar si la factura ya existe</span>
+                <span class="k">if</span> <span class="n">Conexion</span><span class="o">.</span><span class="n">existeFactura</span><span class="p">(</span><span class="n">nuevaFactura</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">nuevaFactura</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">nuevaFactura</span><span class="p">[</span><span class="mi">2</span><span class="p">]):</span>
+                    <span class="n">Conexion</span><span class="o">.</span><span class="n">show_warning</span><span class="p">(</span><span class="s2">&quot;La factura ya existe en la base de datos&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+                    <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s1">&#39;INSERT INTO facturas (dnicliente, fecha, driver) VALUES (:dni, :fecha, :driver)&#39;</span><span class="p">)</span>
+                    <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:dni&#39;</span><span class="p">,</span> <span class="n">nuevaFactura</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                    <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:fecha&#39;</span><span class="p">,</span> <span class="n">nuevaFactura</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                    <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:driver&#39;</span><span class="p">,</span> <span class="n">nuevaFactura</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+
+
+                    <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                        <span class="n">Conexion</span><span class="o">.</span><span class="n">show_info</span><span class="p">(</span><span class="s2">&quot;Factura guardada. </span><span class="se">\n</span><span class="s2"> Se recomienda añadir un viaje&quot;</span><span class="p">)</span>
+                        <span class="n">Conexion</span><span class="o">.</span><span class="n">cargarFacturas</span><span class="p">(</span><span class="bp">self</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+                        <span class="n">factura_id</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">lastInsertId</span><span class="p">()</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="n">factura_id</span><span class="p">)</span>
+                        <span class="k">return</span> <span class="n">factura_id</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">Conexion</span><span class="o">.</span><span class="n">show_warning</span><span class="p">(</span><span class="s2">&quot;ERROR AL GRABAR LA FACTURA&quot;</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error al dar de alta la factura&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+
+
+<div class="viewcode-block" id="Conexion.existeFactura">
+<a class="viewcode-back" href="../src/conexion.html#conexion.Conexion.existeFactura">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">existeFactura</span><span class="p">(</span><span class="n">dni_cliente</span><span class="p">,</span> <span class="n">fecha</span><span class="p">,</span> <span class="n">driver</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Verifica si una factura ya existe en la base de datos.</span>
+
+<span class="sd">            Este método comprueba si hay una factura con los mismos valores de DNI Cliente, Fecha y Conductor en la base de datos.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                dni_cliente (str): DNI del cliente asociado a la factura.</span>
+<span class="sd">                fecha (str): Fecha de la factura.</span>
+<span class="sd">                driver (str): Conductor asociado a la factura.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                bool: True si la factura existe, False en caso contrario.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+        <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s1">&#39;SELECT COUNT(*) FROM facturas WHERE dnicliente = :dni AND fecha = :fecha AND driver = :driver&#39;</span><span class="p">)</span>
+        <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:dni&#39;</span><span class="p">,</span> <span class="n">dni_cliente</span><span class="p">)</span>
+        <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:fecha&#39;</span><span class="p">,</span> <span class="n">fecha</span><span class="p">)</span>
+        <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:driver&#39;</span><span class="p">,</span> <span class="n">driver</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span> <span class="ow">and</span> <span class="n">query</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+            <span class="k">return</span> <span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+    <span class="c1">#VERIFICA QUE EL CLIENT ESTA DADO DE BAJKA</span>
+<div class="viewcode-block" id="Conexion.comprobarCliente">
+<a class="viewcode-back" href="../src/conexion.html#conexion.Conexion.comprobarCliente">[documentos]</a>
+    <span class="k">def</span> <span class="nf">comprobarCliente</span><span class="p">(</span><span class="n">dato</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Comprueba si un cliente existe en la base de datos y está dado de baja.</span>
+
+<span class="sd">            Este método verifica si el DNI del cliente existe en la tabla de clientes y si está dado de baja.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                dato (str): DNI del cliente a comprobar.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                bool: True si el cliente existe y está dado de baja, False en caso contrario.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Verificar si el DNI existe en la tabla clientes y no está dado de baja</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM clientes WHERE dnicliente = :dni and bajacliente is not null&quot;</span><span class="p">)</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s2">&quot;:dni&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">dato</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error al comprobar cliente baja&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+    <span class="c1"># VERIFICA QUE EL DNI DEL CLIENTE EXISTE</span>
+<div class="viewcode-block" id="Conexion.existeCliente">
+<a class="viewcode-back" href="../src/conexion.html#conexion.Conexion.existeCliente">[documentos]</a>
+    <span class="k">def</span> <span class="nf">existeCliente</span><span class="p">(</span><span class="n">dato</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Comprueba si un cliente existe en la base de datos y no está dado de baja.</span>
+
+<span class="sd">            Este método verifica si el DNI del cliente existe en la tabla de clientes y si no está dado de baja.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                dato (str): DNI del cliente a comprobar.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                bool: True si el cliente existe y no está dado de baja, False en caso contrario.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Verificar si el DNI existe en la tabla clientes</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM clientes WHERE dnicliente = :dni and bajacliente is null&quot;</span><span class="p">)</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s2">&quot;:dni&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">dato</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error al comprobar si existe el cliente&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="Conexion.cargarFacturas">
+<a class="viewcode-back" href="../src/conexion.html#conexion.Conexion.cargarFacturas">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">cargarFacturas</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Carga las facturas desde la base de datos y actualiza la tabla de facturas en la interfaz gráfica.</span>
+
+<span class="sd">            Este método realiza una consulta a la base de datos para obtener las facturas y luego llama al método</span>
+<span class="sd">            cargarTablaFacturas de la clase Facturas para actualizar la interfaz gráfica con los nuevos datos.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                self: Parámetro opcional para permitir llamadas al método sin instancia específica.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">registro</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s2">&quot;select numfac, dnicliente from facturas&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                <span class="k">while</span> <span class="n">query</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+                    <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">record</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">())]</span>  <span class="c1"># funcion lambda</span>
+                    <span class="n">registro</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+
+            <span class="n">facturas</span><span class="o">.</span><span class="n">Facturas</span><span class="o">.</span><span class="n">cargarTablaFacturas</span><span class="p">(</span><span class="n">registro</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ERROR CARGAR FACTURA&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Conexion.cargarViaje">
+<a class="viewcode-back" href="../src/conexion.html#conexion.Conexion.cargarViaje">[documentos]</a>
+    <span class="k">def</span> <span class="nf">cargarViaje</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Carga los datos de viajes desde la base de datos y actualiza la tabla de viajes en la interfaz gráfica.</span>
+
+<span class="sd">            Este método realiza una consulta a la base de datos para obtener los datos de viajes y luego llama al método</span>
+<span class="sd">            cargarTablaViajes de la clase Viajes para actualizar la interfaz gráfica con los nuevos datos.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                self: Parámetro opcional para permitir llamadas al método sin instancia específica.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">registro</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s2">&quot;select factura, origen, destino, tarifa, km from viajes&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                <span class="k">while</span> <span class="n">query</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+                    <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">record</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">())]</span>  <span class="c1"># funcion lambda</span>
+                    <span class="n">registro</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+            <span class="n">viajes</span><span class="o">.</span><span class="n">Viajes</span><span class="o">.</span><span class="n">cargarTablaViajes</span><span class="p">(</span><span class="n">registro</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ERROR CARGAR FACTURA&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+
+
+
+
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;ZONA FUNCIONES WARNING Y AVISOS&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Conexion.show_warning">
+<a class="viewcode-back" href="../src/conexion.html#conexion.Conexion.show_warning">[documentos]</a>
+    <span class="k">def</span> <span class="nf">show_warning</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Muestra un cuadro de diálogo de advertencia con el mensaje proporcionado.</span>
+
+<span class="sd">            Este método crea y muestra un cuadro de diálogo de advertencia con un ícono de advertencia y el mensaje proporcionado.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="n">mbox</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+        <span class="n">mbox</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+        <span class="n">mbox</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="s1">&#39;./IMG/aviso.jpg&#39;</span><span class="p">))</span>
+        <span class="n">mbox</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Warning</span><span class="p">)</span>
+        <span class="n">mbox</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="n">mbox</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Conexion.show_info">
+<a class="viewcode-back" href="../src/conexion.html#conexion.Conexion.show_info">[documentos]</a>
+    <span class="k">def</span> <span class="nf">show_info</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Muestra un cuadro de diálogo informativo con el mensaje proporcionado.</span>
+
+<span class="sd">            Este método crea y muestra un cuadro de diálogo informativo con un ícono de información y el mensaje proporcionado.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                message (str): El mensaje a mostrar en el cuadro de diálogo.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="n">mbox</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+        <span class="n">mbox</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Aviso&quot;</span><span class="p">)</span>
+        <span class="n">mbox</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Information</span><span class="p">)</span>
+        <span class="n">mbox</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="n">mbox</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span></div>
+</div>
+
+
+
+
+
+
+
+
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Ir a" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">documentación de VieraFernandez2324 - v.0.0.1</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Código de módulo</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">conexion</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2024, Elias.
+      Creado usando <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    </div>
+  </body>
+</html>

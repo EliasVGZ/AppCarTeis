@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+<html lang="es" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>informes module &#8212; documentación de VieraFernandez2324 - v.0.0.1</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css?v=514cf933" />
+    
+    <script src="../_static/documentation_options.js?v=8ee129b9"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=efdbd0b9"></script>
+    
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">documentación de VieraFernandez2324 - v.0.0.1</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">informes module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-informes">
+<span id="informes-module"></span><h1>informes module<a class="headerlink" href="#module-informes" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="informes.Informes">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">informes.</span></span><span class="sig-name descname"><span class="pre">Informes</span></span><a class="reference internal" href="../_modules/informes.html#Informes"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#informes.Informes" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="informes.Informes.elegirinforme">
+<span class="sig-name descname"><span class="pre">elegirinforme</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/informes.html#Informes.elegirinforme"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#informes.Informes.elegirinforme" title="Link to this definition">¶</a></dt>
+<dd><p>Permite al usuario elegir qué informes desea generar.</p>
+<p>Este método muestra un cuadro de diálogo con opciones para generar informes de conductores y/o clientes.
+Si el usuario elige generar informes, se ejecutan los informes correspondientes y se muestra un mensaje de aviso.</p>
+<p>Parameters:
+- self: Referencia a la instancia actual de la clase.</p>
+<p>Returns:
+- None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="informes.Informes.existeViajeEnFactura">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">existeViajeEnFactura</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">numero_factura</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/informes.html#Informes.existeViajeEnFactura"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#informes.Informes.existeViajeEnFactura" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="informes.Informes.footInforme">
+<span class="sig-name descname"><span class="pre">footInforme</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/informes.html#Informes.footInforme"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#informes.Informes.footInforme" title="Link to this definition">¶</a></dt>
+<dd><p>Crea el pie de página para un informe en formato PDF.</p>
+<p>Este método configura el pie de página para un informe en formato PDF, incluyendo una línea de separación,
+la fecha actual, el título del informe y el número de página.</p>
+<p>Parameters:
+- titulo: Título del informe.</p>
+<p>Returns:
+- None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="informes.Informes.limpiar_cadena_para_conversion">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">limpiar_cadena_para_conversion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cadena</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/informes.html#Informes.limpiar_cadena_para_conversion"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#informes.Informes.limpiar_cadena_para_conversion" title="Link to this definition">¶</a></dt>
+<dd><p>Elimina caracteres no numéricos y convierte la cadena a float.</p>
+<p>Este método toma una cadena como entrada, elimina todos los caracteres no numéricos y convierte la cadena resultante a float.</p>
+<p>Parameters:
+- cadena: Cadena de entrada.</p>
+<p>Returns:
+- float: Valor numérico resultante después de limpiar la cadena.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="informes.Informes.reportclientes">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reportclientes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/informes.html#Informes.reportclientes"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#informes.Informes.reportclientes" title="Link to this definition">¶</a></dt>
+<dd><p>Genera un informe en formato PDF con un listado de clientes.</p>
+<p>Este método utiliza la biblioteca ReportLab para crear un informe PDF que contiene un listado de clientes.
+Los datos se obtienen de la base de datos y se presentan en forma tabular en el informe.</p>
+<p>Parameters:
+- self: Referencia a la instancia actual de la clase.</p>
+<p>Returns:
+- None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="informes.Informes.reportconductores">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reportconductores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/informes.html#Informes.reportconductores"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#informes.Informes.reportconductores" title="Link to this definition">¶</a></dt>
+<dd><p>Genera un informe en formato PDF con un listado de conductores.</p>
+<p>Este método utiliza la biblioteca ReportLab para crear un informe PDF que contiene un listado de conductores.
+Los datos se obtienen de la base de datos y se presentan en forma tabular en el informe.</p>
+<p>Parameters:
+- self: Referencia a la instancia actual de la clase.</p>
+<p>Returns:
+- None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="informes.Informes.reportfacturas">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reportfacturas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/informes.html#Informes.reportfacturas"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#informes.Informes.reportfacturas" title="Link to this definition">¶</a></dt>
+<dd><p>Genera un informe en formato PDF con detalles de las facturas.</p>
+<p>Este método utiliza la biblioteca ReportLab para crear un informe PDF que contiene detalles de las facturas,
+incluyendo información sobre los viajes asociados a la factura y los totales.</p>
+<p>Parameters:
+- self: Referencia a la instancia actual de la clase.</p>
+<p>Returns:
+- None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="informes.Informes.topInforme">
+<span class="sig-name descname"><span class="pre">topInforme</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/informes.html#Informes.topInforme"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#informes.Informes.topInforme" title="Link to this definition">¶</a></dt>
+<dd><p>Crea la cabecera del informe en formato PDF.</p>
+<p>Este método configura la cabecera del informe PDF, incluyendo el nombre de la empresa, el título del informe,
+la línea de separación y la información de contacto.</p>
+<p>Parameters:
+- titulo: Título del informe.</p>
+<p>Returns:
+- None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="informes.Informes.topInformeFactura">
+<span class="sig-name descname"><span class="pre">topInformeFactura</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/informes.html#Informes.topInformeFactura"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#informes.Informes.topInformeFactura" title="Link to this definition">¶</a></dt>
+<dd><p>Crea la cabecera específica para un informe de factura en formato PDF.</p>
+<p>Este método configura la cabecera específica para un informe de factura en formato PDF, incluyendo el nombre de la empresa,
+el título del informe, la línea de separación, el logo y la información del cliente asociado a la factura.</p>
+<p>Parameters:
+- titulo: Título del informe.</p>
+<p>Returns:
+- None</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Tabla de contenido</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">informes module</a><ul>
+<li><a class="reference internal" href="#informes.Informes"><code class="docutils literal notranslate"><span class="pre">Informes</span></code></a><ul>
+<li><a class="reference internal" href="#informes.Informes.elegirinforme"><code class="docutils literal notranslate"><span class="pre">Informes.elegirinforme()</span></code></a></li>
+<li><a class="reference internal" href="#informes.Informes.existeViajeEnFactura"><code class="docutils literal notranslate"><span class="pre">Informes.existeViajeEnFactura()</span></code></a></li>
+<li><a class="reference internal" href="#informes.Informes.footInforme"><code class="docutils literal notranslate"><span class="pre">Informes.footInforme()</span></code></a></li>
+<li><a class="reference internal" href="#informes.Informes.limpiar_cadena_para_conversion"><code class="docutils literal notranslate"><span class="pre">Informes.limpiar_cadena_para_conversion()</span></code></a></li>
+<li><a class="reference internal" href="#informes.Informes.reportclientes"><code class="docutils literal notranslate"><span class="pre">Informes.reportclientes()</span></code></a></li>
+<li><a class="reference internal" href="#informes.Informes.reportconductores"><code class="docutils literal notranslate"><span class="pre">Informes.reportconductores()</span></code></a></li>
+<li><a class="reference internal" href="#informes.Informes.reportfacturas"><code class="docutils literal notranslate"><span class="pre">Informes.reportfacturas()</span></code></a></li>
+<li><a class="reference internal" href="#informes.Informes.topInforme"><code class="docutils literal notranslate"><span class="pre">Informes.topInforme()</span></code></a></li>
+<li><a class="reference internal" href="#informes.Informes.topInformeFactura"><code class="docutils literal notranslate"><span class="pre">Informes.topInformeFactura()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>Esta página</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/src/informes.rst.txt"
+            rel="nofollow">Mostrar el código</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Ir a" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">documentación de VieraFernandez2324 - v.0.0.1</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">informes module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2024, Elias.
+      Creado usando <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    </div>
+  </body>
+</html>

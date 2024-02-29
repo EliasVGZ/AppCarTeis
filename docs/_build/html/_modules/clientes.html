@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+
+<html lang="es" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>clientes &#8212; documentación de VieraFernandez2324 - v.0.0.1</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css?v=514cf933" />
+    
+    <script src="../_static/documentation_options.js?v=8ee129b9"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=efdbd0b9"></script>
+    
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">documentación de VieraFernandez2324 - v.0.0.1</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Código de módulo</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">clientes</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Código fuente para clientes</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">re</span>
+
+<span class="kn">from</span> <span class="nn">PyQt6</span> <span class="kn">import</span> <span class="n">QtWidgets</span><span class="p">,</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">QtSql</span>
+<span class="kn">from</span> <span class="nn">PyQt6.QtWidgets</span> <span class="kn">import</span> <span class="n">QComboBox</span>
+
+<span class="kn">import</span> <span class="nn">conexion</span>
+<span class="kn">import</span> <span class="nn">conexionClientes</span>
+<span class="kn">import</span> <span class="nn">var</span>
+
+
+<div class="viewcode-block" id="Clientes">
+<a class="viewcode-back" href="../src/clientes.html#clientes.Clientes">[documentos]</a>
+<span class="k">class</span> <span class="nc">Clientes</span><span class="p">():</span>
+
+<div class="viewcode-block" id="Clientes.limpiarPanelCliente">
+<a class="viewcode-back" href="../src/clientes.html#clientes.Clientes.limpiarPanelCliente">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">limpiarPanelCliente</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Limpia los campos del panel de cliente en la interfaz gráfica.</span>
+
+<span class="sd">            Este método limpia los campos de texto y restablece la selección de los ComboBox en el panel de cliente en la interfaz</span>
+<span class="sd">            gráfica.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                self: Instancia de la clase.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">listawidgets</span> <span class="o">=</span> <span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblCodCliente</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDni2</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txt_razonSocial</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDireccionCliente</span><span class="p">,</span>
+                            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtTelefono</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbProvinciaCliente</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbLocalidadCliente</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">listawidgets</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="s1">&#39;setText&#39;</span><span class="p">):</span>
+                    <span class="n">i</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">QComboBox</span><span class="p">):</span>  <span class="c1"># borrar combobox</span>
+                    <span class="n">i</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error limpiando panel&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Clientes.cargarFecha">
+<a class="viewcode-back" href="../src/clientes.html#clientes.Clientes.cargarFecha">[documentos]</a>
+    <span class="k">def</span> <span class="nf">cargarFecha</span><span class="p">(</span><span class="n">qDate</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Carga la fecha seleccionada en el campo de texto correspondiente en la interfaz gráfica.</span>
+
+<span class="sd">            Este método recibe una fecha en formato QDate y la formatea para luego asignarla al campo de texto de alta de cliente</span>
+<span class="sd">            en la interfaz gráfica. Además, oculta el calendario después de cargar la fecha.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                qDate (QDate): Fecha seleccionada.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">{:02d}</span><span class="s1">/</span><span class="si">{:02d}</span><span class="s1">/</span><span class="si">{:4d}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">qDate</span><span class="o">.</span><span class="n">day</span><span class="p">(),</span> <span class="n">qDate</span><span class="o">.</span><span class="n">month</span><span class="p">(),</span> <span class="n">qDate</span><span class="o">.</span><span class="n">year</span><span class="p">()))</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtAltaCliente</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">calendar</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error en cargar fecha&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Clientes.validarTelefono">
+<a class="viewcode-back" href="../src/clientes.html#clientes.Clientes.validarTelefono">[documentos]</a>
+    <span class="k">def</span> <span class="nf">validarTelefono</span><span class="p">(</span><span class="bp">self</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Valida el formato del número de teléfono ingresado en la interfaz gráfica.</span>
+
+<span class="sd">            Este método verifica que el número de teléfono ingresado contenga solo dígitos. En caso de no cumplir con el formato</span>
+<span class="sd">            correcto, muestra un mensaje de aviso y limpia el campo de teléfono.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                self: Parámetro opcional para permitir llamadas al método sin instancia específica.</span>
+
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">telefono</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtTelefono</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">telefono</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Warning</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Escriba un número de teléfono correcto&#39;</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setStandardButtons</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Ok</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Ok</span><span class="p">)</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Aceptar&#39;</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setDefaultButton</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Ok</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+
+                <span class="c1"># Limpiar y enfocar el campo de teléfono</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtTelefono</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtTelefono</span><span class="o">.</span><span class="n">setFocus</span><span class="p">()</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;error al validar teléfono&#39;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Clientes.validarDni">
+<a class="viewcode-back" href="../src/clientes.html#clientes.Clientes.validarDni">[documentos]</a>
+    <span class="k">def</span> <span class="nf">validarDni</span><span class="p">(</span><span class="n">dni</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Valida el formato del número de DNI ingresado en la interfaz gráfica.</span>
+
+<span class="sd">            Este método verifica que el número de DNI ingresado cumpla con el formato y la letra de control correcta. Muestra un</span>
+<span class="sd">            mensaje de aviso y limpia el campo de DNI en caso de no cumplir con las condiciones.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                dni (str): Número de DNI a validar.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                bool: True si el DNI es válido, False si no lo es.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">dni</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">dni</span><span class="p">)</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDni2</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">dni</span><span class="p">))</span>
+            <span class="n">tabla</span> <span class="o">=</span> <span class="s2">&quot;TRWAGMYFPDXBNJZSQVHLCKE&quot;</span>
+            <span class="n">dig_ext</span> <span class="o">=</span> <span class="s2">&quot;XYZ&quot;</span>
+            <span class="n">reemp_digito_extranjero</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;X&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;Z&#39;</span><span class="p">:</span> <span class="s1">&#39;2&#39;</span><span class="p">}</span>
+            <span class="n">numeros</span> <span class="o">=</span> <span class="s2">&quot;1234567890&quot;</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dni</span><span class="p">)</span> <span class="o">==</span> <span class="mi">9</span><span class="p">:</span>  <span class="c1"># COMPRUEBO QUE SON 9</span>
+                <span class="n">dig_control</span> <span class="o">=</span> <span class="n">dni</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span>  <span class="c1"># TOMO LA LETRA DEL DNI QUE ESTÁ SITUADO EN LA POSICION 8</span>
+                <span class="n">dni</span> <span class="o">=</span> <span class="n">dni</span><span class="p">[:</span><span class="mi">8</span><span class="p">]</span>  <span class="c1"># tomo los numeros del dni</span>
+                <span class="k">if</span> <span class="n">dni</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">dig_ext</span><span class="p">:</span>
+                    <span class="n">dni</span> <span class="o">=</span> <span class="n">dni</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">dni</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">reemp_digito_extranjero</span><span class="p">[</span><span class="n">dni</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dni</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">([</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">dni</span> <span class="k">if</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">numeros</span><span class="p">])</span> <span class="ow">and</span> <span class="n">tabla</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">dni</span><span class="p">)</span> <span class="o">%</span> <span class="mi">23</span><span class="p">]</span> <span class="o">==</span> <span class="n">dig_control</span><span class="p">:</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblValidarDni_2</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s1">&#39;color:green;&#39;</span><span class="p">)</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblValidarDni_2</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;V&#39;</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblValidarDni_2</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s1">&#39;color:red;&#39;</span><span class="p">)</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblValidarDni_2</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDni2</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>  <span class="c1"># Limpia el campo de texto</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDni2</span><span class="o">.</span><span class="n">setFocus</span><span class="p">()</span>  <span class="c1"># Mantiene el foco en el campo de texto</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblValidarDni_2</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s1">&#39;color:red;&#39;</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblValidarDni_2</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDni2</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>  <span class="c1"># Limpia el campo de texto</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDni2</span><span class="o">.</span><span class="n">setFocus</span><span class="p">()</span>  <span class="c1"># Mantiene el foco en el campo de texto</span>
+
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error en validar dni&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Clientes.altaCliente">
+<a class="viewcode-back" href="../src/clientes.html#clientes.Clientes.altaCliente">[documentos]</a>
+    <span class="k">def</span> <span class="nf">altaCliente</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Realiza el proceso de dar de alta a un cliente en la base de datos.</span>
+
+<span class="sd">            Este método obtiene la información del cliente desde la interfaz gráfica, realiza algunas validaciones y luego llama al</span>
+<span class="sd">            método correspondiente en la clase `ConexionCliente` para guardar el nuevo cliente en la base de datos.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                self: Instancia de la clase.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+
+            <span class="n">cliente</span> <span class="o">=</span> <span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDni2</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtAltaCliente</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txt_razonSocial</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDireccionCliente</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtTelefono</span><span class="p">]</span>
+            <span class="n">newCliente</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">cliente</span><span class="p">:</span>
+                <span class="n">newCliente</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">title</span><span class="p">())</span>
+
+            <span class="c1">##AÑADIR PROVINCIAS AL CONDUCTOR</span>
+            <span class="n">prov</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbProvinciaCliente</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
+            <span class="n">newCliente</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">prov</span><span class="p">)</span>
+
+            <span class="n">muni</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbLocalidadCliente</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
+            <span class="n">newCliente</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">muni</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">newCliente</span><span class="p">)</span>
+
+            <span class="n">conexionClientes</span><span class="o">.</span><span class="n">ConexionCliente</span><span class="o">.</span><span class="n">guardarCliente</span><span class="p">(</span><span class="n">newCliente</span><span class="p">)</span>
+            <span class="n">Clientes</span><span class="o">.</span><span class="n">selEstadoCliente</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error alta cliente&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Clientes.borrarCliente">
+<a class="viewcode-back" href="../src/clientes.html#clientes.Clientes.borrarCliente">[documentos]</a>
+    <span class="k">def</span> <span class="nf">borrarCliente</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Realiza el proceso de dar de baja a un cliente en la base de datos.</span>
+
+<span class="sd">            Este método obtiene el DNI del cliente desde la interfaz gráfica, llama al método correspondiente en la clase</span>
+<span class="sd">            `ConexionCliente` para dar de baja al cliente en la base de datos y actualiza la lista de clientes en la interfaz.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                self: Instancia de la clase.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">dni</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDni2</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+            <span class="n">conexionClientes</span><span class="o">.</span><span class="n">ConexionCliente</span><span class="o">.</span><span class="n">borrarCliente</span><span class="p">(</span><span class="n">dni</span><span class="p">)</span>
+            <span class="n">conexionClientes</span><span class="o">.</span><span class="n">ConexionCliente</span><span class="o">.</span><span class="n">selectClientes</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="n">mbox</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+            <span class="n">mbox</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+            <span class="n">mbox</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Warning</span><span class="p">)</span>
+            <span class="n">mensaje</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;          Cliente no existe o no se puede dar de baja          &#39;</span><span class="p">)</span>
+            <span class="n">mbox</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">mensaje</span><span class="p">)</span>
+            <span class="n">mbox</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Clientes.modificaCliente">
+<a class="viewcode-back" href="../src/clientes.html#clientes.Clientes.modificaCliente">[documentos]</a>
+    <span class="k">def</span> <span class="nf">modificaCliente</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Realiza el proceso de modificar un cliente en la base de datos.</span>
+
+<span class="sd">            Este método obtiene la información del cliente desde la interfaz gráfica, llama al método correspondiente en la clase</span>
+<span class="sd">            `ConexionCliente` para modificar al cliente en la base de datos.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                self: Instancia de la clase.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cliente</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblCodCliente</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDni2</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtAltaCliente</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txt_razonSocial</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDireccionCliente</span><span class="p">,</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtTelefono</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbProvinciaCliente</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbLocalidadCliente</span>
+            <span class="p">]</span>
+
+            <span class="n">modificarNewCliente</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">cliente</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QComboBox</span><span class="p">):</span>
+                    <span class="n">modificarNewCliente</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">currentText</span><span class="p">())</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">modificarNewCliente</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">title</span><span class="p">())</span>
+
+            <span class="n">conexionClientes</span><span class="o">.</span><span class="n">ConexionCliente</span><span class="o">.</span><span class="n">modifCliente</span><span class="p">(</span><span class="n">modificarNewCliente</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error al modificar el cliente&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Clientes.cargarTablaClientes">
+<a class="viewcode-back" href="../src/clientes.html#clientes.Clientes.cargarTablaClientes">[documentos]</a>
+    <span class="k">def</span> <span class="nf">cargarTablaClientes</span><span class="p">(</span><span class="n">registros</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Carga los registros de clientes en la tabla de clientes en la interfaz gráfica.</span>
+
+<span class="sd">            Este método recibe una lista de registros de clientes y los muestra en la tabla de clientes en la interfaz gráfica.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                registros (list): Lista de registros de clientes.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+
+            <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">registro</span> <span class="ow">in</span> <span class="n">registros</span><span class="p">:</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabClientes</span><span class="o">.</span><span class="n">setRowCount</span><span class="p">(</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># crea una fila</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabClientes</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>  <span class="c1"># añadimos el new  en la tabla</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabClientes</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">1</span><span class="p">])))</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabClientes</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">2</span><span class="p">])))</span>  <span class="c1"># añadimos el new  en la tabla</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabClientes</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">3</span><span class="p">])))</span>  <span class="c1"># añadimos el new  en la tabla</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabClientes</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">4</span><span class="p">])))</span>
+
+                <span class="c1"># Alineamos los items seleccionados</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabClientes</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">setTextAlignment</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabClientes</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">setTextAlignment</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+
+                <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error mostrar tabla&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Clientes.cargaCliente">
+<a class="viewcode-back" href="../src/clientes.html#clientes.Clientes.cargaCliente">[documentos]</a>
+    <span class="k">def</span> <span class="nf">cargaCliente</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Carga los datos del cliente seleccionado en la interfaz gráfica.</span>
+
+<span class="sd">            Este método obtiene la fila seleccionada en la tabla de clientes, llama al método `oneCliente` en la clase</span>
+<span class="sd">            `ConexionCliente` para obtener los datos del cliente correspondiente y luego llama al método `cargarDatosCliente` para</span>
+<span class="sd">            mostrar los datos en la interfaz.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                self: Instancia de la clase.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">Clientes</span><span class="o">.</span><span class="n">limpiarPanelCliente</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+            <span class="n">row</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabClientes</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()</span>
+            <span class="n">fila</span> <span class="o">=</span> <span class="p">[</span><span class="n">dato</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="k">for</span> <span class="n">dato</span> <span class="ow">in</span> <span class="n">row</span><span class="p">]</span>
+            <span class="n">registro</span> <span class="o">=</span> <span class="n">conexionClientes</span><span class="o">.</span><span class="n">ConexionCliente</span><span class="o">.</span><span class="n">oneCliente</span><span class="p">(</span><span class="n">fila</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+            <span class="c1"># LLAMAMOS AL METODO CARGARDATOS PARA NO COPIAR CODIGO</span>
+            <span class="n">Clientes</span><span class="o">.</span><span class="n">cargarDatosCliente</span><span class="p">(</span><span class="n">registro</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error al cargar los datos de un cliente &quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Clientes.buscarClienteLupa">
+<a class="viewcode-back" href="../src/clientes.html#clientes.Clientes.buscarClienteLupa">[documentos]</a>
+    <span class="k">def</span> <span class="nf">buscarClienteLupa</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Busca y resalta un cliente en la tabla de clientes según el DNI ingresado.</span>
+
+<span class="sd">            Este método obtiene el DNI del cliente desde la interfaz gráfica, llama al método `codigoCliente` en la clase</span>
+<span class="sd">            `ConexionCliente` para obtener el código del cliente correspondiente y luego llama al método `cargarDatosCliente` para</span>
+<span class="sd">            mostrar los datos en la interfaz. Además, resalta la fila del cliente en la tabla.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                self: Instancia de la clase.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">dni</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDni2</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+            <span class="n">registro</span> <span class="o">=</span> <span class="n">conexionClientes</span><span class="o">.</span><span class="n">ConexionCliente</span><span class="o">.</span><span class="n">codigoCliente</span><span class="p">(</span><span class="n">dni</span><span class="p">)</span>
+            <span class="n">Clientes</span><span class="o">.</span><span class="n">cargarDatosCliente</span><span class="p">(</span><span class="n">registro</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtTodosCliente</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                <span class="n">estado</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">conexionClientes</span><span class="o">.</span><span class="n">ConexionCliente</span><span class="o">.</span><span class="n">selectClientes</span><span class="p">(</span><span class="n">estado</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtAltaCliente</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                <span class="n">estado</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="n">conexionClientes</span><span class="o">.</span><span class="n">ConexionCliente</span><span class="o">.</span><span class="n">selectClientes</span><span class="p">(</span><span class="n">estado</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtBajaCliente</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                <span class="n">estado</span> <span class="o">=</span> <span class="mi">2</span>
+                <span class="n">conexionClientes</span><span class="o">.</span><span class="n">ConexionCliente</span><span class="o">.</span><span class="n">selectClientes</span><span class="p">(</span><span class="n">estado</span><span class="p">)</span>
+
+            <span class="n">codigo</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblCodCliente</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">fila</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabClientes</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()):</span>
+                <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabClientes</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">fila</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">codigo</span><span class="p">):</span>
+                    <span class="k">for</span> <span class="n">columna</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabClientes</span><span class="o">.</span><span class="n">columnCount</span><span class="p">()):</span>
+                        <span class="n">item</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabClientes</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">fila</span><span class="p">,</span> <span class="n">columna</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">item</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                            <span class="n">item</span><span class="o">.</span><span class="n">setBackground</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QColor</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">241</span><span class="p">,</span> <span class="mi">150</span><span class="p">))</span>
+                    <span class="c1"># Hacer scroll hasta la fila resaltada</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabClientes</span><span class="o">.</span><span class="n">scrollToItem</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabClientes</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">fila</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+                    <span class="k">break</span>  <span class="c1"># Salir del bucle una vez que se encuentra el driver</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ERROR AL SELECCIONAR EL CLIENTE&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Clientes.cargarDatosCliente">
+<a class="viewcode-back" href="../src/clientes.html#clientes.Clientes.cargarDatosCliente">[documentos]</a>
+    <span class="k">def</span> <span class="nf">cargarDatosCliente</span><span class="p">(</span><span class="n">registro</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Carga los datos de un cliente en la interfaz gráfica.</span>
+
+<span class="sd">            Este método recibe un registro de cliente y carga los datos en los campos correspondientes de la interfaz gráfica.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                registro (list): Lista con los datos del cliente.</span>
+
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblCodCliente</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDni2</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtAltaCliente</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txt_razonSocial</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDireccionCliente</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">4</span><span class="p">]))</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtTelefono</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">5</span><span class="p">]))</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbProvinciaCliente</span><span class="o">.</span><span class="n">setCurrentText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">6</span><span class="p">]))</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbLocalidadCliente</span><span class="o">.</span><span class="n">setCurrentText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">7</span><span class="p">]))</span>
+
+
+            <span class="c1">#AL CLICKEAR ENCIMA DEUN CLIENTE ME APARECE SU DNI EN CLIENTE DE LA TABLA FACTURACION</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtcifcliente</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="n">registro</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error al cargar los datos de un cliente &quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Clientes.selEstadoCliente">
+<a class="viewcode-back" href="../src/clientes.html#clientes.Clientes.selEstadoCliente">[documentos]</a>
+    <span class="k">def</span> <span class="nf">selEstadoCliente</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Selecciona y muestra los clientes según el estado elegido (todos, alta o baja).</span>
+
+<span class="sd">            Este método verifica qué opción de estado de cliente (todos, alta o baja) está seleccionada y llama al método</span>
+<span class="sd">            correspondiente en la clase `ConexionCliente` para seleccionar y mostrar los clientes en la interfaz gráfica.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                self: Instancia de la clase.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtTodosCliente</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>  <span class="c1">##FUNCION PARA VERIFICAR QUE SE CLICKEO ENCIMA</span>
+                <span class="n">estado</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">conexionClientes</span><span class="o">.</span><span class="n">ConexionCliente</span><span class="o">.</span><span class="n">selectClientes</span><span class="p">(</span><span class="n">estado</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtAltaCliente</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+
+                <span class="n">estado</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="n">conexionClientes</span><span class="o">.</span><span class="n">ConexionCliente</span><span class="o">.</span><span class="n">selectClientes</span><span class="p">(</span><span class="n">estado</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtBajaCliente</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+
+                <span class="n">estado</span> <span class="o">=</span> <span class="mi">2</span>
+                <span class="n">conexionClientes</span><span class="o">.</span><span class="n">ConexionCliente</span><span class="o">.</span><span class="n">selectClientes</span><span class="p">(</span><span class="n">estado</span><span class="p">)</span>
+
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error en selEstado:&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Clientes.buscarClienteTabla">
+<a class="viewcode-back" href="../src/clientes.html#clientes.Clientes.buscarClienteTabla">[documentos]</a>
+    <span class="k">def</span> <span class="nf">buscarClienteTabla</span><span class="p">(</span><span class="n">codigo</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Busca y selecciona un cliente en la tabla de clientes según su código.</span>
+
+<span class="sd">            Este método recibe el código del cliente y busca la fila correspondiente en la tabla de clientes en la interfaz gráfica.</span>
+<span class="sd">            Luego, selecciona la fila y realiza un scroll para que sea visible en la ventana.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                codigo (int): Código del cliente a buscar.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">tabla</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabClientes</span>
+            <span class="k">for</span> <span class="n">fila</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">tabla</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()):</span>
+                <span class="n">item</span> <span class="o">=</span> <span class="n">tabla</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">fila</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="n">valorCelda</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">valorCelda</span> <span class="o">==</span> <span class="nb">int</span><span class="p">(</span><span class="n">codigo</span><span class="p">):</span>
+                    <span class="n">tabla</span><span class="o">.</span><span class="n">selectRow</span><span class="p">(</span><span class="n">fila</span><span class="p">)</span>
+                    <span class="n">tabla</span><span class="o">.</span><span class="n">scrollToItem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Fila encontrada:&quot;</span><span class="p">,</span> <span class="n">fila</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No se ha podido seleccionar al cliente en la tabla&#39;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Ir a" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">documentación de VieraFernandez2324 - v.0.0.1</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Código de módulo</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">clientes</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2024, Elias.
+      Creado usando <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    </div>
+  </body>
+</html>

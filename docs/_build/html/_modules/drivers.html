@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+
+<html lang="es" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>drivers &#8212; documentación de VieraFernandez2324 - v.0.0.1</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css?v=514cf933" />
+    
+    <script src="../_static/documentation_options.js?v=8ee129b9"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=efdbd0b9"></script>
+    
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">documentación de VieraFernandez2324 - v.0.0.1</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Código de módulo</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">drivers</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Código fuente para drivers</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">re</span>
+
+<span class="kn">from</span> <span class="nn">PyQt6</span> <span class="kn">import</span> <span class="n">QtWidgets</span><span class="p">,</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">QtSql</span>
+<span class="kn">from</span> <span class="nn">PyQt6.QtWidgets</span> <span class="kn">import</span> <span class="n">QComboBox</span>
+
+<span class="kn">import</span> <span class="nn">conexion</span>
+<span class="kn">import</span> <span class="nn">facturas</span>
+<span class="kn">import</span> <span class="nn">var</span>
+
+
+<div class="viewcode-block" id="Drivers">
+<a class="viewcode-back" href="../src/drivers.html#drivers.Drivers">[documentos]</a>
+<span class="k">class</span> <span class="nc">Drivers</span><span class="p">():</span>
+
+<div class="viewcode-block" id="Drivers.limpiarPanel">
+<a class="viewcode-back" href="../src/drivers.html#drivers.Drivers.limpiarPanel">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">limpiarPanel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Limpia y restablece los valores de los widgets en el panel de la interfaz gráfica.</span>
+
+<span class="sd">            Este método limpia y restablece los valores de varios widgets en el panel de la interfaz gráfica,</span>
+<span class="sd">            incluyendo etiquetas, campos de texto, y checkboxes. Es útil para preparar el panel para la introducción</span>
+<span class="sd">            de nuevos datos o después de realizar ciertas operaciones.</span>
+
+<span class="sd">            Parámetros:</span>
+<span class="sd">                self: Parámetro opcional, generalmente utilizado en métodos de clases.</span>
+
+<span class="sd">            Retorna:</span>
+<span class="sd">                None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">listawidgets</span> <span class="o">=</span> <span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblCodbd</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDni</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtFechaAlta</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtApellido</span><span class="p">,</span>
+                            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtFechaAlta</span><span class="p">,</span>
+                            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDireccion</span><span class="p">,</span>
+                            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtMovil</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtSalario</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtNombre</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblValidarDni</span><span class="p">,</span>
+                            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbProvincia</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbLocalidad</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">listawidgets</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="s1">&#39;setText&#39;</span><span class="p">):</span>
+                    <span class="n">i</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">QComboBox</span><span class="p">):</span>  <span class="c1"># borrar combobox</span>
+                    <span class="n">i</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="n">chkLicencia</span> <span class="o">=</span> <span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkA</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkB</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkC</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkD</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">chkLicencia</span><span class="p">:</span>
+                <span class="n">i</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error limpiando panel&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Drivers.cargarFecha">
+<a class="viewcode-back" href="../src/drivers.html#drivers.Drivers.cargarFecha">[documentos]</a>
+    <span class="k">def</span> <span class="nf">cargarFecha</span><span class="p">(</span><span class="n">qDate</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Carga la fecha seleccionada en el calendario en el campo de texto correspondiente.</span>
+
+<span class="sd">            Este método toma la fecha seleccionada en un calendario y la muestra en el campo de texto</span>
+<span class="sd">            correspondiente en el formato &#39;dd/mm/yyyy&#39;. Luego, oculta el calendario.</span>
+
+<span class="sd">            Parámetros:</span>
+<span class="sd">                qDate (QDate): Objeto QDate que representa la fecha seleccionada.</span>
+
+<span class="sd">            Retorna:</span>
+<span class="sd">                None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">{:02d}</span><span class="s1">/</span><span class="si">{:02d}</span><span class="s1">/</span><span class="si">{:4d}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">qDate</span><span class="o">.</span><span class="n">day</span><span class="p">(),</span> <span class="n">qDate</span><span class="o">.</span><span class="n">month</span><span class="p">(),</span> <span class="n">qDate</span><span class="o">.</span><span class="n">year</span><span class="p">()))</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtFechaAlta</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">calendar</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error en cargar fecha&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Drivers.validarSalario">
+<a class="viewcode-back" href="../src/drivers.html#drivers.Drivers.validarSalario">[documentos]</a>
+    <span class="k">def</span> <span class="nf">validarSalario</span><span class="p">(</span><span class="bp">self</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Valida y formatea el valor del salario ingresado en el campo de texto.</span>
+
+<span class="sd">            Este método toma el valor ingresado en el campo de salario y lo valida según un patrón regular.</span>
+<span class="sd">            Si el valor no cumple con el patrón, muestra un mensaje de aviso en la interfaz gráfica.</span>
+<span class="sd">            Formatea el valor del salario en el campo de texto si es correcto.</span>
+
+<span class="sd">            Parámetros:</span>
+<span class="sd">                self: Parámetro opcional, generalmente utilizado en métodos de clases.</span>
+
+<span class="sd">            Retorna:</span>
+<span class="sd">                None</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">salario</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtSalario</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">salario</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtSalario</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">salario</span><span class="p">)</span>
+                <span class="n">patronReg</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^\d{1,8}(\.\d{1,2})?$&#39;</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">patronReg</span><span class="p">,</span> <span class="n">salario</span><span class="p">):</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                    <span class="n">msg</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+                    <span class="n">msg</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Information</span><span class="p">)</span>
+                    <span class="n">msg</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Valor de Salario Incorrecto (00000000.00)&#39;</span><span class="p">)</span>
+                    <span class="n">msg</span><span class="o">.</span><span class="n">setStandardButtons</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Ok</span><span class="p">)</span>
+                    <span class="n">msg</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Ok</span><span class="p">)</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Aceptar&#39;</span><span class="p">)</span>
+                    <span class="n">msg</span><span class="o">.</span><span class="n">setDefaultButton</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Ok</span><span class="p">)</span>
+                    <span class="n">msg</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtSalario</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtSalario</span><span class="o">.</span><span class="n">setFocus</span><span class="p">()</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;error poner salario&#39;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="Drivers.validarMovil">
+<a class="viewcode-back" href="../src/drivers.html#drivers.Drivers.validarMovil">[documentos]</a>
+    <span class="k">def</span> <span class="nf">validarMovil</span><span class="p">(</span><span class="bp">self</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Valida el número de móvil ingresado en el campo de texto.</span>
+
+<span class="sd">            Este método toma el número de móvil ingresado en el campo de texto y lo valida según un patrón regular.</span>
+<span class="sd">            Si el número no cumple con el patrón, muestra un mensaje de aviso en la interfaz gráfica.</span>
+<span class="sd">            Asegura que el apellido y el nombre estén capitalizados.</span>
+
+<span class="sd">            Parámetros:</span>
+<span class="sd">                self: Parámetro opcional, generalmente utilizado en métodos de clases.</span>
+
+<span class="sd">            Retorna:</span>
+<span class="sd">                None</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtApellido</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtApellido</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">title</span><span class="p">())</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtNombre</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtNombre</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">title</span><span class="p">())</span>
+            <span class="n">movil</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtMovil</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtMovil</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">movil</span><span class="p">)</span>
+            <span class="n">patron</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^\d</span><span class="si">{9}</span><span class="s1">$&#39;</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">patron</span><span class="p">,</span> <span class="n">movil</span><span class="p">):</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Warning</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Escriba un número de móvil correcto (9 digitos)&#39;</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setStandardButtons</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Ok</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Ok</span><span class="p">)</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Aceptar&#39;</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setDefaultButton</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Ok</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtMovil</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtMovil</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtMovil</span><span class="o">.</span><span class="n">setFocus</span><span class="p">()</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;error poner movil&#39;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+
+    <span class="c1">#@staticmethod</span>
+<div class="viewcode-block" id="Drivers.validarDni">
+<a class="viewcode-back" href="../src/drivers.html#drivers.Drivers.validarDni">[documentos]</a>
+    <span class="k">def</span> <span class="nf">validarDni</span><span class="p">(</span><span class="n">dni</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Valida el formato y la letra de control de un DNI.</span>
+
+<span class="sd">            Este método toma un DNI como parámetro, lo formatea y valida su formato y letra de control.</span>
+<span class="sd">            Muestra un indicador visual en la interfaz gráfica (&#39;V&#39; en verde si es válido, &#39;X&#39; en rojo si es inválido).</span>
+<span class="sd">            Limpia el campo de texto y mantiene el foco en el campo si el DNI es inválido.</span>
+
+<span class="sd">            Parámetros:</span>
+<span class="sd">                dni (str): Número de DNI a validar.</span>
+
+<span class="sd">            Retorna:</span>
+<span class="sd">                bool: True si el DNI es válido, False si es inválido.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">dni</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">dni</span><span class="p">)</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDni</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">dni</span><span class="p">))</span>
+            <span class="n">tabla</span> <span class="o">=</span> <span class="s2">&quot;TRWAGMYFPDXBNJZSQVHLCKE&quot;</span>
+            <span class="n">dig_ext</span> <span class="o">=</span> <span class="s2">&quot;XYZ&quot;</span>
+            <span class="n">reemp_digito_extranjero</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;X&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;Z&#39;</span><span class="p">:</span> <span class="s1">&#39;2&#39;</span><span class="p">}</span>
+            <span class="n">numeros</span> <span class="o">=</span> <span class="s2">&quot;1234567890&quot;</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dni</span><span class="p">)</span> <span class="o">==</span> <span class="mi">9</span><span class="p">:</span>  <span class="c1"># COMPRUEBO QUE SON 9</span>
+                <span class="n">dig_control</span> <span class="o">=</span> <span class="n">dni</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span>  <span class="c1"># TOMO LA LETRA DEL DNI QUE ESTÁ SITUADO EN LA POSICION 8</span>
+                <span class="n">dni</span> <span class="o">=</span> <span class="n">dni</span><span class="p">[:</span><span class="mi">8</span><span class="p">]</span>  <span class="c1"># tomo los numeros del dni</span>
+                <span class="k">if</span> <span class="n">dni</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">dig_ext</span><span class="p">:</span>
+                    <span class="n">dni</span> <span class="o">=</span> <span class="n">dni</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">dni</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">reemp_digito_extranjero</span><span class="p">[</span><span class="n">dni</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dni</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">([</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">dni</span> <span class="k">if</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">numeros</span><span class="p">])</span> <span class="ow">and</span> <span class="n">tabla</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">dni</span><span class="p">)</span> <span class="o">%</span> <span class="mi">23</span><span class="p">]</span> <span class="o">==</span> <span class="n">dig_control</span><span class="p">:</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblValidarDni</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s1">&#39;color:green;&#39;</span><span class="p">)</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblValidarDni</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;V&#39;</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblValidarDni</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s1">&#39;color:red;&#39;</span><span class="p">)</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblValidarDni</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDni</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>  <span class="c1"># Limpia el campo de texto</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDni</span><span class="o">.</span><span class="n">setFocus</span><span class="p">()</span>  <span class="c1"># Mantiene el foco en el campo de texto</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblValidarDni</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s1">&#39;color:red;&#39;</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblValidarDni</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDni</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>  <span class="c1"># Limpia el campo de texto</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDni</span><span class="o">.</span><span class="n">setFocus</span><span class="p">()</span>  <span class="c1"># Mantiene el foco en el campo de texto</span>
+
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error en validar dni&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Drivers.altaDriver">
+<a class="viewcode-back" href="../src/drivers.html#drivers.Drivers.altaDriver">[documentos]</a>
+    <span class="k">def</span> <span class="nf">altaDriver</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Realiza el proceso de dar de alta a un nuevo conductor en la base de datos.</span>
+
+<span class="sd">            Este método recopila la información ingresada en la interfaz gráfica para dar de alta a un nuevo conductor.</span>
+<span class="sd">            Verifica si el conductor ya está dado de baja y, en ese caso, lo vuelve a dar de alta.</span>
+<span class="sd">            Luego, guarda la información del nuevo conductor en la base de datos y actualiza la lista de conductores en la interfaz.</span>
+
+<span class="sd">            Parámetros:</span>
+<span class="sd">                self: Parámetro opcional, generalmente utilizado en métodos de clases.</span>
+
+<span class="sd">            Retorna:</span>
+<span class="sd">                None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">dni</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDni</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+            <span class="n">driver</span> <span class="o">=</span> <span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDni</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtFechaAlta</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtApellido</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtNombre</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDireccion</span><span class="p">,</span>
+                      <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtMovil</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtSalario</span><span class="p">]</span>
+            <span class="n">newDriver</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">driver</span><span class="p">:</span>
+                <span class="n">newDriver</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">title</span><span class="p">())</span>
+
+            <span class="c1">##AÑADIR PROVINCIAS AL CONDUCTOR</span>
+            <span class="n">prov</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbProvincia</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
+            <span class="n">newDriver</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">prov</span><span class="p">)</span>
+
+            <span class="n">muni</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbLocalidad</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
+            <span class="n">newDriver</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">muni</span><span class="p">)</span>
+
+            <span class="n">licencias</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">chkLicencia</span> <span class="o">=</span> <span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkA</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkB</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkC</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkD</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">chkLicencia</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                    <span class="n">licencias</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+            <span class="n">newDriver</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39; - &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">licencias</span><span class="p">))</span>
+
+            <span class="c1"># DAR DE ALTA UN CONDUCTOR QUE ESTABA DADO DE BAJA!!</span>
+            <span class="n">dni_nuevo_conductor</span> <span class="o">=</span> <span class="n">newDriver</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">conexion</span><span class="o">.</span><span class="n">Conexion</span><span class="o">.</span><span class="n">conductorEstaDadoDeBaja</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dni</span><span class="p">):</span>
+                <span class="n">conexion</span><span class="o">.</span><span class="n">Conexion</span><span class="o">.</span><span class="n">volverDarAlta</span><span class="p">(</span><span class="n">dni</span><span class="p">)</span>
+                <span class="n">conexion</span><span class="o">.</span><span class="n">Conexion</span><span class="o">.</span><span class="n">selectDrivers</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">valor</span> <span class="o">=</span> <span class="n">conexion</span><span class="o">.</span><span class="n">Conexion</span><span class="o">.</span><span class="n">guardarClick</span><span class="p">(</span><span class="n">newDriver</span><span class="p">)</span>
+                <span class="n">conexion</span><span class="o">.</span><span class="n">Conexion</span><span class="o">.</span><span class="n">selectDrivers</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">valor</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+                    <span class="n">mbox</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Information</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="s1">&#39;./IMG/alta_cliente.png&#39;</span><span class="p">))</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Empleado dado de alta&#39;</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+                <span class="k">elif</span> <span class="n">valor</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+                    <span class="n">mbox</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Warning</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error alta cliente&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; ESTE METODO LO VOY  CAMBIAR POR EL QUE TIENE DEBAJO </span>
+<span class="sd">    def cargarTablaDriver(registros):</span>
+<span class="sd">        try:</span>
+
+<span class="sd">            index = 0</span>
+<span class="sd">            for registro in registros:</span>
+<span class="sd">                var.ui.tabDrivers.setRowCount(index + 1)  # crea una fila</span>
+<span class="sd">                var.ui.tabDrivers.setItem(index, 0, QtWidgets.QTableWidgetItem(str(registro[0])))  # añadimos el new driver en la tabla</span>
+<span class="sd">                var.ui.tabDrivers.setItem(index, 1, QtWidgets.QTableWidgetItem(</span>
+<span class="sd">                    str(registro[1])))  # añadimos el new driver en la tabla</span>
+<span class="sd">                var.ui.tabDrivers.setItem(index, 2, QtWidgets.QTableWidgetItem(</span>
+<span class="sd">                    str(registro[2])))  # añadimos el new driver en la tabla</span>
+<span class="sd">                var.ui.tabDrivers.setItem(index, 3, QtWidgets.QTableWidgetItem(</span>
+<span class="sd">                    str(registro[3])))  # añadimos el new driver en la tabla</span>
+<span class="sd">                var.ui.tabDrivers.setItem(index, 4, QtWidgets.QTableWidgetItem(</span>
+<span class="sd">                    str(registro[4])))  # añadimos el new driver en la tabla</span>
+<span class="sd">                var.ui.tabDrivers.setItem(index, 5, QtWidgets.QTableWidgetItem(</span>
+<span class="sd">                    str(registro[5])))  # añadimos el new driver en la tabla</span>
+
+<span class="sd">                var.ui.tabDrivers.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)  # Alineamos los items seleccionados</span>
+<span class="sd">                var.ui.tabDrivers.item(index, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)</span>
+<span class="sd">                var.ui.tabDrivers.item(index, 4).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)</span>
+<span class="sd">                var.ui.tabDrivers.item(index, 5).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)</span>
+<span class="sd">                index += 1</span>
+
+
+<span class="sd">        except Exception as error:</span>
+<span class="sd">            print(&quot;Error mostrar tabla&quot;, error)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="Drivers.cargarTablaDriver">
+<a class="viewcode-back" href="../src/drivers.html#drivers.Drivers.cargarTablaDriver">[documentos]</a>
+    <span class="k">def</span> <span class="nf">cargarTablaDriver</span><span class="p">(</span><span class="n">registros</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Carga los registros de conductores en la tabla de conductores en la interfaz gráfica.</span>
+
+<span class="sd">            Este método recibe una lista de registros de conductores y los muestra en la tabla de conductores de la interfaz gráfica.</span>
+<span class="sd">            Alinea ciertas columnas al centro para mejorar la presentación.</span>
+
+<span class="sd">            Parámetros:</span>
+<span class="sd">                registros (list): Lista de registros de conductores.</span>
+
+<span class="sd">            Retorna:</span>
+<span class="sd">                None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">registro</span> <span class="ow">in</span> <span class="n">registros</span><span class="p">:</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabDrivers</span><span class="o">.</span><span class="n">setRowCount</span><span class="p">(</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># crea una fila en la tabla</span>
+
+                <span class="c1"># Añade elementos a la tabla en diferentes columnas</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">registro</span><span class="p">)):</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabDrivers</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="n">i</span><span class="p">])))</span>
+
+                <span class="c1"># Alinea los elementos en algunas columnas al centro</span>
+                <span class="k">for</span> <span class="n">col_index</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]:</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabDrivers</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">col_index</span><span class="p">)</span><span class="o">.</span><span class="n">setTextAlignment</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+
+                <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error mostrar tabla&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Drivers.cargaDriver">
+<a class="viewcode-back" href="../src/drivers.html#drivers.Drivers.cargaDriver">[documentos]</a>
+    <span class="k">def</span> <span class="nf">cargaDriver</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Carga los datos de un conductor seleccionado en la tabla en el panel de la interfaz gráfica.</span>
+
+<span class="sd">           Este método obtiene la fila seleccionada en la tabla de conductores y utiliza el código del conductor</span>
+<span class="sd">           para obtener y cargar sus datos en el panel de la interfaz gráfica.</span>
+
+<span class="sd">           Parámetros:</span>
+<span class="sd">               self: Parámetro opcional, generalmente utilizado en métodos de clases.</span>
+
+<span class="sd">           Retorna:</span>
+<span class="sd">               None</span>
+
+<span class="sd">           &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">Drivers</span><span class="o">.</span><span class="n">limpiarPanel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+            <span class="n">row</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabDrivers</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()</span>
+            <span class="n">fila</span> <span class="o">=</span> <span class="p">[</span><span class="n">dato</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="k">for</span> <span class="n">dato</span> <span class="ow">in</span> <span class="n">row</span><span class="p">]</span>
+            <span class="n">registro</span> <span class="o">=</span> <span class="n">conexion</span><span class="o">.</span><span class="n">Conexion</span><span class="o">.</span><span class="n">oneDriver</span><span class="p">(</span><span class="n">fila</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="c1"># LLAMAMOS AL METODO CARGARDATOS PARA NO COPIAR CODIGO</span>
+            <span class="n">Drivers</span><span class="o">.</span><span class="n">cargarDatos</span><span class="p">(</span><span class="n">registro</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">fila</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error al cargar los datos de un driver &quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+            
+
+
+    <span class="c1">##BOTON BUSCAR CONDUCTOR!!!!!!!!!!!!</span>
+<div class="viewcode-block" id="Drivers.buscarDriverLupa">
+<a class="viewcode-back" href="../src/drivers.html#drivers.Drivers.buscarDriverLupa">[documentos]</a>
+    <span class="k">def</span> <span class="nf">buscarDriverLupa</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Busca un conductor por DNI y resalta la fila correspondiente en la tabla de conductores.</span>
+
+<span class="sd">            Este método toma el DNI ingresado en el campo de texto, busca el conductor en la base de datos y carga sus datos</span>
+<span class="sd">            en el panel. Luego, selecciona la fila correspondiente en la tabla de conductores y la resalta.</span>
+
+<span class="sd">            Parámetros:</span>
+<span class="sd">                self: Parámetro opcional, generalmente utilizado en métodos de clases.</span>
+
+<span class="sd">            Retorna:</span>
+<span class="sd">                None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">dni</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDni</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+            <span class="n">registro</span> <span class="o">=</span> <span class="n">conexion</span><span class="o">.</span><span class="n">Conexion</span><span class="o">.</span><span class="n">codigoDriver</span><span class="p">(</span><span class="n">dni</span><span class="p">)</span>
+            <span class="n">Drivers</span><span class="o">.</span><span class="n">cargarDatos</span><span class="p">(</span><span class="n">registro</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtTodos</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                <span class="n">estado</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">conexion</span><span class="o">.</span><span class="n">Conexion</span><span class="o">.</span><span class="n">selectDrivers</span><span class="p">(</span><span class="n">estado</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtAlta</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                <span class="n">estado</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="n">conexion</span><span class="o">.</span><span class="n">Conexion</span><span class="o">.</span><span class="n">selectDrivers</span><span class="p">(</span><span class="n">estado</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtBaja</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                <span class="n">estado</span> <span class="o">=</span> <span class="mi">2</span>
+                <span class="n">conexion</span><span class="o">.</span><span class="n">Conexion</span><span class="o">.</span><span class="n">selectDrivers</span><span class="p">(</span><span class="n">estado</span><span class="p">)</span>
+
+            <span class="n">codigo</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblCodbd</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">fila</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabDrivers</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()):</span>
+                <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabDrivers</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">fila</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">codigo</span><span class="p">):</span>
+                    <span class="k">for</span> <span class="n">columna</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabDrivers</span><span class="o">.</span><span class="n">columnCount</span><span class="p">()):</span>
+                        <span class="n">item</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabDrivers</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">fila</span><span class="p">,</span> <span class="n">columna</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">item</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                            <span class="n">item</span><span class="o">.</span><span class="n">setBackground</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QColor</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">241</span><span class="p">,</span> <span class="mi">150</span><span class="p">))</span>
+                    <span class="c1"># Hacer scroll hasta la fila resaltada</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabDrivers</span><span class="o">.</span><span class="n">scrollToItem</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabDrivers</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">fila</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+                    <span class="k">break</span>  <span class="c1"># Salir del bucle una vez que se encuentra el driver</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ERROR AL SELECCIONAR EL CONDUCTOR&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+    <span class="c1"># BUSCAR EL CONDUCTOR Y LO MARQUE EN LA TABLA</span>
+<div class="viewcode-block" id="Drivers.buscarDriverTabla">
+<a class="viewcode-back" href="../src/drivers.html#drivers.Drivers.buscarDriverTabla">[documentos]</a>
+    <span class="k">def</span> <span class="nf">buscarDriverTabla</span><span class="p">(</span><span class="n">codigo</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Busca y selecciona la fila de un conductor en la tabla de conductores según su código.</span>
+
+<span class="sd">            Este método toma el código de un conductor como parámetro y busca la fila correspondiente en la tabla de conductores.</span>
+<span class="sd">            Selecciona y hace scroll hasta la fila encontrada.</span>
+
+<span class="sd">            Parámetros:</span>
+<span class="sd">                codigo (int): Código del conductor a buscar y seleccionar en la tabla.</span>
+
+<span class="sd">            Retorna:</span>
+<span class="sd">                None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">tabla</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabDrivers</span>
+            <span class="k">for</span> <span class="n">fila</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">tabla</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()):</span>
+                <span class="n">item</span> <span class="o">=</span> <span class="n">tabla</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">fila</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="n">valorCelda</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">valorCelda</span> <span class="o">==</span> <span class="nb">int</span><span class="p">(</span><span class="n">codigo</span><span class="p">):</span>
+                    <span class="n">tabla</span><span class="o">.</span><span class="n">selectRow</span><span class="p">(</span><span class="n">fila</span><span class="p">)</span>
+                    <span class="n">tabla</span><span class="o">.</span><span class="n">scrollToItem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Fila encontrada:&quot;</span><span class="p">,</span> <span class="n">fila</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No se ha podido seleccionar al driver en la tabla&#39;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Drivers.cargarDatos">
+<a class="viewcode-back" href="../src/drivers.html#drivers.Drivers.cargarDatos">[documentos]</a>
+    <span class="k">def</span> <span class="nf">cargarDatos</span><span class="p">(</span><span class="n">registro</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Carga los datos de un conductor en los elementos de la interfaz gráfica.</span>
+
+<span class="sd">            Este método recibe un registro de conductor y carga sus datos en los elementos correspondientes de la interfaz gráfica,</span>
+<span class="sd">            incluyendo campos de texto, elementos desplegables y casillas de verificación.</span>
+
+<span class="sd">            Parámetros:</span>
+<span class="sd">                registro (list): Lista que contiene los datos de un conductor.</span>
+
+<span class="sd">            Retorna:</span>
+<span class="sd">                None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">datos</span> <span class="o">=</span> <span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblCodbd</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDni</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtFechaAlta</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtApellido</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtNombre</span><span class="p">,</span>
+                     <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDireccion</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbProvincia</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbLocalidad</span><span class="p">,</span>
+                     <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtMovil</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtSalario</span><span class="p">]</span>
+            <span class="c1"># CARGAR LOS DATOS CUANDO CLICKEAMOS ENCIMA DE ALGUN DRIVER</span>
+            <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">dato</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">datos</span><span class="p">):</span>
+                <span class="c1"># si el índice j es igual a 6 o 7. Si es el caso, significa que dato se refiere a un elemento desplegable (cmbProvincia o cmbLocalidad).</span>
+                <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">6</span> <span class="ow">or</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">7</span><span class="p">:</span>
+                    <span class="c1"># se utiliza el método setCurrentText para establecer el texto seleccionado en el elemento desplegable, utilizando el valor str(registro[j]).</span>
+                    <span class="n">dato</span><span class="o">.</span><span class="n">setCurrentText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="n">j</span><span class="p">]))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">dato</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="n">j</span><span class="p">]))</span>
+
+            <span class="k">if</span> <span class="s1">&#39;A&#39;</span> <span class="ow">in</span> <span class="n">registro</span><span class="p">[</span><span class="mi">10</span><span class="p">]:</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkA</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkA</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s1">&#39;B&#39;</span> <span class="ow">in</span> <span class="n">registro</span><span class="p">[</span><span class="mi">10</span><span class="p">]:</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkB</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkB</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s1">&#39;C&#39;</span> <span class="ow">in</span> <span class="n">registro</span><span class="p">[</span><span class="mi">10</span><span class="p">]:</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkC</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkC</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s1">&#39;D&#39;</span> <span class="ow">in</span> <span class="n">registro</span><span class="p">[</span><span class="mi">10</span><span class="p">]:</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkD</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkD</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="n">registro</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error al cargar los datos de un conductor &quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Drivers.modificarDriver">
+<a class="viewcode-back" href="../src/drivers.html#drivers.Drivers.modificarDriver">[documentos]</a>
+    <span class="k">def</span> <span class="nf">modificarDriver</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Modifica los datos de un conductor en la base de datos.</span>
+
+<span class="sd">            Este método recopila la información modificada en la interfaz gráfica y la utiliza para actualizar</span>
+<span class="sd">            los datos del conductor en la base de datos.</span>
+
+<span class="sd">            Parámetros:</span>
+<span class="sd">                self: Parámetro opcional, generalmente utilizado en métodos de clases.</span>
+
+<span class="sd">            Retorna:</span>
+<span class="sd">                None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">driver</span> <span class="o">=</span> <span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblCodbd</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDni</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtFechaAlta</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtApellido</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtNombre</span><span class="p">,</span>
+                      <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDireccion</span><span class="p">,</span>
+                      <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtMovil</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtSalario</span><span class="p">]</span>
+            <span class="n">modificarNewDriver</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">driver</span><span class="p">:</span>
+                <span class="n">modificarNewDriver</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">title</span><span class="p">())</span>
+
+            <span class="c1">##AÑADIR PROVINCIAS AL CONDUCTOR</span>
+            <span class="n">prov</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbProvincia</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
+            <span class="n">modificarNewDriver</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">prov</span><span class="p">)</span>
+            <span class="n">muni</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbLocalidad</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
+            <span class="n">modificarNewDriver</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="n">muni</span><span class="p">)</span>
+
+            <span class="n">licencias</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">chkLicencia</span> <span class="o">=</span> <span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkA</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkB</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkC</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkD</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">chkLicencia</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                    <span class="n">licencias</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+
+            <span class="n">modificarNewDriver</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39; - &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">licencias</span><span class="p">))</span>
+            <span class="n">conexion</span><span class="o">.</span><span class="n">Conexion</span><span class="o">.</span><span class="n">modifDriver</span><span class="p">(</span><span class="n">modificarNewDriver</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error al modificar el driverrrrrrrrrrrrrrrrrr&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Drivers.borrarDriver">
+<a class="viewcode-back" href="../src/drivers.html#drivers.Drivers.borrarDriver">[documentos]</a>
+    <span class="k">def</span> <span class="nf">borrarDriver</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Borra un conductor de la base de datos.</span>
+
+<span class="sd">            Este método toma el DNI del conductor a borrar desde el campo de texto y utiliza la función</span>
+<span class="sd">            correspondiente en la clase de conexión para eliminar al conductor de la base de datos.</span>
+<span class="sd">            Luego, actualiza la lista de conductores en la interfaz gráfica y recarga el combo box de facturas.</span>
+
+<span class="sd">            Parámetros:</span>
+<span class="sd">                self: Parámetro opcional, generalmente utilizado en métodos de clases.</span>
+
+<span class="sd">            Retorna:</span>
+<span class="sd">                None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">dni</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDni</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+            <span class="n">conexion</span><span class="o">.</span><span class="n">Conexion</span><span class="o">.</span><span class="n">borraDriv</span><span class="p">(</span><span class="n">dni</span><span class="p">)</span>  <span class="c1"># Función EN conexion y le paso el dni</span>
+            <span class="n">conexion</span><span class="o">.</span><span class="n">Conexion</span><span class="o">.</span><span class="n">selectDrivers</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">facturas</span><span class="o">.</span><span class="n">Facturas</span><span class="o">.</span><span class="n">cargadrivers</span><span class="p">()</span><span class="c1">#SI DAMOS DE BAJA UN DRIVER SE ACTUALIZA EL COMBOBOX DE FACTURAS</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="n">mbox</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+            <span class="n">mbox</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+            <span class="n">mbox</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Warning</span><span class="p">)</span>
+            <span class="n">mensaje</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;          Conductor no existe o no se puede dar de baja          &#39;</span><span class="p">)</span>
+            <span class="n">mbox</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">mensaje</span><span class="p">)</span>
+            <span class="n">mbox</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Drivers.selEstado">
+<a class="viewcode-back" href="../src/drivers.html#drivers.Drivers.selEstado">[documentos]</a>
+    <span class="k">def</span> <span class="nf">selEstado</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Selecciona y muestra los conductores según el estado elegido (todos, alta, baja).</span>
+
+<span class="sd">            Este método se encarga de verificar qué radio button está seleccionado en la interfaz gráfica y llama a la función</span>
+<span class="sd">            correspondiente en la clase de conexión para seleccionar y mostrar los conductores según el estado elegido.</span>
+
+<span class="sd">            Parámetros:</span>
+<span class="sd">                self: Parámetro opcional, generalmente utilizado en métodos de clases.</span>
+
+<span class="sd">            Retorna:</span>
+<span class="sd">                None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtTodos</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>  <span class="c1">##FUNCION PARA VERIFICAR QUE SE CLICKEO ENCIMA</span>
+                <span class="n">estado</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">conexion</span><span class="o">.</span><span class="n">Conexion</span><span class="o">.</span><span class="n">selectDrivers</span><span class="p">(</span><span class="n">estado</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtAlta</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+
+                <span class="n">estado</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="n">conexion</span><span class="o">.</span><span class="n">Conexion</span><span class="o">.</span><span class="n">selectDrivers</span><span class="p">(</span><span class="n">estado</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtBaja</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+
+                <span class="n">estado</span> <span class="o">=</span> <span class="mi">2</span>
+                <span class="n">conexion</span><span class="o">.</span><span class="n">Conexion</span><span class="o">.</span><span class="n">selectDrivers</span><span class="p">(</span><span class="n">estado</span><span class="p">)</span>
+
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error en selEstado:&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+</div>
+
+
+
+
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Ir a" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">documentación de VieraFernandez2324 - v.0.0.1</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Código de módulo</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">drivers</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2024, Elias.
+      Creado usando <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    </div>
+  </body>
+</html>

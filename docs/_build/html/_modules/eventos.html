@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+
+<html lang="es" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>eventos &#8212; documentación de VieraFernandez2324 - v.0.0.1</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css?v=514cf933" />
+    
+    <script src="../_static/documentation_options.js?v=8ee129b9"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=efdbd0b9"></script>
+    
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">documentación de VieraFernandez2324 - v.0.0.1</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Código de módulo</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">eventos</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Código fuente para eventos</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os.path</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="kn">import</span> <span class="nn">xlrd</span>
+<span class="kn">from</span> <span class="nn">PyQt6</span> <span class="kn">import</span> <span class="n">QtWidgets</span><span class="p">,</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtSql</span>
+
+<span class="kn">import</span> <span class="nn">conexionClientes</span>
+<span class="kn">import</span> <span class="nn">drivers</span><span class="o">,</span> <span class="nn">clientes</span>
+<span class="kn">import</span> <span class="nn">var</span><span class="o">,</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">locale</span><span class="o">,</span> <span class="nn">zipfile</span><span class="o">,</span> <span class="nn">shutil</span><span class="o">,</span> <span class="nn">conexion</span><span class="o">,</span> <span class="nn">xlwt</span>
+
+<span class="n">locale</span><span class="o">.</span><span class="n">setlocale</span><span class="p">(</span><span class="n">locale</span><span class="o">.</span><span class="n">LC_TIME</span><span class="p">,</span> <span class="s1">&#39;es_ES.UTF-8&#39;</span><span class="p">)</span>
+<span class="n">locale</span><span class="o">.</span><span class="n">setlocale</span><span class="p">(</span><span class="n">locale</span><span class="o">.</span><span class="n">LC_MONETARY</span><span class="p">,</span> <span class="s1">&#39;es_ES.UTF-8&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Eventos">
+<a class="viewcode-back" href="../src/eventos.html#eventos.Eventos">[documentos]</a>
+<span class="k">class</span> <span class="nc">Eventos</span><span class="p">():</span>
+
+<div class="viewcode-block" id="Eventos.salir">
+<a class="viewcode-back" href="../src/eventos.html#eventos.Eventos.salir">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">salir</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Muestra la ventana de confirmación para salir de la aplicación.</span>
+
+<span class="sd">           Este método estático muestra la ventana de confirmación para salir de la aplicación cuando se activa la opción</span>
+<span class="sd">           correspondiente en la interfaz gráfica.</span>
+
+<span class="sd">           Retorna:</span>
+<span class="sd">               None</span>
+
+<span class="sd">           &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">salir</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="s2">&quot;en modulos eventos&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Eventos.abrirCalendario">
+<a class="viewcode-back" href="../src/eventos.html#eventos.Eventos.abrirCalendario">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">abrirCalendario</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Abre la ventana del calendario.</span>
+
+<span class="sd">            Este método estático abre la ventana del calendario cuando se activa la opción correspondiente en la interfaz gráfica.</span>
+
+<span class="sd">            Parámetros:</span>
+<span class="sd">                self: Parámetro opcional, generalmente utilizado en métodos de clases.</span>
+
+<span class="sd">            Retorna:</span>
+<span class="sd">                None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">calendar</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error en abrir calendario&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Eventos.acercade">
+<a class="viewcode-back" href="../src/eventos.html#eventos.Eventos.acercade">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">acercade</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Abre la ventana de Acerca de.</span>
+
+<span class="sd">            Este método estático abre la ventana de Acerca de cuando se activa la opción correspondiente en la interfaz gráfica.</span>
+
+<span class="sd">            Retorna:</span>
+<span class="sd">                None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">dlgacercade</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error abrir ventana acerca de&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Eventos.cerraracercade">
+<a class="viewcode-back" href="../src/eventos.html#eventos.Eventos.cerraracercade">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">cerraracercade</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Cierra la ventana de Acerca de.</span>
+
+<span class="sd">            Este método estático cierra la ventana de Acerca de cuando se activa la opción correspondiente en la interfaz gráfica.</span>
+
+<span class="sd">            Retorna:</span>
+<span class="sd">                None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">dlgacercade</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;error abrir ventana acerca de&#39;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Eventos.cerrarsalir">
+<a class="viewcode-back" href="../src/eventos.html#eventos.Eventos.cerrarsalir">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">cerrarsalir</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Cierra la ventana de confirmación para salir.</span>
+
+<span class="sd">            Este método estático cierra la ventana de confirmación para salir cuando se activa la opción correspondiente en la</span>
+<span class="sd">            interfaz gráfica.</span>
+
+<span class="sd">            Retorna:</span>
+<span class="sd">                None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">dlgsalir</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;error abrir ventana acerca de&#39;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Eventos.mostrarsalir">
+<a class="viewcode-back" href="../src/eventos.html#eventos.Eventos.mostrarsalir">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">mostrarsalir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Muestra la ventana de confirmación para salir.</span>
+
+<span class="sd">        Este método estático muestra la ventana de confirmación para salir cuando se activa la opción correspondiente en la</span>
+<span class="sd">        interfaz gráfica.</span>
+
+<span class="sd">        Parámetros:</span>
+<span class="sd">            self: Parámetro opcional, generalmente utilizado en métodos de clases.</span>
+<span class="sd">            event: Evento asociado a la acción que activa la ventana.</span>
+
+<span class="sd">        Retorna:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">dlgsalir</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;error abrir ventana acerca de&#39;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Eventos.aceptar">
+<a class="viewcode-back" href="../src/eventos.html#eventos.Eventos.aceptar">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">aceptar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Cierra la aplicación.</span>
+
+<span class="sd">        Este método estático cierra la aplicación cuando se activa la opción correspondiente en la interfaz gráfica.</span>
+
+<span class="sd">        Parámetros:</span>
+<span class="sd">            self: Parámetro opcional, generalmente utilizado en métodos de clases.</span>
+
+<span class="sd">        Retorna:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Eventos.cancelar">
+<a class="viewcode-back" href="../src/eventos.html#eventos.Eventos.cancelar">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">cancelar</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Oculta el cuadro de diálogo de salir.</span>
+
+<span class="sd">        Este método estático oculta el cuadro de diálogo de salir cuando se activa la opción correspondiente en la interfaz</span>
+<span class="sd">        gráfica.</span>
+
+<span class="sd">        Retorna:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">var</span><span class="o">.</span><span class="n">salir</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Eventos.cargarstatusbar">
+<a class="viewcode-back" href="../src/eventos.html#eventos.Eventos.cargarstatusbar">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">cargarstatusbar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Carga los elementos en la barra de estado de la interfaz de usuario.</span>
+
+<span class="sd">           Este método estático es responsable de agregar dos etiquetas a la barra de estado:</span>
+<span class="sd">           1. Una etiqueta que muestra la fecha actual en formato &quot;Día - DD/MM/AAAA&quot;.</span>
+<span class="sd">           2. Otra etiqueta que muestra la versión de la aplicación.</span>
+
+<span class="sd">           Parameters:</span>
+<span class="sd">           - self: Referencia a la instancia actual de la clase.</span>
+
+<span class="sd">           Note:</span>
+<span class="sd">           - Este método utiliza la clase `QtWidgets.QLabel` para crear etiquetas de texto.</span>
+<span class="sd">           - La fecha se formatea utilizando la fecha y hora actuales en formato &quot;Día - DD/MM/AAAA&quot;.</span>
+<span class="sd">           - La versión de la aplicación se obtiene de la variable global `var.version`.</span>
+<span class="sd">           - Las etiquetas se agregan a la barra de estado con alineaciones específicas.</span>
+
+<span class="sd">           &quot;&quot;&quot;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">fecha</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%A  -  &quot;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y&quot;</span><span class="p">)</span>
+            <span class="n">fecha</span> <span class="o">=</span> <span class="n">fecha</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">labelstatus</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="n">fecha</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">labelstatus</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignHCenter</span><span class="p">)</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">statusbar</span><span class="o">.</span><span class="n">addPermanentWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labelstatus</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">labelstatusversion</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;Version: &quot;</span> <span class="o">+</span> <span class="n">var</span><span class="o">.</span><span class="n">version</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">labelstatusversion</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignRight</span><span class="p">)</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">statusbar</span><span class="o">.</span><span class="n">addPermanentWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labelstatusversion</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error cargar el statusbar: &#39;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Eventos.resizeTabDrivers">
+<a class="viewcode-back" href="../src/eventos.html#eventos.Eventos.resizeTabDrivers">[documentos]</a>
+    <span class="k">def</span> <span class="nf">resizeTabDrivers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Ajusta el tamaño de las columnas en la tabla de la interfaz de usuario.</span>
+
+<span class="sd">            Este método ajusta el tamaño de las columnas en la tabla de controladores (tabDrivers) de la interfaz de usuario.</span>
+<span class="sd">            Las columnas se ajustan de acuerdo con las siguientes reglas:</span>
+<span class="sd">            - La primera, cuarta y quinta columna se ajustan al contenido.</span>
+<span class="sd">            - La segunda y tercera columna se ajustan para ocupar todo el espacio disponible.</span>
+
+<span class="sd">            Parameters:</span>
+<span class="sd">            - self: Referencia a la instancia actual de la clase.</span>
+
+<span class="sd">            Note:</span>
+<span class="sd">            - Este método utiliza la clase `QtWidgets.QHeaderView` para ajustar el tamaño de las columnas.</span>
+<span class="sd">            - Las columnas se ajustan según la sección de la cabecera de la tabla.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">header</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabDrivers</span><span class="o">.</span><span class="n">horizontalHeader</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">4</span> <span class="ow">or</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                    <span class="n">header</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QHeaderView</span><span class="o">.</span><span class="n">ResizeMode</span><span class="o">.</span><span class="n">ResizeToContents</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                    <span class="n">header</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QHeaderView</span><span class="o">.</span><span class="n">ResizeMode</span><span class="o">.</span><span class="n">Stretch</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error al dimensionar la tabla&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Eventos.resizeTabFacturas">
+<a class="viewcode-back" href="../src/eventos.html#eventos.Eventos.resizeTabFacturas">[documentos]</a>
+    <span class="k">def</span> <span class="nf">resizeTabFacturas</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Ajusta el tamaño de las columnas en la tabla de facturas de la interfaz de usuario.</span>
+
+<span class="sd">            Este método ajusta el tamaño de las columnas en la tabla de facturas (tabFacturas) de la interfaz de usuario.</span>
+<span class="sd">            Las columnas se ajustan de acuerdo con las siguientes reglas:</span>
+<span class="sd">            - La primera columna se ajusta al contenido.</span>
+<span class="sd">            - La segunda columna se ajusta para ocupar todo el espacio disponible.</span>
+
+<span class="sd">            Parameters:</span>
+<span class="sd">            - self: Referencia a la instancia actual de la clase.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">header</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabFacturas</span><span class="o">.</span><span class="n">horizontalHeader</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">header</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QHeaderView</span><span class="o">.</span><span class="n">ResizeMode</span><span class="o">.</span><span class="n">ResizeToContents</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">header</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QHeaderView</span><span class="o">.</span><span class="n">ResizeMode</span><span class="o">.</span><span class="n">Stretch</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error al dimensionar la tabla facturas&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Eventos.resizeTabClientes">
+<a class="viewcode-back" href="../src/eventos.html#eventos.Eventos.resizeTabClientes">[documentos]</a>
+    <span class="k">def</span> <span class="nf">resizeTabClientes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Ajusta el tamaño de las columnas en la tabla de clientes de la interfaz de usuario.</span>
+
+<span class="sd">            Este método ajusta el tamaño de las columnas en la tabla de clientes (tabClientes) de la interfaz de usuario.</span>
+<span class="sd">            Las columnas se ajustan de acuerdo con las siguientes reglas:</span>
+<span class="sd">            - La primera y cuarta columna se ajustan al contenido.</span>
+<span class="sd">            - La segunda y tercera columna se ajustan para ocupar todo el espacio disponible.</span>
+
+<span class="sd">            Parameters:</span>
+<span class="sd">            - self: Referencia a la instancia actual de la clase.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">            - None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">header</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabClientes</span><span class="o">.</span><span class="n">horizontalHeader</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                    <span class="n">header</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QHeaderView</span><span class="o">.</span><span class="n">ResizeMode</span><span class="o">.</span><span class="n">ResizeToContents</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                    <span class="n">header</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QHeaderView</span><span class="o">.</span><span class="n">ResizeMode</span><span class="o">.</span><span class="n">Stretch</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error al dimensionar la tabla&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Eventos.formatCajaTexto">
+<a class="viewcode-back" href="../src/eventos.html#eventos.Eventos.formatCajaTexto">[documentos]</a>
+    <span class="k">def</span> <span class="nf">formatCajaTexto</span><span class="p">(</span><span class="bp">self</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Formatea el texto en varias cajas de texto de la interfaz de usuario.</span>
+
+<span class="sd">            Este método realiza operaciones de formateo en diferentes cajas de texto de la interfaz de usuario:</span>
+<span class="sd">            - La caja de texto &#39;txtApellido&#39; convierte el texto a título (primera letra de cada palabra en mayúscula).</span>
+<span class="sd">            - La caja de texto &#39;txtNombre&#39; convierte el texto a título.</span>
+<span class="sd">            - La caja de texto &#39;txtSalario&#39; formatea el número como una cadena de texto en formato de moneda, según la configuración regional actual.</span>
+<span class="sd">            - La caja de texto &#39;txtDni2&#39; convierte el texto a título.</span>
+<span class="sd">            - La caja de texto &#39;txt_razonSocial&#39; convierte el texto a título.</span>
+<span class="sd">            - La caja de texto &#39;txtDireccionCliente&#39; convierte el texto a título.</span>
+
+<span class="sd">            Parameters:</span>
+<span class="sd">            - self: Referencia a la instancia actual de la clase. Puede ser nulo.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">            - None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtApellido</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtApellido</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">title</span><span class="p">())</span>  <span class="c1"># Toma el texto del widget txtApellido, lo convierte a título (es decir, la primera letra de cada palabra en mayúscula)</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtNombre</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtNombre</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">title</span><span class="p">())</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtSalario</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">locale</span><span class="o">.</span><span class="n">currency</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtSalario</span><span class="o">.</span><span class="n">text</span><span class="p">()))))</span>  <span class="c1"># Formatea el número como una cadena de texto en formato de moneda según la configuración regional actual</span>
+
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDni2</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDni2</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">title</span><span class="p">())</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txt_razonSocial</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txt_razonSocial</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">title</span><span class="p">())</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDireccionCliente</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDireccionCliente</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">title</span><span class="p">())</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error poner letra capital en caja de texto&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Eventos.crearBackUp">
+<a class="viewcode-back" href="../src/eventos.html#eventos.Eventos.crearBackUp">[documentos]</a>
+    <span class="k">def</span> <span class="nf">crearBackUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Crea una copia de seguridad del archivo de la base de datos.</span>
+
+<span class="sd">            Este método genera una copia de seguridad del archivo de la base de datos en formato ZIP.</span>
+<span class="sd">            La copia de seguridad se guarda con un nombre que incluye la fecha y hora actual en el formato &#39;YYYY_MM_DD_HH_MM_SS&#39;.</span>
+<span class="sd">            Se utiliza un cuadro de diálogo para que el usuario seleccione la ubicación y el nombre del archivo de la copia de seguridad.</span>
+
+<span class="sd">            Parameters:</span>
+<span class="sd">            - self: Referencia a la instancia actual de la clase.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">            - None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">fecha</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+            <span class="n">fecha</span> <span class="o">=</span> <span class="n">fecha</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y_%m_</span><span class="si">%d</span><span class="s1">_%H_%M_%S&#39;</span><span class="p">)</span>  <span class="c1"># formato año, mes, dia, hora, minuto, segundos</span>
+            <span class="n">copia</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">fecha</span> <span class="o">+</span> <span class="s1">&#39;_backup.zip&#39;</span><span class="p">)</span>  <span class="c1"># nombre del fichero</span>
+            <span class="n">directorio</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">dlgabrir</span><span class="o">.</span><span class="n">getSaveFileName</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;Guardar Copia Seguridad&#39;</span><span class="p">,</span> <span class="n">copia</span><span class="p">,</span> <span class="s1">&#39;.zip&#39;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">dlgabrir</span><span class="o">.</span><span class="n">accept</span> <span class="ow">and</span> <span class="n">filename</span><span class="p">:</span>
+                <span class="n">fichzip</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">copia</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+                <span class="n">fichzip</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">bbdd</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">bbdd</span><span class="p">),</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZIP_DEFLATED</span><span class="p">)</span>
+                <span class="n">fichzip</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="n">shutil</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">copia</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">directorio</span><span class="p">))</span>
+                <span class="n">mbox</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                <span class="n">mbox</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+                <span class="n">mbox</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Information</span><span class="p">)</span>
+                <span class="n">mbox</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Copia de Seguridad creada &#39;</span><span class="p">)</span>
+                <span class="n">mbox</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="n">mbox</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+            <span class="n">mbox</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+            <span class="n">mbox</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Warning</span><span class="p">)</span>
+            <span class="n">mbox</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Error en Copia de Seguridad: &#39;</span><span class="p">)</span>
+            <span class="n">mbox</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Eventos.restaurarBackUp">
+<a class="viewcode-back" href="../src/eventos.html#eventos.Eventos.restaurarBackUp">[documentos]</a>
+    <span class="k">def</span> <span class="nf">restaurarBackUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Restaura una copia de seguridad previamente creada.</span>
+
+<span class="sd">            Este método permite al usuario seleccionar un archivo ZIP que contiene una copia de seguridad de la base de datos.</span>
+<span class="sd">            Luego, restaura la base de datos desde el archivo ZIP seleccionado.</span>
+<span class="sd">            Después de la restauración, se actualiza la vista de controladores en la interfaz de usuario.</span>
+
+<span class="sd">            Parameters:</span>
+<span class="sd">            - self: Referencia a la instancia actual de la clase.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">            - None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">dlgabrir</span><span class="o">.</span><span class="n">getOpenFileName</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;Restaurar Copia de Seguridad&#39;</span><span class="p">,</span>
+                                                    <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;*.zip;;All Files(*)&#39;</span><span class="p">)</span>
+            <span class="n">file</span> <span class="o">=</span> <span class="n">filename</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">dlgabrir</span><span class="o">.</span><span class="n">accept</span> <span class="ow">and</span> <span class="n">file</span><span class="p">:</span>
+                <span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">file</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">bbdd</span><span class="p">:</span>
+                    <span class="n">bbdd</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">pwd</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+                <span class="n">bbdd</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="n">conexion</span><span class="o">.</span><span class="n">Conexion</span><span class="o">.</span><span class="n">mostrarDrivers</span><span class="p">()</span>
+
+                <span class="n">msg</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setModal</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Information</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Copia de Seguridad Restaurada &#39;</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Warning</span><span class="p">)</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Error en Restauracion Copia Seguridad &#39;</span><span class="p">)</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Eventos.exportarDatosXls">
+<a class="viewcode-back" href="../src/eventos.html#eventos.Eventos.exportarDatosXls">[documentos]</a>
+    <span class="k">def</span> <span class="nf">exportarDatosXls</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Exporta datos de conductores a un archivo XLS.</span>
+
+<span class="sd">            Este método genera un archivo de hoja de cálculo XLS que contiene información sobre los conductores.</span>
+<span class="sd">            Utiliza la biblioteca xlwt para crear el archivo y escribir los datos.</span>
+<span class="sd">            La hoja de cálculo tiene columnas que representan diferentes atributos de los conductores.</span>
+
+<span class="sd">            Parameters:</span>
+<span class="sd">            - self: Referencia a la instancia actual de la clase.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">            - None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">fecha</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+            <span class="n">fecha</span> <span class="o">=</span> <span class="n">fecha</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y_%m_</span><span class="si">%d</span><span class="s1">_%H_%M_%S&#39;</span><span class="p">)</span>  <span class="c1"># formato año, mes, dia, hora, minuto, segundos</span>
+            <span class="n">file</span> <span class="o">=</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">fecha</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; _Datos.xls&#39;</span><span class="p">)</span>
+            <span class="n">directorio</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">dlgabrir</span><span class="o">.</span><span class="n">getSaveFileName</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;Exportar Datos en Fichero XLS&#39;</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="s1">&#39;.xls&#39;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">dlgabrir</span><span class="o">.</span><span class="n">accept</span> <span class="ow">and</span> <span class="n">filename</span><span class="p">:</span>
+                <span class="n">wb</span> <span class="o">=</span> <span class="n">xlwt</span><span class="o">.</span><span class="n">Workbook</span><span class="p">()</span>
+                <span class="n">sheet1</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">add_sheet</span><span class="p">(</span><span class="s1">&#39;Conductores&#39;</span><span class="p">)</span>
+                <span class="n">sheet1</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Codigo&#39;</span><span class="p">)</span>  <span class="c1"># el 0,0 es fila y columna</span>
+                <span class="n">sheet1</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;DNI&#39;</span><span class="p">)</span>
+                <span class="n">sheet1</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;Fecha Alta&#39;</span><span class="p">)</span>
+                <span class="n">sheet1</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;Apellidos&#39;</span><span class="p">)</span>
+                <span class="n">sheet1</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;Nombre&#39;</span><span class="p">)</span>
+                <span class="n">sheet1</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;Dirección&#39;</span><span class="p">)</span>
+                <span class="n">sheet1</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="s1">&#39;Provincia&#39;</span><span class="p">)</span>
+                <span class="n">sheet1</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;Municipio&#39;</span><span class="p">)</span>
+                <span class="n">sheet1</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;Móvil&#39;</span><span class="p">)</span>
+                <span class="n">sheet1</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="s1">&#39;Salario&#39;</span><span class="p">)</span>
+                <span class="n">sheet1</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;Carnet&#39;</span><span class="p">)</span>
+                <span class="n">sheet1</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="s1">&#39;Fecha baja&#39;</span><span class="p">)</span>
+
+                <span class="n">registros</span> <span class="o">=</span> <span class="n">conexion</span><span class="o">.</span><span class="n">Conexion</span><span class="o">.</span><span class="n">selectDriversTodos</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+                <span class="k">for</span> <span class="n">fila</span><span class="p">,</span> <span class="n">registro</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">registros</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">valor</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span>
+                            <span class="n">registro</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>  <span class="c1"># el :-1 es para que no te muestre el ultimo dato, en este caso fecha baja</span>
+                        <span class="n">sheet1</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">fila</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">valor</span><span class="p">))</span>
+                <span class="n">wb</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">directorio</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">setModal</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># para que la ventana sea modal, que nadie pueda acceder a la ventana de atras</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Information</span><span class="p">)</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Exportacion datos correcta &#39;</span><span class="p">)</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Eventos.exportarDatosClientesXls">
+<a class="viewcode-back" href="../src/eventos.html#eventos.Eventos.exportarDatosClientesXls">[documentos]</a>
+    <span class="k">def</span> <span class="nf">exportarDatosClientesXls</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Exporta datos de clientes a un archivo XLS.</span>
+
+<span class="sd">            Este método genera un archivo de hoja de cálculo XLS que contiene información sobre los clientes.</span>
+<span class="sd">            Utiliza la biblioteca xlwt para crear el archivo y escribir los datos.</span>
+<span class="sd">            La hoja de cálculo tiene columnas que representan diferentes atributos de los clientes.</span>
+
+<span class="sd">            Parameters:</span>
+<span class="sd">            - self: Referencia a la instancia actual de la clase.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">            - None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">fecha</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+            <span class="n">fecha</span> <span class="o">=</span> <span class="n">fecha</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y_%m_</span><span class="si">%d</span><span class="s1">_%H_%M_%S&#39;</span><span class="p">)</span>  <span class="c1"># formato año, mes, dia, hora, minuto, segundos</span>
+            <span class="n">file</span> <span class="o">=</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">fecha</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; _Datos.xls&#39;</span><span class="p">)</span>
+            <span class="n">directorio</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">dlgabrir</span><span class="o">.</span><span class="n">getSaveFileName</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;Exportar Datos en Fichero XLS&#39;</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="s1">&#39;.xls&#39;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">dlgabrir</span><span class="o">.</span><span class="n">accept</span> <span class="ow">and</span> <span class="n">filename</span><span class="p">:</span>
+                <span class="n">wb</span> <span class="o">=</span> <span class="n">xlwt</span><span class="o">.</span><span class="n">Workbook</span><span class="p">()</span>
+                <span class="n">sheet1</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">add_sheet</span><span class="p">(</span><span class="s1">&#39;Clientes&#39;</span><span class="p">)</span>
+                <span class="n">sheet1</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Codigo&#39;</span><span class="p">)</span>  <span class="c1"># el 0,0 es fila y columna</span>
+                <span class="n">sheet1</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;DNI&#39;</span><span class="p">)</span>
+                <span class="n">sheet1</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;Razon Social&#39;</span><span class="p">)</span>
+                <span class="n">sheet1</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;Dirección&#39;</span><span class="p">)</span>
+                <span class="n">sheet1</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;Provincia&#39;</span><span class="p">)</span>
+                <span class="n">sheet1</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;Municipio&#39;</span><span class="p">)</span>
+                <span class="n">sheet1</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="s1">&#39;Teléfono&#39;</span><span class="p">)</span>
+
+                <span class="n">registros</span> <span class="o">=</span> <span class="n">conexionClientes</span><span class="o">.</span><span class="n">ConexionCliente</span><span class="o">.</span><span class="n">selectClientes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+                <span class="k">for</span> <span class="n">fila</span><span class="p">,</span> <span class="n">registro</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">registros</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">valor</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">registro</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>  <span class="c1"># el :-1 es para que no te muestre el ultimo dato, en este caso fecha baja</span>
+                        <span class="n">sheet1</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">fila</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">valor</span><span class="p">))</span>
+                <span class="n">wb</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">directorio</span><span class="p">)</span>
+
+                <span class="n">msg</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setModal</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># para que la ventana sea modal, que nadie pueda acceder a la ventana de atras</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Information</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Exportacion datos correcta &#39;</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">setModal</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># para que la ventana sea modal, que nadie pueda acceder a la ventana de atras</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Warning</span><span class="p">)</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Error Exportar Datos en Hoja de Cálculos &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">))</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="Eventos.importardatosxls">
+<a class="viewcode-back" href="../src/eventos.html#eventos.Eventos.importardatosxls">[documentos]</a>
+    <span class="k">def</span> <span class="nf">importardatosxls</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Importa datos desde un archivo XLS y guarda la información en la base de datos.</span>
+
+<span class="sd">            Este método permite al usuario seleccionar un archivo XLS para importar datos.</span>
+<span class="sd">            Luego, recorre las filas y columnas del archivo y realiza las siguientes acciones:</span>
+<span class="sd">            - Convierte las fechas del formato interno de Excel a formato &#39;DD/MM/YYYY&#39;.</span>
+<span class="sd">            - Guarda los datos en la base de datos utilizando el método &#39;guardarClick&#39; de la clase &#39;Conexion&#39;.</span>
+<span class="sd">            - Muestra mensajes de advertencia si hay DNIs incorrectos.</span>
+
+<span class="sd">            Parameters:</span>
+<span class="sd">            - self: Referencia a la instancia actual de la clase.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">            - None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">estado</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">filename</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">dlgabrir</span><span class="o">.</span><span class="n">getOpenFileName</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;Importar datos&#39;</span><span class="p">,</span>
+                                                       <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;*.xls;;All Files (*)&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">filename</span><span class="p">:</span>
+                <span class="n">file</span> <span class="o">=</span> <span class="n">filename</span>
+                <span class="n">documento</span> <span class="o">=</span> <span class="n">xlrd</span><span class="o">.</span><span class="n">open_workbook</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+                <span class="n">datos</span> <span class="o">=</span> <span class="n">documento</span><span class="o">.</span><span class="n">sheet_by_index</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                <span class="n">filas</span> <span class="o">=</span> <span class="n">datos</span><span class="o">.</span><span class="n">nrows</span>
+                <span class="n">columnas</span> <span class="o">=</span> <span class="n">datos</span><span class="o">.</span><span class="n">ncols</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">filas</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="k">pass</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">new</span> <span class="o">=</span> <span class="p">[]</span>
+                        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">columnas</span><span class="p">):</span>
+                            <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                                <span class="n">dato</span> <span class="o">=</span> <span class="n">xlrd</span><span class="o">.</span><span class="n">xldate_as_datetime</span><span class="p">(</span><span class="n">datos</span><span class="o">.</span><span class="n">cell_value</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="n">documento</span><span class="o">.</span><span class="n">datemode</span><span class="p">)</span>
+                                <span class="n">dato</span> <span class="o">=</span> <span class="n">dato</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">/%m/%Y&#39;</span><span class="p">)</span>
+                                <span class="n">new</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">dato</span><span class="p">))</span>
+                            <span class="k">else</span><span class="p">:</span>
+                                <span class="n">new</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">datos</span><span class="o">.</span><span class="n">cell_value</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)))</span>
+
+                        <span class="k">if</span> <span class="n">drivers</span><span class="o">.</span><span class="n">Drivers</span><span class="o">.</span><span class="n">validarDni</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">new</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+                            <span class="n">conexion</span><span class="o">.</span><span class="n">Conexion</span><span class="o">.</span><span class="n">guardarClick</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+                            <span class="n">drivers</span><span class="o">.</span><span class="n">Drivers</span><span class="o">.</span><span class="n">limpiarPanel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+                        <span class="k">elif</span> <span class="n">estado</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                            <span class="n">estado</span> <span class="o">=</span> <span class="mi">1</span>
+                            <span class="n">msg</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                            <span class="n">msg</span><span class="o">.</span><span class="n">setModal</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+                            <span class="n">msg</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+                            <span class="n">msg</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Warning</span><span class="p">)</span>
+                            <span class="n">msg</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Hay DNI incorrectos&#39;</span><span class="p">)</span>
+                            <span class="n">msg</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblValidarDni</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+                <span class="n">msg</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setModal</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Information</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Importación de Datos Realizada&#39;</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblValidarDni</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+
+            <span class="n">conexion</span><span class="o">.</span><span class="n">Conexion</span><span class="o">.</span><span class="n">selectDrivers</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">setModal</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Warning</span><span class="p">)</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Error&#39;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Eventos.importardatosclientesxls">
+<a class="viewcode-back" href="../src/eventos.html#eventos.Eventos.importardatosclientesxls">[documentos]</a>
+    <span class="k">def</span> <span class="nf">importardatosclientesxls</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Importa datos de clientes desde un archivo XLS y guarda la información en la base de datos.</span>
+
+<span class="sd">            Este método permite al usuario seleccionar un archivo XLS para importar datos de clientes.</span>
+<span class="sd">            Luego, recorre las filas y columnas del archivo y realiza las siguientes acciones:</span>
+<span class="sd">            - Convierte los valores numéricos a cadenas y evita la notación científica.</span>
+<span class="sd">            - Guarda los datos en la base de datos utilizando el método &#39;guardarCliente&#39; de la clase &#39;ConexionCliente&#39;.</span>
+<span class="sd">            - Muestra mensajes de advertencia si hay DNIs incorrectos.</span>
+
+<span class="sd">            Parameters:</span>
+<span class="sd">            - self: Referencia a la instancia actual de la clase.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">            - None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">estado</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">filename</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">dlgabrir</span><span class="o">.</span><span class="n">getOpenFileName</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;Importar datos&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;*.xls;;All Files (*)&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">filename</span><span class="p">:</span>
+                <span class="n">file</span> <span class="o">=</span> <span class="n">filename</span>
+                <span class="n">documento</span> <span class="o">=</span> <span class="n">xlrd</span><span class="o">.</span><span class="n">open_workbook</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+                <span class="n">datos</span> <span class="o">=</span> <span class="n">documento</span><span class="o">.</span><span class="n">sheet_by_index</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                <span class="n">filas</span> <span class="o">=</span> <span class="n">datos</span><span class="o">.</span><span class="n">nrows</span>
+                <span class="n">columnas</span> <span class="o">=</span> <span class="n">datos</span><span class="o">.</span><span class="n">ncols</span>
+
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">filas</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="k">pass</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">new</span> <span class="o">=</span> <span class="p">[]</span>
+                        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">columnas</span><span class="p">):</span>
+                            <span class="n">cell_value</span> <span class="o">=</span> <span class="n">datos</span><span class="o">.</span><span class="n">cell_value</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+                            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cell_value</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+                                <span class="n">new</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.0f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cell_value</span><span class="p">)))</span>
+                            <span class="k">else</span><span class="p">:</span>
+                                <span class="n">new</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">cell_value</span><span class="p">))</span>
+
+                        <span class="k">if</span> <span class="n">clientes</span><span class="o">.</span><span class="n">Clientes</span><span class="o">.</span><span class="n">validarDni</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">new</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+                            <span class="n">conexionClientes</span><span class="o">.</span><span class="n">ConexionCliente</span><span class="o">.</span><span class="n">guardarCliente</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+                            <span class="n">clientes</span><span class="o">.</span><span class="n">Clientes</span><span class="o">.</span><span class="n">limpiarPanelCliente</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblValidarDni_2</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+                <span class="n">msg</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setModal</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Information</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Importación de Datos Realizada&#39;</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblValidarDni_2</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+
+            <span class="n">conexionClientes</span><span class="o">.</span><span class="n">ConexionCliente</span><span class="o">.</span><span class="n">selectClientes</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">setModal</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Warning</span><span class="p">)</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span></div>
+</div>
+
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Ir a" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">documentación de VieraFernandez2324 - v.0.0.1</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Código de módulo</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">eventos</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2024, Elias.
+      Creado usando <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    </div>
+  </body>
+</html>

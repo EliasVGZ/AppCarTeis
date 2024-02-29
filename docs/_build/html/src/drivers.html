@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+
+<html lang="es" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>drivers module &#8212; documentación de VieraFernandez2324 - v.0.0.1</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css?v=514cf933" />
+    
+    <script src="../_static/documentation_options.js?v=8ee129b9"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=efdbd0b9"></script>
+    
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">documentación de VieraFernandez2324 - v.0.0.1</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">drivers module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-drivers">
+<span id="drivers-module"></span><h1>drivers module<a class="headerlink" href="#module-drivers" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="drivers.Drivers">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">drivers.</span></span><span class="sig-name descname"><span class="pre">Drivers</span></span><a class="reference internal" href="../_modules/drivers.html#Drivers"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#drivers.Drivers" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="drivers.Drivers.altaDriver">
+<span class="sig-name descname"><span class="pre">altaDriver</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/drivers.html#Drivers.altaDriver"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#drivers.Drivers.altaDriver" title="Link to this definition">¶</a></dt>
+<dd><p>Realiza el proceso de dar de alta a un nuevo conductor en la base de datos.</p>
+<p>Este método recopila la información ingresada en la interfaz gráfica para dar de alta a un nuevo conductor.
+Verifica si el conductor ya está dado de baja y, en ese caso, lo vuelve a dar de alta.
+Luego, guarda la información del nuevo conductor en la base de datos y actualiza la lista de conductores en la interfaz.</p>
+<dl class="simple">
+<dt>Parámetros:</dt><dd><p>self: Parámetro opcional, generalmente utilizado en métodos de clases.</p>
+</dd>
+<dt>Retorna:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="drivers.Drivers.borrarDriver">
+<span class="sig-name descname"><span class="pre">borrarDriver</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/drivers.html#Drivers.borrarDriver"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#drivers.Drivers.borrarDriver" title="Link to this definition">¶</a></dt>
+<dd><p>Borra un conductor de la base de datos.</p>
+<p>Este método toma el DNI del conductor a borrar desde el campo de texto y utiliza la función
+correspondiente en la clase de conexión para eliminar al conductor de la base de datos.
+Luego, actualiza la lista de conductores en la interfaz gráfica y recarga el combo box de facturas.</p>
+<dl class="simple">
+<dt>Parámetros:</dt><dd><p>self: Parámetro opcional, generalmente utilizado en métodos de clases.</p>
+</dd>
+<dt>Retorna:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="drivers.Drivers.buscarDriverLupa">
+<span class="sig-name descname"><span class="pre">buscarDriverLupa</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/drivers.html#Drivers.buscarDriverLupa"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#drivers.Drivers.buscarDriverLupa" title="Link to this definition">¶</a></dt>
+<dd><p>Busca un conductor por DNI y resalta la fila correspondiente en la tabla de conductores.</p>
+<p>Este método toma el DNI ingresado en el campo de texto, busca el conductor en la base de datos y carga sus datos
+en el panel. Luego, selecciona la fila correspondiente en la tabla de conductores y la resalta.</p>
+<dl class="simple">
+<dt>Parámetros:</dt><dd><p>self: Parámetro opcional, generalmente utilizado en métodos de clases.</p>
+</dd>
+<dt>Retorna:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="drivers.Drivers.buscarDriverTabla">
+<span class="sig-name descname"><span class="pre">buscarDriverTabla</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/drivers.html#Drivers.buscarDriverTabla"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#drivers.Drivers.buscarDriverTabla" title="Link to this definition">¶</a></dt>
+<dd><p>Busca y selecciona la fila de un conductor en la tabla de conductores según su código.</p>
+<p>Este método toma el código de un conductor como parámetro y busca la fila correspondiente en la tabla de conductores.
+Selecciona y hace scroll hasta la fila encontrada.</p>
+<dl class="simple">
+<dt>Parámetros:</dt><dd><p>codigo (int): Código del conductor a buscar y seleccionar en la tabla.</p>
+</dd>
+<dt>Retorna:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="drivers.Drivers.cargaDriver">
+<span class="sig-name descname"><span class="pre">cargaDriver</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/drivers.html#Drivers.cargaDriver"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#drivers.Drivers.cargaDriver" title="Link to this definition">¶</a></dt>
+<dd><p>Carga los datos de un conductor seleccionado en la tabla en el panel de la interfaz gráfica.</p>
+<p>Este método obtiene la fila seleccionada en la tabla de conductores y utiliza el código del conductor
+para obtener y cargar sus datos en el panel de la interfaz gráfica.</p>
+<dl class="simple">
+<dt>Parámetros:</dt><dd><p>self: Parámetro opcional, generalmente utilizado en métodos de clases.</p>
+</dd>
+<dt>Retorna:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="drivers.Drivers.cargarDatos">
+<span class="sig-name descname"><span class="pre">cargarDatos</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/drivers.html#Drivers.cargarDatos"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#drivers.Drivers.cargarDatos" title="Link to this definition">¶</a></dt>
+<dd><p>Carga los datos de un conductor en los elementos de la interfaz gráfica.</p>
+<p>Este método recibe un registro de conductor y carga sus datos en los elementos correspondientes de la interfaz gráfica,
+incluyendo campos de texto, elementos desplegables y casillas de verificación.</p>
+<dl class="simple">
+<dt>Parámetros:</dt><dd><p>registro (list): Lista que contiene los datos de un conductor.</p>
+</dd>
+<dt>Retorna:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="drivers.Drivers.cargarFecha">
+<span class="sig-name descname"><span class="pre">cargarFecha</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/drivers.html#Drivers.cargarFecha"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#drivers.Drivers.cargarFecha" title="Link to this definition">¶</a></dt>
+<dd><p>Carga la fecha seleccionada en el calendario en el campo de texto correspondiente.</p>
+<p>Este método toma la fecha seleccionada en un calendario y la muestra en el campo de texto
+correspondiente en el formato “dd/mm/yyyy”. Luego, oculta el calendario.</p>
+<dl class="simple">
+<dt>Parámetros:</dt><dd><p>qDate (QDate): Objeto QDate que representa la fecha seleccionada.</p>
+</dd>
+<dt>Retorna:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="drivers.Drivers.cargarTablaDriver">
+<span class="sig-name descname"><span class="pre">cargarTablaDriver</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/drivers.html#Drivers.cargarTablaDriver"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#drivers.Drivers.cargarTablaDriver" title="Link to this definition">¶</a></dt>
+<dd><p>Carga los registros de conductores en la tabla de conductores en la interfaz gráfica.</p>
+<p>Este método recibe una lista de registros de conductores y los muestra en la tabla de conductores de la interfaz gráfica.
+Alinea ciertas columnas al centro para mejorar la presentación.</p>
+<dl class="simple">
+<dt>Parámetros:</dt><dd><p>registros (list): Lista de registros de conductores.</p>
+</dd>
+<dt>Retorna:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="drivers.Drivers.limpiarPanel">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">limpiarPanel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/drivers.html#Drivers.limpiarPanel"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#drivers.Drivers.limpiarPanel" title="Link to this definition">¶</a></dt>
+<dd><p>Limpia y restablece los valores de los widgets en el panel de la interfaz gráfica.</p>
+<p>Este método limpia y restablece los valores de varios widgets en el panel de la interfaz gráfica,
+incluyendo etiquetas, campos de texto, y checkboxes. Es útil para preparar el panel para la introducción
+de nuevos datos o después de realizar ciertas operaciones.</p>
+<dl class="simple">
+<dt>Parámetros:</dt><dd><p>self: Parámetro opcional, generalmente utilizado en métodos de clases.</p>
+</dd>
+<dt>Retorna:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="drivers.Drivers.modificarDriver">
+<span class="sig-name descname"><span class="pre">modificarDriver</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/drivers.html#Drivers.modificarDriver"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#drivers.Drivers.modificarDriver" title="Link to this definition">¶</a></dt>
+<dd><p>Modifica los datos de un conductor en la base de datos.</p>
+<p>Este método recopila la información modificada en la interfaz gráfica y la utiliza para actualizar
+los datos del conductor en la base de datos.</p>
+<dl class="simple">
+<dt>Parámetros:</dt><dd><p>self: Parámetro opcional, generalmente utilizado en métodos de clases.</p>
+</dd>
+<dt>Retorna:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="drivers.Drivers.selEstado">
+<span class="sig-name descname"><span class="pre">selEstado</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/drivers.html#Drivers.selEstado"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#drivers.Drivers.selEstado" title="Link to this definition">¶</a></dt>
+<dd><p>Selecciona y muestra los conductores según el estado elegido (todos, alta, baja).</p>
+<p>Este método se encarga de verificar qué radio button está seleccionado en la interfaz gráfica y llama a la función
+correspondiente en la clase de conexión para seleccionar y mostrar los conductores según el estado elegido.</p>
+<dl class="simple">
+<dt>Parámetros:</dt><dd><p>self: Parámetro opcional, generalmente utilizado en métodos de clases.</p>
+</dd>
+<dt>Retorna:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="drivers.Drivers.validarDni">
+<span class="sig-name descname"><span class="pre">validarDni</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/drivers.html#Drivers.validarDni"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#drivers.Drivers.validarDni" title="Link to this definition">¶</a></dt>
+<dd><p>Valida el formato y la letra de control de un DNI.</p>
+<p>Este método toma un DNI como parámetro, lo formatea y valida su formato y letra de control.
+Muestra un indicador visual en la interfaz gráfica (“V” en verde si es válido, “X” en rojo si es inválido).
+Limpia el campo de texto y mantiene el foco en el campo si el DNI es inválido.</p>
+<dl class="simple">
+<dt>Parámetros:</dt><dd><p>dni (str): Número de DNI a validar.</p>
+</dd>
+<dt>Retorna:</dt><dd><p>bool: True si el DNI es válido, False si es inválido.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="drivers.Drivers.validarMovil">
+<span class="sig-name descname"><span class="pre">validarMovil</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/drivers.html#Drivers.validarMovil"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#drivers.Drivers.validarMovil" title="Link to this definition">¶</a></dt>
+<dd><p>Valida el número de móvil ingresado en el campo de texto.</p>
+<p>Este método toma el número de móvil ingresado en el campo de texto y lo valida según un patrón regular.
+Si el número no cumple con el patrón, muestra un mensaje de aviso en la interfaz gráfica.
+Asegura que el apellido y el nombre estén capitalizados.</p>
+<dl class="simple">
+<dt>Parámetros:</dt><dd><p>self: Parámetro opcional, generalmente utilizado en métodos de clases.</p>
+</dd>
+<dt>Retorna:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="drivers.Drivers.validarSalario">
+<span class="sig-name descname"><span class="pre">validarSalario</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/drivers.html#Drivers.validarSalario"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#drivers.Drivers.validarSalario" title="Link to this definition">¶</a></dt>
+<dd><p>Valida y formatea el valor del salario ingresado en el campo de texto.</p>
+<p>Este método toma el valor ingresado en el campo de salario y lo valida según un patrón regular.
+Si el valor no cumple con el patrón, muestra un mensaje de aviso en la interfaz gráfica.
+Formatea el valor del salario en el campo de texto si es correcto.</p>
+<dl class="simple">
+<dt>Parámetros:</dt><dd><p>self: Parámetro opcional, generalmente utilizado en métodos de clases.</p>
+</dd>
+<dt>Retorna:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Tabla de contenido</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">drivers module</a><ul>
+<li><a class="reference internal" href="#drivers.Drivers"><code class="docutils literal notranslate"><span class="pre">Drivers</span></code></a><ul>
+<li><a class="reference internal" href="#drivers.Drivers.altaDriver"><code class="docutils literal notranslate"><span class="pre">Drivers.altaDriver()</span></code></a></li>
+<li><a class="reference internal" href="#drivers.Drivers.borrarDriver"><code class="docutils literal notranslate"><span class="pre">Drivers.borrarDriver()</span></code></a></li>
+<li><a class="reference internal" href="#drivers.Drivers.buscarDriverLupa"><code class="docutils literal notranslate"><span class="pre">Drivers.buscarDriverLupa()</span></code></a></li>
+<li><a class="reference internal" href="#drivers.Drivers.buscarDriverTabla"><code class="docutils literal notranslate"><span class="pre">Drivers.buscarDriverTabla()</span></code></a></li>
+<li><a class="reference internal" href="#drivers.Drivers.cargaDriver"><code class="docutils literal notranslate"><span class="pre">Drivers.cargaDriver()</span></code></a></li>
+<li><a class="reference internal" href="#drivers.Drivers.cargarDatos"><code class="docutils literal notranslate"><span class="pre">Drivers.cargarDatos()</span></code></a></li>
+<li><a class="reference internal" href="#drivers.Drivers.cargarFecha"><code class="docutils literal notranslate"><span class="pre">Drivers.cargarFecha()</span></code></a></li>
+<li><a class="reference internal" href="#drivers.Drivers.cargarTablaDriver"><code class="docutils literal notranslate"><span class="pre">Drivers.cargarTablaDriver()</span></code></a></li>
+<li><a class="reference internal" href="#drivers.Drivers.limpiarPanel"><code class="docutils literal notranslate"><span class="pre">Drivers.limpiarPanel()</span></code></a></li>
+<li><a class="reference internal" href="#drivers.Drivers.modificarDriver"><code class="docutils literal notranslate"><span class="pre">Drivers.modificarDriver()</span></code></a></li>
+<li><a class="reference internal" href="#drivers.Drivers.selEstado"><code class="docutils literal notranslate"><span class="pre">Drivers.selEstado()</span></code></a></li>
+<li><a class="reference internal" href="#drivers.Drivers.validarDni"><code class="docutils literal notranslate"><span class="pre">Drivers.validarDni()</span></code></a></li>
+<li><a class="reference internal" href="#drivers.Drivers.validarMovil"><code class="docutils literal notranslate"><span class="pre">Drivers.validarMovil()</span></code></a></li>
+<li><a class="reference internal" href="#drivers.Drivers.validarSalario"><code class="docutils literal notranslate"><span class="pre">Drivers.validarSalario()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>Esta página</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/src/drivers.rst.txt"
+            rel="nofollow">Mostrar el código</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Ir a" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">documentación de VieraFernandez2324 - v.0.0.1</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">drivers module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2024, Elias.
+      Creado usando <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    </div>
+  </body>
+</html>

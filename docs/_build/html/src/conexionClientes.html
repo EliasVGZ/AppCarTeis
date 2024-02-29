@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html lang="es" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>conexionClientes module &#8212; documentación de VieraFernandez2324 - v.0.0.1</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css?v=514cf933" />
+    
+    <script src="../_static/documentation_options.js?v=8ee129b9"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=efdbd0b9"></script>
+    
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">documentación de VieraFernandez2324 - v.0.0.1</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">conexionClientes module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-conexionClientes">
+<span id="conexionclientes-module"></span><h1>conexionClientes module<a class="headerlink" href="#module-conexionClientes" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="conexionClientes.ConexionCliente">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">conexionClientes.</span></span><span class="sig-name descname"><span class="pre">ConexionCliente</span></span><a class="reference internal" href="../_modules/conexionClientes.html#ConexionCliente"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexionClientes.ConexionCliente" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="conexionClientes.ConexionCliente.borrarCliente">
+<span class="sig-name descname"><span class="pre">borrarCliente</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexionClientes.html#ConexionCliente.borrarCliente"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexionClientes.ConexionCliente.borrarCliente" title="Link to this definition">¶</a></dt>
+<dd><p>Da de baja a un cliente en la base de datos.</p>
+<dl class="simple">
+<dt>Parámetros:</dt><dd><p>dni (str): DNI del cliente a dar de baja.</p>
+</dd>
+<dt>Descripción:</dt><dd><p>Este método verifica si un cliente ya ha sido dado de baja consultando la fecha de baja en la base de datos.
+Si el cliente no está dado de baja, actualiza la fecha de baja con la fecha actual.
+Muestra mensajes informativos o de advertencia según el resultado de la operación.</p>
+</dd>
+<dt>Retorna:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexionClientes.ConexionCliente.codigoCliente">
+<span class="sig-name descname"><span class="pre">codigoCliente</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexionClientes.html#ConexionCliente.codigoCliente"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexionClientes.ConexionCliente.codigoCliente" title="Link to this definition">¶</a></dt>
+<dd><p>Busca el código de un cliente en la base de datos a partir de su DNI.</p>
+<p>Este método busca el código del cliente correspondiente al DNI proporcionado como parámetro en la base de datos.
+Si encuentra el cliente, actualiza la interfaz gráfica con la información del cliente y retorna una lista con
+la información del cliente. Si el DNI no existe, muestra un mensaje de aviso en la interfaz gráfica.</p>
+<dl class="simple">
+<dt>Parámetros:</dt><dd><p>dni (str): DNI del cliente a buscar.</p>
+</dd>
+<dt>Retorna:</dt><dd><p>list or None: Lista con la información del cliente encontrado, o None si el DNI no existe.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexionClientes.ConexionCliente.conexion">
+<span class="sig-name descname"><span class="pre">conexion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexionClientes.html#ConexionCliente.conexion"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexionClientes.ConexionCliente.conexion" title="Link to this definition">¶</a></dt>
+<dd><p>Establece una conexión a una base de datos SQLite utilizando PyQt.</p>
+<dl class="simple">
+<dt>Parámetros:</dt><dd><p>self: Parámetro opcional, generalmente utilizado en métodos de clases.</p>
+</dd>
+<dt>Retorna:</dt><dd><p>bool: True si la conexión fue exitosa, False en caso contrario.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexionClientes.ConexionCliente.guardarCliente">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">guardarCliente</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cliente</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexionClientes.html#ConexionCliente.guardarCliente"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexionClientes.ConexionCliente.guardarCliente" title="Link to this definition">¶</a></dt>
+<dd><p>Guarda la información de un cliente en la base de datos.</p>
+<dl class="simple">
+<dt>Parámetros:</dt><dd><p>cliente (list): Lista que contiene la información del cliente.</p>
+</dd>
+<dt>Retorna:</dt><dd><p>bool: True si la operación de guardado fue exitosa, False en caso contrario.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexionClientes.ConexionCliente.modifCliente">
+<span class="sig-name descname"><span class="pre">modifCliente</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexionClientes.html#ConexionCliente.modifCliente"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexionClientes.ConexionCliente.modifCliente" title="Link to this definition">¶</a></dt>
+<dd><p>Modifica la información de un cliente en la base de datos.</p>
+<p>Este método busca la información del cliente a modificar en la base de datos a partir del código proporcionado.
+Si encuentra el cliente, actualiza la información con los nuevos datos proporcionados en la lista
+<cite>modificarNewCliente</cite>. Muestra mensajes informativos o de advertencia según el resultado de la operación.</p>
+<dl class="simple">
+<dt>Parámetros:</dt><dd><p>modificarNewCliente (list): Lista con la nueva información del cliente.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexionClientes.ConexionCliente.mostrarClientes">
+<span class="sig-name descname"><span class="pre">mostrarClientes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexionClientes.html#ConexionCliente.mostrarClientes"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexionClientes.ConexionCliente.mostrarClientes" title="Link to this definition">¶</a></dt>
+<dd><p>Muestra la información de los clientes en la interfaz gráfica.</p>
+<p>Este método recupera la información de los clientes desde la base de datos y la presenta en la interfaz gráfica.
+Dependiendo de la opción seleccionada (alta o todos), se muestra la información de los clientes dados de alta o todos
+los clientes. Si no hay clientes, se establece el número de filas en la tabla de clientes a 0.</p>
+<dl class="simple">
+<dt>Parámetros:</dt><dd><p>self: Parámetro opcional, generalmente utilizado en métodos de clases.</p>
+</dd>
+<dt>Retorna:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexionClientes.ConexionCliente.oneCliente">
+<span class="sig-name descname"><span class="pre">oneCliente</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexionClientes.html#ConexionCliente.oneCliente"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexionClientes.ConexionCliente.oneCliente" title="Link to this definition">¶</a></dt>
+<dd><p>Recupera la información de un cliente específico de la base de datos.</p>
+<p>Este método busca en la base de datos la información del cliente correspondiente al código proporcionado
+como parámetro. Retorna una lista con la información del cliente si se encuentra en la base de datos.</p>
+<dl class="simple">
+<dt>Parámetros:</dt><dd><p>codigo (str): Código del cliente a buscar.</p>
+</dd>
+<dt>Retorna:</dt><dd><p>list: Lista con la información del cliente encontrado, o una lista vacía si no se encuentra.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexionClientes.ConexionCliente.selMuni">
+<span class="sig-name descname"><span class="pre">selMuni</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexionClientes.html#ConexionCliente.selMuni"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexionClientes.ConexionCliente.selMuni" title="Link to this definition">¶</a></dt>
+<dd><p>Llena el combo box de localidades del cliente en función de la provincia seleccionada.</p>
+<dl class="simple">
+<dt>Parámetros:</dt><dd><p>self: Parámetro opcional, generalmente utilizado en métodos de clases.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexionClientes.ConexionCliente.selectClientes">
+<span class="sig-name descname"><span class="pre">selectClientes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexionClientes.html#ConexionCliente.selectClientes"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexionClientes.ConexionCliente.selectClientes" title="Link to this definition">¶</a></dt>
+<dd><p>Selecciona y muestra los clientes en la interfaz gráfica según su estado.</p>
+<p>Este método selecciona y recupera los clientes de la base de datos dependiendo del estado proporcionado como
+parámetro. Los estados posibles son:
+- estado 0: Todos los clientes (alta y baja)
+- estado 1: Clientes dados de alta (sin fecha de baja)
+- estado 2: Clientes dados de baja (con fecha de baja)
+Luego, carga la información en la tabla de clientes de la interfaz gráfica.</p>
+<dl class="simple">
+<dt>Parámetros:</dt><dd><p>estado (int): Estado de los clientes a seleccionar.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexionClientes.ConexionCliente.selectClientesTodos">
+<span class="sig-name descname"><span class="pre">selectClientesTodos</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexionClientes.html#ConexionCliente.selectClientesTodos"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexionClientes.ConexionCliente.selectClientesTodos" title="Link to this definition">¶</a></dt>
+<dd><p>Selecciona y devuelve todos los clientes de la base de datos.</p>
+<p>Este método realiza una consulta para obtener la información de todos los clientes presentes en la base de datos.
+La información se devuelve en forma de una lista de registros.</p>
+<dl class="simple">
+<dt>Parámetros:</dt><dd><p>self: Parámetro opcional, generalmente utilizado en métodos de clases.</p>
+</dd>
+<dt>Retorna:</dt><dd><p>list: Lista de registros que contienen la información de todos los clientes.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Tabla de contenido</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">conexionClientes module</a><ul>
+<li><a class="reference internal" href="#conexionClientes.ConexionCliente"><code class="docutils literal notranslate"><span class="pre">ConexionCliente</span></code></a><ul>
+<li><a class="reference internal" href="#conexionClientes.ConexionCliente.borrarCliente"><code class="docutils literal notranslate"><span class="pre">ConexionCliente.borrarCliente()</span></code></a></li>
+<li><a class="reference internal" href="#conexionClientes.ConexionCliente.codigoCliente"><code class="docutils literal notranslate"><span class="pre">ConexionCliente.codigoCliente()</span></code></a></li>
+<li><a class="reference internal" href="#conexionClientes.ConexionCliente.conexion"><code class="docutils literal notranslate"><span class="pre">ConexionCliente.conexion()</span></code></a></li>
+<li><a class="reference internal" href="#conexionClientes.ConexionCliente.guardarCliente"><code class="docutils literal notranslate"><span class="pre">ConexionCliente.guardarCliente()</span></code></a></li>
+<li><a class="reference internal" href="#conexionClientes.ConexionCliente.modifCliente"><code class="docutils literal notranslate"><span class="pre">ConexionCliente.modifCliente()</span></code></a></li>
+<li><a class="reference internal" href="#conexionClientes.ConexionCliente.mostrarClientes"><code class="docutils literal notranslate"><span class="pre">ConexionCliente.mostrarClientes()</span></code></a></li>
+<li><a class="reference internal" href="#conexionClientes.ConexionCliente.oneCliente"><code class="docutils literal notranslate"><span class="pre">ConexionCliente.oneCliente()</span></code></a></li>
+<li><a class="reference internal" href="#conexionClientes.ConexionCliente.selMuni"><code class="docutils literal notranslate"><span class="pre">ConexionCliente.selMuni()</span></code></a></li>
+<li><a class="reference internal" href="#conexionClientes.ConexionCliente.selectClientes"><code class="docutils literal notranslate"><span class="pre">ConexionCliente.selectClientes()</span></code></a></li>
+<li><a class="reference internal" href="#conexionClientes.ConexionCliente.selectClientesTodos"><code class="docutils literal notranslate"><span class="pre">ConexionCliente.selectClientesTodos()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>Esta página</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/src/conexionClientes.rst.txt"
+            rel="nofollow">Mostrar el código</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Ir a" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">documentación de VieraFernandez2324 - v.0.0.1</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">conexionClientes module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2024, Elias.
+      Creado usando <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    </div>
+  </body>
+</html>

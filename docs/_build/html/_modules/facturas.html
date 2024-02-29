@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+
+<html lang="es" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>facturas &#8212; documentación de VieraFernandez2324 - v.0.0.1</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css?v=514cf933" />
+    
+    <script src="../_static/documentation_options.js?v=8ee129b9"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=efdbd0b9"></script>
+    
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">documentación de VieraFernandez2324 - v.0.0.1</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Código de módulo</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">facturas</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Código fuente para facturas</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">time</span>
+
+<span class="kn">from</span> <span class="nn">PyQt6</span> <span class="kn">import</span> <span class="n">QtWidgets</span><span class="p">,</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">QtSql</span>
+<span class="kn">from</span> <span class="nn">PyQt6.QtWidgets</span> <span class="kn">import</span> <span class="n">QComboBox</span>
+
+<span class="kn">import</span> <span class="nn">conexion</span>
+<span class="kn">import</span> <span class="nn">conexionClientes</span>
+<span class="kn">import</span> <span class="nn">var</span><span class="o">,</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">clientes</span>
+<span class="kn">import</span> <span class="nn">viajes</span>
+
+
+<div class="viewcode-block" id="Facturas">
+<a class="viewcode-back" href="../src/facturas.html#facturas.Facturas">[documentos]</a>
+<span class="k">class</span> <span class="nc">Facturas</span><span class="p">():</span>
+
+
+<div class="viewcode-block" id="Facturas.limpiarPanelFacturas">
+<a class="viewcode-back" href="../src/facturas.html#facturas.Facturas.limpiarPanelFacturas">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">limpiarPanelFacturas</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">            Método estático para limpiar y restablecer los elementos del panel de facturas en la interfaz gráfica.</span>
+
+<span class="sd">            Este método limpia y restablece los valores de varios widgets en el panel de facturas, incluyendo etiquetas, campos</span>
+<span class="sd">            de texto y un ComboBox.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                No recibe argumentos directos, pero utiliza widgets de la interfaz gráfica para realizar la limpieza.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                No devuelve ningún valor explícito, pero limpia y restablece los elementos del panel de facturas en la interfaz gráfica.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">listawidgets</span> <span class="o">=</span> <span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblNumFac</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtcifcliente</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtAltaFac</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbFactura</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">listawidgets</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="s1">&#39;setText&#39;</span><span class="p">):</span>
+                    <span class="n">i</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">QComboBox</span><span class="p">):</span>  <span class="c1"># borrar combobox</span>
+                    <span class="n">i</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error limpiando panel de facturas&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Facturas.abrirCalendarioFac">
+<a class="viewcode-back" href="../src/facturas.html#facturas.Facturas.abrirCalendarioFac">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">abrirCalendarioFac</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Método estático para abrir el calendario de facturación en la interfaz gráfica.</span>
+
+<span class="sd">            Este método muestra el calendario de facturación en la interfaz gráfica cuando se invoca.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                No recibe argumentos directos.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                No devuelve ningún valor explícito, pero muestra el calendario de facturación en la interfaz gráfica.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">calendar</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error en abrir calendario en facturacion&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Facturas.dataFactura">
+<a class="viewcode-back" href="../src/facturas.html#facturas.Facturas.dataFactura">[documentos]</a>
+    <span class="k">def</span> <span class="nf">dataFactura</span><span class="p">(</span><span class="n">qDate</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Método para cargar la fecha seleccionada en el calendario en el campo de texto de fecha de facturación.</span>
+
+<span class="sd">            Este método toma la fecha seleccionada en el calendario y la formatea como una cadena con el formato &#39;dd/mm/yyyy&#39;,</span>
+<span class="sd">            luego actualiza el campo de texto de fecha de facturación en la interfaz gráfica.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                qDate (QDate): La fecha seleccionada en el calendario.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                No devuelve ningún valor explícito, pero actualiza el campo de texto de fecha de facturación en la interfaz gráfica.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">{:02d}</span><span class="s1">/</span><span class="si">{:02d}</span><span class="s1">/</span><span class="si">{:4d}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">qDate</span><span class="o">.</span><span class="n">day</span><span class="p">(),</span> <span class="n">qDate</span><span class="o">.</span><span class="n">month</span><span class="p">(),</span> <span class="n">qDate</span><span class="o">.</span><span class="n">year</span><span class="p">()))</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtAltaFac</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">calendar</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error en cargar fecha en facturas&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Facturas.altaFactura">
+<a class="viewcode-back" href="../src/facturas.html#facturas.Facturas.altaFactura">[documentos]</a>
+    <span class="k">def</span> <span class="nf">altaFactura</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Método para realizar el alta de una factura utilizando la información ingresada en la interfaz gráfica.</span>
+
+<span class="sd">            Este método obtiene la información del cliente, la fecha y el tipo de factura desde la interfaz gráfica,</span>
+<span class="sd">            forma un registro y lo pasa al método &#39;altaFacturacion&#39; de la clase &#39;Conexion&#39; para realizar el alta.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                No recibe argumentos directos, pero utiliza la información ingresada en la interfaz gráfica.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                No devuelve ningún valor explícito, pero realiza el alta de la factura utilizando la clase &#39;Conexion&#39;.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+
+            <span class="n">registro</span> <span class="o">=</span> <span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtcifcliente</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtAltaFac</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbFactura</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]]</span>
+
+            <span class="n">conexion</span><span class="o">.</span><span class="n">Conexion</span><span class="o">.</span><span class="n">altaFacturacion</span><span class="p">(</span><span class="n">registro</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error alta factura&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Facturas.cargarTablaFacturas">
+<a class="viewcode-back" href="../src/facturas.html#facturas.Facturas.cargarTablaFacturas">[documentos]</a>
+    <span class="k">def</span> <span class="nf">cargarTablaFacturas</span><span class="p">(</span><span class="n">registros</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Método para cargar datos en la tabla de facturas en la interfaz gráfica.</span>
+
+<span class="sd">            Este método recibe una lista de registros y los utiliza para llenar la tabla de facturas en la interfaz gráfica.</span>
+<span class="sd">            Cada fila de la tabla representa un registro, y se incluye un botón para borrar la factura asociada.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                registros (list): Lista de registros de facturas a cargar en la tabla.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                No devuelve ningún valor explícito, pero carga los datos en la tabla de facturas de la interfaz gráfica.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">registro</span> <span class="ow">in</span> <span class="n">registros</span><span class="p">:</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabFacturas</span><span class="o">.</span><span class="n">setRowCount</span><span class="p">(</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># crea una fila</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabFacturas</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabFacturas</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">1</span><span class="p">])))</span>
+
+                <span class="c1"># Alineamos los items seleccionados</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabFacturas</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">setTextAlignment</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabFacturas</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">setTextAlignment</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+
+                <span class="n">btn_borrar</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">()</span>
+                <span class="n">btn_borrar</span><span class="o">.</span><span class="n">setFixedSize</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">28</span><span class="p">)</span>
+                <span class="n">btn_borrar</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="s1">&#39;./img/basura.png&#39;</span><span class="p">))</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabFacturas</span><span class="o">.</span><span class="n">horizontalHeader</span><span class="p">()</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span>
+                                                                           <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QHeaderView</span><span class="o">.</span><span class="n">ResizeMode</span><span class="o">.</span><span class="n">ResizeToContents</span><span class="p">)</span>
+
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabFacturas</span><span class="o">.</span><span class="n">setColumnWidth</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabFacturas</span><span class="o">.</span><span class="n">setCellWidget</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">btn_borrar</span><span class="p">)</span>
+                <span class="n">btn_borrar</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">Facturas</span><span class="o">.</span><span class="n">borrarFactura</span><span class="p">)</span>
+
+                <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error carga tabla facturar&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;ZONA CONEXION FACTURAS&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Facturas.oneFactura">
+<a class="viewcode-back" href="../src/facturas.html#facturas.Facturas.oneFactura">[documentos]</a>
+    <span class="k">def</span> <span class="nf">oneFactura</span><span class="p">(</span><span class="n">codigo</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Método para obtener los datos de una factura específica mediante su código.</span>
+
+<span class="sd">            Este método realiza una consulta a la base de datos para obtener los detalles de una factura dado su código.</span>
+<span class="sd">            Incluye el número de factura, el DNI del cliente, la fecha y el nombre del driver asociado.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                codigo (int): El código de la factura que se desea obtener.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                list: Una lista que contiene los detalles de la factura, incluyendo el número de factura, el DNI del cliente,</span>
+<span class="sd">                la fecha y el nombre del driver (o un mensaje si el driver no se encuentra).</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">registro</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s2">&quot;SELECT numfac, dnicliente, fecha, driver FROM facturas WHERE numfac = :numfac&quot;</span><span class="p">)</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s2">&quot;:numfac&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">codigo</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>  <span class="c1"># Cambiado a 4 para incluir el campo &#39;driver&#39;</span>
+                        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>  <span class="c1"># Si estamos en la posición del campo &#39;driver&#39;</span>
+                            <span class="n">driver_id</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                            <span class="c1"># Realizar una segunda consulta para obtener el nombre del driver</span>
+                            <span class="n">driver_query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+                            <span class="n">driver_query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s2">&quot;SELECT codigo, nombredriver FROM drivers WHERE codigo = :codigo&quot;</span><span class="p">)</span>
+                            <span class="n">driver_query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s2">&quot;:codigo&quot;</span><span class="p">,</span> <span class="n">driver_id</span><span class="p">)</span>
+                            <span class="k">if</span> <span class="n">driver_query</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span> <span class="ow">and</span> <span class="n">driver_query</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+                                <span class="c1"># Concatenar el ID y el nombre del driver con un guion medio</span>
+                                <span class="n">id_nombre_driver</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">driver_query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">driver_query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+                                <span class="n">registro</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">id_nombre_driver</span><span class="p">))</span>
+                            <span class="k">else</span><span class="p">:</span>
+                                <span class="n">registro</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Driver no encontrado&quot;</span><span class="p">)</span>  <span class="c1"># En caso de que no se encuentre el driver</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">registro</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="n">i</span><span class="p">)))</span>
+
+            <span class="k">return</span> <span class="n">registro</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error en fichero conexion datos de UNA FACTURA: &quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+    <span class="c1">#METODO PARA QUE CARGUE EN EL COMBOX DE FACTURA TODOS LOS DRIVERS</span>
+<div class="viewcode-block" id="Facturas.cargadrivers">
+<a class="viewcode-back" href="../src/facturas.html#facturas.Facturas.cargadrivers">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">cargadrivers</span><span class="p">(</span><span class="bp">self</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Método estático para cargar los conductores disponibles en un ComboBox de la interfaz gráfica.</span>
+
+<span class="sd">        Este método realiza una consulta a la base de datos para obtener los conductores que están activos</span>
+<span class="sd">        (sin fecha de baja) y carga sus códigos y apellidos en un ComboBox de la interfaz gráfica.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            self: Parámetro opcional para permitir llamadas al método sin instancia específica.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbFactura</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>  <span class="c1"># LIMPIA Y VUELVE A RECARGAR</span>
+
+            <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s1">&#39;select codigo, apeldriver from drivers where bajadriver is null&#39;</span><span class="p">)</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbFactura</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbFactura</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+                <span class="k">while</span> <span class="n">query</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>  <span class="c1"># LLENAR LOS CONDUCTORES MIENTRAS HAYA</span>
+                    <span class="c1"># Obtener el código y el nombre del driver y concatenarlos en una sola cadena</span>
+                    <span class="n">codigo</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+                    <span class="n">apellido</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+                    <span class="n">texto_completo</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">codigo</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">apellido</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbFactura</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">texto_completo</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error al cargar drivers en facturación&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Facturas.cargarDatosFactura">
+<a class="viewcode-back" href="../src/facturas.html#facturas.Facturas.cargarDatosFactura">[documentos]</a>
+    <span class="k">def</span> <span class="nf">cargarDatosFactura</span><span class="p">(</span><span class="n">registro</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Método para cargar los datos de una factura en la interfaz gráfica.</span>
+
+<span class="sd">        Este método recibe una lista de datos de una factura y los utiliza para actualizar los elementos correspondientes</span>
+<span class="sd">        en la interfaz gráfica, incluyendo el número de factura, el DNI del cliente, la fecha y el driver asociado.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            registro (list): Lista que contiene los datos de una factura.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">datos</span> <span class="o">=</span> <span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblNumFac</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtcifcliente</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtAltaFac</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbFactura</span><span class="p">]</span>
+
+            <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">dato</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">datos</span><span class="p">):</span>
+                <span class="c1"># Si el índice j es igual a 3, significa que dato se refiere a un elemento desplegable (cmbFactura).</span>
+                <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                    <span class="c1"># Eliminar espacios adicionales antes y después del valor antes de establecerlo en el ComboBox</span>
+                    <span class="n">valor_combo</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="n">j</span><span class="p">])</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbFactura</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">valor_combo</span><span class="p">)</span>  <span class="c1"># Agregar el valor al ComboBox</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbFactura</span><span class="o">.</span><span class="n">setCurrentText</span><span class="p">(</span><span class="n">valor_combo</span><span class="p">)</span>  <span class="c1"># Establecer el valor seleccionado</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">dato</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="n">j</span><span class="p">]))</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error al cargar los datos de una factura &quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Facturas.cargaFactura">
+<a class="viewcode-back" href="../src/facturas.html#facturas.Facturas.cargaFactura">[documentos]</a>
+    <span class="k">def</span> <span class="nf">cargaFactura</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Método para cargar los datos de una factura seleccionada en la interfaz gráfica.</span>
+
+<span class="sd">            Este método obtiene la fila seleccionada en la tabla de facturas, recupera el código de la factura asociada,</span>
+<span class="sd">            utiliza el método &#39;oneFactura&#39; para obtener los datos de la factura, y luego carga esos datos en la interfaz gráfica.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                self: Instancia de la clase que invoca el método.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">Facturas</span><span class="o">.</span><span class="n">limpiarPanelFacturas</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+            <span class="n">row</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabFacturas</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()</span>
+            <span class="n">fila</span> <span class="o">=</span> <span class="p">[</span><span class="n">dato</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="k">for</span> <span class="n">dato</span> <span class="ow">in</span> <span class="n">row</span><span class="p">]</span>
+            <span class="n">registro</span> <span class="o">=</span> <span class="n">Facturas</span><span class="o">.</span><span class="n">oneFactura</span><span class="p">(</span><span class="n">fila</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+
+            <span class="c1"># LLAMAMOS AL METODO CARGARDATOS PARA NO COPIAR CODIGO</span>
+            <span class="n">Facturas</span><span class="o">.</span><span class="n">cargarDatosFactura</span><span class="p">(</span><span class="n">registro</span><span class="p">)</span>
+            <span class="n">viajes</span><span class="o">.</span><span class="n">Viajes</span><span class="o">.</span><span class="n">cargarTablaViajes</span><span class="p">(</span><span class="n">registro</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error al cargar los datos DE UNA FACTURA EN CARGAFACTURA &quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+
+
+
+<div class="viewcode-block" id="Facturas.codigoFactura">
+<a class="viewcode-back" href="../src/facturas.html#facturas.Facturas.codigoFactura">[documentos]</a>
+    <span class="k">def</span> <span class="nf">codigoFactura</span><span class="p">(</span><span class="n">codigo</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Método para buscar y obtener los datos de una factura a partir de su número.</span>
+
+<span class="sd">            Este método realiza una consulta a la base de datos para buscar la factura con el número proporcionado.</span>
+<span class="sd">            Luego, utiliza el número de factura encontrado para buscar y devolver los datos del viaje asociado.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                codigo (str): Número de la factura que se desea buscar.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                list or None: Lista con los datos del viaje asociado a la factura encontrada o None si no se encuentra ninguna factura.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s2">&quot;SELECT numfac FROM facturas WHERE numfac = :cod&quot;</span><span class="p">)</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s2">&quot;:cod&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">codigo</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                <span class="n">codigofactura</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="k">while</span> <span class="n">query</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+                    <span class="n">codigofactura</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                    <span class="n">viajes</span><span class="o">.</span><span class="n">Viajes</span><span class="o">.</span><span class="n">buscarViajeTabla</span><span class="p">(</span><span class="n">codigofactura</span><span class="p">)</span>
+
+
+                <span class="k">if</span> <span class="n">codigofactura</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">registro</span> <span class="o">=</span> <span class="n">viajes</span><span class="o">.</span><span class="n">Viajes</span><span class="o">.</span><span class="n">oneViaje</span><span class="p">(</span><span class="n">codigofactura</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="n">registro</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">conexion</span><span class="o">.</span><span class="n">Conexion</span><span class="o">.</span><span class="n">show_info</span><span class="p">(</span><span class="s2">&quot;Debes seleccionar un viaje&quot;</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error en búsqueda de código de un cliente: &quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="kc">None</span></div>
+
+
+
+<div class="viewcode-block" id="Facturas.borrarFactura">
+<a class="viewcode-back" href="../src/facturas.html#facturas.Facturas.borrarFactura">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">borrarFactura</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Método estático para eliminar una factura seleccionada de la base de datos.</span>
+
+<span class="sd">            Este método muestra un cuadro de diálogo de confirmación y, si el usuario elige eliminar la factura,</span>
+<span class="sd">            procede a eliminarla de la base de datos y recarga la tabla de facturas.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                self: Parámetro opcional para permitir llamadas al método sin instancia específica.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">mbox</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+            <span class="n">mbox</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Borrar&quot;</span><span class="p">)</span>
+            <span class="n">mbox</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Warning</span><span class="p">)</span>
+            <span class="n">mbox</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;¿Desea Borrar la factura?&quot;</span><span class="p">)</span>
+            <span class="n">mbox</span><span class="o">.</span><span class="n">setStandardButtons</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Yes</span> <span class="o">|</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">No</span><span class="p">)</span>
+
+            <span class="n">resultado</span> <span class="o">=</span> <span class="n">mbox</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">resultado</span> <span class="o">==</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Yes</span><span class="p">:</span>
+                <span class="n">row</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabFacturas</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()</span>
+
+                <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s1">&#39;delete from facturas where numfac = :numfac&#39;</span><span class="p">)</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:numfac&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">()))</span>
+
+                <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                    <span class="c1"># Después de eliminar, obtenemos la lista actualizada de facturas</span>
+                    <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+                    <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s2">&quot;select numfac, dnicliente from facturas&quot;</span><span class="p">)</span>
+                    <span class="n">registros</span> <span class="o">=</span> <span class="p">[]</span>
+                    <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                        <span class="k">while</span> <span class="n">query</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+                            <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">record</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">())]</span>
+                            <span class="n">registros</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+
+                    <span class="c1"># Llamamos a cargarTablaFacturas con la lista actualizada</span>
+                    <span class="n">Facturas</span><span class="o">.</span><span class="n">cargarTablaFacturas</span><span class="p">(</span><span class="n">registros</span><span class="p">)</span>
+                    <span class="n">viajes</span><span class="o">.</span><span class="n">Viajes</span><span class="o">.</span><span class="n">limpiarTablaViajes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">resultado</span> <span class="o">==</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">No</span><span class="p">:</span>
+                <span class="n">mbox</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ERROR AL BORRAR LA FACTURA&#39;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Facturas.buscarFacturasCliente">
+<a class="viewcode-back" href="../src/facturas.html#facturas.Facturas.buscarFacturasCliente">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">buscarFacturasCliente</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                Busca las facturas asociadas a un cliente mediante su DNI.</span>
+
+<span class="sd">                :return: Una lista de listas con la información de las facturas encontradas.</span>
+<span class="sd">                         Cada lista interna contiene [numfac, dnicliente].</span>
+
+<span class="sd">                &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">dni</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtcifcliente</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+            <span class="n">registroFacturas</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s1">&#39;SELECT numfac, dnicliente FROM facturas WHERE dnicliente = :dni&#39;</span><span class="p">)</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:dni&#39;</span><span class="p">,</span> <span class="n">dni</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                <span class="k">while</span> <span class="n">query</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+                    <span class="c1"># Procesar cada fila resultante, por ejemplo:</span>
+                    <span class="n">numfac</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                    <span class="n">dnicliente</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+                    <span class="n">registroFacturas</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">numfac</span><span class="p">,</span> <span class="n">dnicliente</span><span class="p">])</span>
+
+                <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registroFacturas</span><span class="p">))</span>
+                <span class="n">Facturas</span><span class="o">.</span><span class="n">cargarTablaFacturas</span><span class="p">(</span><span class="n">registroFacturas</span><span class="p">)</span><span class="c1">#Metodo para cargar los datos que he recodigo del query en la tabla correspondiente</span>
+
+                <span class="k">return</span> <span class="n">registroFacturas</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error al ejecutar la consulta:&#39;</span><span class="p">,</span> <span class="n">query</span><span class="o">.</span><span class="n">lastError</span><span class="p">()</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error al buscar las facturas del cliente&#39;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Ir a" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">documentación de VieraFernandez2324 - v.0.0.1</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Código de módulo</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">facturas</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2024, Elias.
+      Creado usando <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    </div>
+  </body>
+</html>

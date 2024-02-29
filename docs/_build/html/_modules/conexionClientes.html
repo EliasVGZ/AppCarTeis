@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+
+<html lang="es" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>conexionClientes &#8212; documentación de VieraFernandez2324 - v.0.0.1</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css?v=514cf933" />
+    
+    <script src="../_static/documentation_options.js?v=8ee129b9"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=efdbd0b9"></script>
+    
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">documentación de VieraFernandez2324 - v.0.0.1</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Código de módulo</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">conexionClientes</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Código fuente para conexionClientes</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="kn">from</span> <span class="nn">PyQt6</span> <span class="kn">import</span> <span class="n">QtWidgets</span><span class="p">,</span> <span class="n">QtSql</span><span class="p">,</span> <span class="n">QtGui</span>
+
+<span class="kn">import</span> <span class="nn">clientes</span>
+<span class="kn">import</span> <span class="nn">var</span>
+
+
+<div class="viewcode-block" id="ConexionCliente">
+<a class="viewcode-back" href="../src/conexionClientes.html#conexionClientes.ConexionCliente">[documentos]</a>
+<span class="k">class</span> <span class="nc">ConexionCliente</span><span class="p">():</span>
+
+<div class="viewcode-block" id="ConexionCliente.conexion">
+<a class="viewcode-back" href="../src/conexionClientes.html#conexionClientes.ConexionCliente.conexion">[documentos]</a>
+    <span class="k">def</span> <span class="nf">conexion</span><span class="p">(</span><span class="bp">self</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Establece una conexión a una base de datos SQLite utilizando PyQt.</span>
+
+<span class="sd">            Parámetros:</span>
+<span class="sd">                self: Parámetro opcional, generalmente utilizado en métodos de clases.</span>
+
+<span class="sd">            Retorna:</span>
+<span class="sd">                bool: True si la conexión fue exitosa, False en caso contrario.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="n">var</span><span class="o">.</span><span class="n">bbdd</span> <span class="o">=</span> <span class="s1">&#39;bbdd.sqlite&#39;</span>
+        <span class="n">db</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlDatabase</span><span class="o">.</span><span class="n">addDatabase</span><span class="p">(</span><span class="s1">&#39;QSQLITE&#39;</span><span class="p">)</span>
+        <span class="n">db</span><span class="o">.</span><span class="n">setDatabaseName</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">bbdd</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">db</span><span class="o">.</span><span class="n">open</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error de conexión&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;base de datos conectada&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ConexionCliente.selMuni">
+<a class="viewcode-back" href="../src/conexionClientes.html#conexionClientes.ConexionCliente.selMuni">[documentos]</a>
+    <span class="k">def</span> <span class="nf">selMuni</span><span class="p">(</span><span class="bp">self</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Llena el combo box de localidades del cliente en función de la provincia seleccionada.</span>
+
+<span class="sd">            Parámetros:</span>
+<span class="sd">                self: Parámetro opcional, generalmente utilizado en métodos de clases.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbLocalidadCliente</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="nb">id</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">provcliente</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbProvinciaCliente</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>  <span class="c1">#</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+
+            <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s1">&#39;select idprov from provincias where provincia = :prov&#39;</span><span class="p">)</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:prov&#39;</span><span class="p">,</span> <span class="n">provcliente</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                <span class="k">while</span> <span class="n">query</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>  <span class="c1"># LLENAR LAS PROVINCIAS MIENTRAS HAYA</span>
+                    <span class="nb">id</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">query1</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+            <span class="n">query1</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s1">&#39;select municipio from municipios where idprov = :id&#39;</span><span class="p">)</span>
+            <span class="n">query1</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:id&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="nb">id</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">query1</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbLocalidadCliente</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+                <span class="k">while</span> <span class="n">query1</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbLocalidadCliente</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">query1</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error seleccion municipios &quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ConexionCliente.guardarCliente">
+<a class="viewcode-back" href="../src/conexionClientes.html#conexionClientes.ConexionCliente.guardarCliente">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">guardarCliente</span><span class="p">(</span><span class="n">cliente</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Guarda la información de un cliente en la base de datos.</span>
+
+<span class="sd">            Parámetros:</span>
+<span class="sd">                cliente (list): Lista que contiene la información del cliente.</span>
+
+<span class="sd">            Retorna:</span>
+<span class="sd">                bool: True si la operación de guardado fue exitosa, False en caso contrario.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">cliente</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">or</span> <span class="n">cliente</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">or</span> <span class="n">cliente</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">or</span>
+                    <span class="n">cliente</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">or</span> <span class="n">cliente</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">or</span> <span class="n">cliente</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">or</span> <span class="n">cliente</span><span class="p">[</span>
+                        <span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
+                <span class="n">mbox</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                <span class="n">mbox</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Aviso&quot;</span><span class="p">)</span>
+                <span class="n">mbox</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="s2">&quot;./img/warning.png&quot;</span><span class="p">))</span>
+                <span class="n">mbox</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Warning</span><span class="p">)</span>
+                <span class="n">mensaje</span> <span class="o">=</span> <span class="s2">&quot;Faltan DATOS. Debe llenar todos los campos.&quot;</span>
+                <span class="n">mbox</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">mensaje</span><span class="p">)</span>
+                <span class="n">mbox</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span>
+                    <span class="s1">&#39;INSERT INTO clientes (dnicliente, altacliente, razonSocial, direccioncliente, telefono,&#39;</span>
+                    <span class="s1">&#39; provinciacliente, municipiocliente) &#39;</span>
+                    <span class="s1">&#39;VALUES (:dni, :altacliente, :razonsocial, :direccioncliente, :telefono, :provcliente,&#39;</span>
+                    <span class="s1">&#39;:municliente)&#39;</span><span class="p">)</span>
+
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:dni&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">cliente</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:altacliente&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">cliente</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:razonsocial&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">cliente</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:direccioncliente&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">cliente</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:telefono&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">cliente</span><span class="p">[</span><span class="mi">4</span><span class="p">]))</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:provcliente&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">cliente</span><span class="p">[</span><span class="mi">5</span><span class="p">]))</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:municliente&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">cliente</span><span class="p">[</span><span class="mi">6</span><span class="p">]))</span>
+
+                <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>  <span class="c1"># Usar exec_() en lugar de exec</span>
+                    <span class="n">mbox</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Information</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Cliente dado de alta.&quot;</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">mbox</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Warning</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Asegúrese de que el cliente no existe.&quot;</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+                <span class="c1"># Seleccionar datos de clientes de la base de datos</span>
+            <span class="n">ConexionCliente</span><span class="o">.</span><span class="n">mostrarClientes</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error guardando los clientes&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>  <span class="c1"># Agregar un retorno False en caso de excepción</span></div>
+
+
+<div class="viewcode-block" id="ConexionCliente.borrarCliente">
+<a class="viewcode-back" href="../src/conexionClientes.html#conexionClientes.ConexionCliente.borrarCliente">[documentos]</a>
+    <span class="k">def</span> <span class="nf">borrarCliente</span><span class="p">(</span><span class="n">dni</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Da de baja a un cliente en la base de datos.</span>
+
+<span class="sd">    Parámetros:</span>
+<span class="sd">        dni (str): DNI del cliente a dar de baja.</span>
+
+<span class="sd">    Descripción:</span>
+<span class="sd">        Este método verifica si un cliente ya ha sido dado de baja consultando la fecha de baja en la base de datos.</span>
+<span class="sd">        Si el cliente no está dado de baja, actualiza la fecha de baja con la fecha actual.</span>
+<span class="sd">        Muestra mensajes informativos o de advertencia según el resultado de la operación.</span>
+
+<span class="sd">    Retorna:</span>
+<span class="sd">        None</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+        <span class="k">global</span> <span class="n">valor</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">query1</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+            <span class="n">query1</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s1">&#39;select bajacliente from clientes where  &#39;</span>
+                           <span class="s1">&#39;dnicliente = :dni&#39;</span><span class="p">)</span>
+            <span class="n">query1</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:dni&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">dni</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="n">query1</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                <span class="k">while</span> <span class="n">query1</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+                    <span class="n">valor</span> <span class="o">=</span> <span class="n">query1</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">valor</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                <span class="n">fecha</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+                <span class="n">fecha</span> <span class="o">=</span> <span class="n">fecha</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y&quot;</span><span class="p">)</span>
+
+                <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s1">&#39;update clientes set bajacliente = :fechabaja where &#39;</span>
+                              <span class="s1">&#39;dnicliente = :dni&#39;</span><span class="p">)</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:fechabaja&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">fecha</span><span class="p">))</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:dni&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">dni</span><span class="p">))</span>
+
+                <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                    <span class="n">mbox</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Information</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Cliente dado de baja&#39;</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">mbox</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Warning</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Error al dar de baja al Cliente: &#39;</span> <span class="o">+</span> <span class="n">query</span><span class="o">.</span><span class="n">lastError</span><span class="p">()</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">mbox</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                <span class="n">mbox</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+                <span class="n">mbox</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Warning</span><span class="p">)</span>
+                <span class="n">mbox</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Cliente ya está dado de baja&#39;</span><span class="p">)</span>
+                <span class="n">mbox</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error al dar de baja al Cliente&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ConexionCliente.mostrarClientes">
+<a class="viewcode-back" href="../src/conexionClientes.html#conexionClientes.ConexionCliente.mostrarClientes">[documentos]</a>
+    <span class="k">def</span> <span class="nf">mostrarClientes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Muestra la información de los clientes en la interfaz gráfica.</span>
+
+<span class="sd">            Este método recupera la información de los clientes desde la base de datos y la presenta en la interfaz gráfica.</span>
+<span class="sd">            Dependiendo de la opción seleccionada (alta o todos), se muestra la información de los clientes dados de alta o todos</span>
+<span class="sd">            los clientes. Si no hay clientes, se establece el número de filas en la tabla de clientes a 0.</span>
+
+<span class="sd">            Parámetros:</span>
+<span class="sd">                self: Parámetro opcional, generalmente utilizado en métodos de clases.</span>
+
+<span class="sd">            Retorna:</span>
+<span class="sd">                None</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">registros</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtAlta</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                <span class="n">estado</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="n">ConexionCliente</span><span class="o">.</span><span class="n">selectClientes</span><span class="p">(</span><span class="n">estado</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">query1</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+                <span class="n">query1</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s2">&quot;select codigocliente, razonSocial, telefono, provinciacliente from clientes&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">query1</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                    <span class="k">while</span> <span class="n">query1</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+                        <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="n">query1</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">query1</span><span class="o">.</span><span class="n">record</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">())]</span>  <span class="c1"># funcion lambda</span>
+                        <span class="n">registros</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+            <span class="c1"># SI ESTAN TODOS DE BAJA DEBE MOSTRAR LA TABLA DE ALTA VACIA</span>
+            <span class="k">if</span> <span class="n">registros</span><span class="p">:</span>
+                <span class="n">clientes</span><span class="o">.</span><span class="n">Clientes</span><span class="o">.</span><span class="n">cargarTablaClientes</span><span class="p">(</span><span class="n">registros</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabClientes</span><span class="o">.</span><span class="n">setRowCount</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error mostrar resultados&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ConexionCliente.oneCliente">
+<a class="viewcode-back" href="../src/conexionClientes.html#conexionClientes.ConexionCliente.oneCliente">[documentos]</a>
+    <span class="k">def</span> <span class="nf">oneCliente</span><span class="p">(</span><span class="n">codigo</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Recupera la información de un cliente específico de la base de datos.</span>
+
+<span class="sd">            Este método busca en la base de datos la información del cliente correspondiente al código proporcionado</span>
+<span class="sd">            como parámetro. Retorna una lista con la información del cliente si se encuentra en la base de datos.</span>
+
+<span class="sd">            Parámetros:</span>
+<span class="sd">                codigo (str): Código del cliente a buscar.</span>
+
+<span class="sd">            Retorna:</span>
+<span class="sd">                list: Lista con la información del cliente encontrado, o una lista vacía si no se encuentra.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">registro</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM clientes WHERE codigocliente = :codigo&quot;</span><span class="p">)</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s2">&quot;:codigo&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">codigo</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                <span class="k">while</span> <span class="n">query</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
+                        <span class="n">registro</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="n">i</span><span class="p">)))</span>
+            <span class="k">return</span> <span class="n">registro</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error en fichero conexion datos de 1 cliente: &quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ConexionCliente.codigoCliente">
+<a class="viewcode-back" href="../src/conexionClientes.html#conexionClientes.ConexionCliente.codigoCliente">[documentos]</a>
+    <span class="k">def</span> <span class="nf">codigoCliente</span><span class="p">(</span><span class="n">dni</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">            Busca el código de un cliente en la base de datos a partir de su DNI.</span>
+
+<span class="sd">            Este método busca el código del cliente correspondiente al DNI proporcionado como parámetro en la base de datos.</span>
+<span class="sd">            Si encuentra el cliente, actualiza la interfaz gráfica con la información del cliente y retorna una lista con</span>
+<span class="sd">            la información del cliente. Si el DNI no existe, muestra un mensaje de aviso en la interfaz gráfica.</span>
+
+<span class="sd">            Parámetros:</span>
+<span class="sd">                dni (str): DNI del cliente a buscar.</span>
+
+<span class="sd">            Retorna:</span>
+<span class="sd">                list or None: Lista con la información del cliente encontrado, o None si el DNI no existe.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s2">&quot;SELECT codigocliente FROM clientes WHERE dnicliente = :dni&quot;</span><span class="p">)</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s2">&quot;:dni&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">dni</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                <span class="n">codigocliente</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="k">while</span> <span class="n">query</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+                    <span class="n">codigocliente</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                    <span class="n">clientes</span><span class="o">.</span><span class="n">Clientes</span><span class="o">.</span><span class="n">buscarClienteTabla</span><span class="p">(</span><span class="n">codigocliente</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">codigocliente</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">registro</span> <span class="o">=</span> <span class="n">ConexionCliente</span><span class="o">.</span><span class="n">oneCliente</span><span class="p">(</span><span class="n">codigocliente</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="n">registro</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># Si no se encuentra el cliente, mostrar un aviso</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblValidarDni_2</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s1">&#39;color:red;&#39;</span><span class="p">)</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblValidarDni_2</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDni2</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>  <span class="c1"># Limpia el campo de texto</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDni2</span><span class="o">.</span><span class="n">setFocus</span><span class="p">()</span>  <span class="c1"># Mantiene el foco en el campo de texto</span>
+                    <span class="n">mbox</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="s1">&#39;./IMG/aviso.jpg&#39;</span><span class="p">))</span>  <span class="c1"># Ruta del archivo del icono</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Warning</span><span class="p">)</span>
+                    <span class="n">mensaje</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;          DNI no existe          &#39;</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">mensaje</span><span class="p">)</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtcifcliente</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+                    <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error en búsqueda de código de un cliente: &quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="ConexionCliente.modifCliente">
+<a class="viewcode-back" href="../src/conexionClientes.html#conexionClientes.ConexionCliente.modifCliente">[documentos]</a>
+    <span class="k">def</span> <span class="nf">modifCliente</span><span class="p">(</span><span class="n">modificarNewCliente</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">            Modifica la información de un cliente en la base de datos.</span>
+
+<span class="sd">            Este método busca la información del cliente a modificar en la base de datos a partir del código proporcionado.</span>
+<span class="sd">            Si encuentra el cliente, actualiza la información con los nuevos datos proporcionados en la lista</span>
+<span class="sd">            `modificarNewCliente`. Muestra mensajes informativos o de advertencia según el resultado de la operación.</span>
+
+<span class="sd">            Parámetros:</span>
+<span class="sd">                modificarNewCliente (list): Lista con la nueva información del cliente.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">registro</span> <span class="o">=</span> <span class="n">ConexionCliente</span><span class="o">.</span><span class="n">oneCliente</span><span class="p">(</span><span class="n">modificarNewCliente</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+
+            <span class="k">if</span> <span class="n">registro</span> <span class="ow">and</span> <span class="n">modificarNewCliente</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">registro</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+
+                <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span>
+                    <span class="s1">&#39;update clientes set dnicliente = :dni, altacliente = :altacliente, razonSocial = :razonsocial, direccioncliente = :dire, telefono = :tel, provinciacliente = :prov, &#39;</span>
+                    <span class="s1">&#39;municipiocliente = :muni where codigocliente = :codigo&#39;</span><span class="p">)</span>
+
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:codigo&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">modificarNewCliente</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:altacliente&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">modificarNewCliente</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:dni&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">modificarNewCliente</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:razonsocial&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">modificarNewCliente</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:dire&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">modificarNewCliente</span><span class="p">[</span><span class="mi">4</span><span class="p">]))</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:tel&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">modificarNewCliente</span><span class="p">[</span><span class="mi">5</span><span class="p">]))</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:prov&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">modificarNewCliente</span><span class="p">[</span><span class="mi">6</span><span class="p">]))</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s1">&#39;:muni&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">modificarNewCliente</span><span class="p">[</span><span class="mi">7</span><span class="p">]))</span>
+
+                <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                    <span class="n">mbox</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Information</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Datos cliente modificado&#39;</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+                    <span class="n">estado</span> <span class="o">=</span> <span class="mi">1</span>
+                    <span class="n">ConexionCliente</span><span class="o">.</span><span class="n">selectClientes</span><span class="p">(</span><span class="n">estado</span><span class="p">)</span>
+                    <span class="c1">#ConexionCliente.mostrarClientes(self=None)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">mbox</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Aviso&#39;</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Warning</span><span class="p">)</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">lastError</span><span class="p">()</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+                    <span class="n">mbox</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Aviso&quot;</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Warning</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;No existe el cliente a modificar.&quot;</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error al modificar cliente en conexion&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ConexionCliente.selectClientes">
+<a class="viewcode-back" href="../src/conexionClientes.html#conexionClientes.ConexionCliente.selectClientes">[documentos]</a>
+    <span class="k">def</span> <span class="nf">selectClientes</span><span class="p">(</span><span class="n">estado</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Selecciona y muestra los clientes en la interfaz gráfica según su estado.</span>
+
+<span class="sd">            Este método selecciona y recupera los clientes de la base de datos dependiendo del estado proporcionado como</span>
+<span class="sd">            parámetro. Los estados posibles son:</span>
+<span class="sd">            - estado 0: Todos los clientes (alta y baja)</span>
+<span class="sd">            - estado 1: Clientes dados de alta (sin fecha de baja)</span>
+<span class="sd">            - estado 2: Clientes dados de baja (con fecha de baja)</span>
+<span class="sd">            Luego, carga la información en la tabla de clientes de la interfaz gráfica.</span>
+
+<span class="sd">            Parámetros:</span>
+<span class="sd">                estado (int): Estado de los clientes a seleccionar.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">registros</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="k">if</span> <span class="n">estado</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span>
+                    <span class="s2">&quot;select codigocliente, razonSocial, telefono, provinciacliente, bajacliente from clientes&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                    <span class="k">while</span> <span class="n">query</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+                        <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">record</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">())]</span>
+                        <span class="n">registros</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">registros</span><span class="p">:</span>
+                    <span class="n">clientes</span><span class="o">.</span><span class="n">Clientes</span><span class="o">.</span><span class="n">cargarTablaClientes</span><span class="p">(</span><span class="n">registros</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabClientes</span><span class="o">.</span><span class="n">setRowCount</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">estado</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="c1"># TODO ZONA ALTA</span>
+                <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span>
+                    <span class="s2">&quot;select codigocliente, razonSocial, telefono, provinciacliente, bajacliente from clientes where bajacliente is null&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                    <span class="k">while</span> <span class="n">query</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+                        <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">record</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">())]</span>
+                        <span class="n">registros</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">registros</span><span class="p">:</span>
+                    <span class="n">clientes</span><span class="o">.</span><span class="n">Clientes</span><span class="o">.</span><span class="n">cargarTablaClientes</span><span class="p">(</span><span class="n">registros</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabClientes</span><span class="o">.</span><span class="n">setRowCount</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">estado</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>  <span class="c1"># TODO ZONA DE BAJA</span>
+                <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span>
+                    <span class="s2">&quot;select codigocliente, razonSocial, telefono, provinciacliente, bajacliente from clientes where bajacliente is not null&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                    <span class="k">while</span> <span class="n">query</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+                        <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">record</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">())]</span>
+                        <span class="n">registros</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+
+                <span class="n">clientes</span><span class="o">.</span><span class="n">Clientes</span><span class="o">.</span><span class="n">cargarTablaClientes</span><span class="p">(</span><span class="n">registros</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error al seleccionar los clientes&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ConexionCliente.selectClientesTodos">
+<a class="viewcode-back" href="../src/conexionClientes.html#conexionClientes.ConexionCliente.selectClientesTodos">[documentos]</a>
+    <span class="k">def</span> <span class="nf">selectClientesTodos</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">            Selecciona y devuelve todos los clientes de la base de datos.</span>
+
+<span class="sd">            Este método realiza una consulta para obtener la información de todos los clientes presentes en la base de datos.</span>
+<span class="sd">            La información se devuelve en forma de una lista de registros.</span>
+
+<span class="sd">            Parámetros:</span>
+<span class="sd">                self: Parámetro opcional, generalmente utilizado en métodos de clases.</span>
+
+<span class="sd">            Retorna:</span>
+<span class="sd">                list: Lista de registros que contienen la información de todos los clientes.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">registros</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s2">&quot;select * from clientes order by codigocliente&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+                <span class="k">while</span> <span class="n">query</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+                    <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">record</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">())]</span>
+                    <span class="n">registros</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">registros</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error devolver todos los drivers&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Ir a" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">documentación de VieraFernandez2324 - v.0.0.1</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Código de módulo</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">conexionClientes</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2024, Elias.
+      Creado usando <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    </div>
+  </body>
+</html>
